@@ -1,0 +1,13 @@
+.videoWatchPage {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .videoMain {
+    flex: 3;
+    padding-right: 20px;
+  }
+  
+  .relatedVideos {
+    flex: 1;
+  }
