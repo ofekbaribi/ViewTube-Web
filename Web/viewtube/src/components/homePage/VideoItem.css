@@ -1,0 +1,14 @@
+.videoItem {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+  }
+  
+  .videoItem h3 {
+    margin: 0 0 10px;
+  }
+  
+  .videoItem p {
+    margin: 0;
+  }
