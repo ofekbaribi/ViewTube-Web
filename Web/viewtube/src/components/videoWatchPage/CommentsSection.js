@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './CommentsSection.css';
+import './CommentsSection.css';
 
 function CommentsSection (){
   const [comments, setComments] = useState([
@@ -17,7 +17,7 @@ function CommentsSection (){
   };
 
   return (
-    <div className={styles.commentsSection}>
+    <div className="commentsSection">
       <h3>Comments</h3>
       <ul>
         {comments.map((comment) => (

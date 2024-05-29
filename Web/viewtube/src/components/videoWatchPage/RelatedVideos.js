@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './RelatedVideos.css';
+import './RelatedVideos.css';
 
 function RelatedVideos () {
   const relatedVideos = [
@@ -9,7 +9,7 @@ function RelatedVideos () {
   ];
 
   return (
-    <div className={styles.relatedVideos}>
+    <div className="relatedVideos">
       <h3>Related Videos</h3>
       <ul>
         {relatedVideos.map((video) => (

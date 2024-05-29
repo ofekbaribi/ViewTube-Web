@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './VideoPlayer.css';
+import './VideoPlayer.css';
 import videoFile from './omeradam.mp4';
 
 function VideoPlayer() {
   return (
-    <div className={styles.videoPlayer}>
+    <div className="videoPlayer">
       <video controls>
         <source src={videoFile} type="video/mp4" />
       </video>

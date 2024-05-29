@@ -6,8 +6,13 @@
   .videoMain {
     flex: 3;
     padding-right: 20px;
+    position: relative;
+    left: 80px; 
+    top: 40px; 
   }
   
   .relatedVideos {
+    padding-left: 20px;
     flex: 1;
+    left: 400px; 
   }
