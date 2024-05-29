@@ -1,46 +1,78 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './Login.css';
-import reportWebVitals from '../reportWebVitals';
+// src/components/Login.js
+import React, { useState } from 'react';
 import '../css/bootstrap.min.css';
-import { useState } from 'react';
+import './Login.css'; // Ensure this path is correct
+import EmailForm from '../components/LoginComponents/EmailForm';
+import PasswordForm from '../components/LoginComponents/PasswordForm';
 
-function Login() {
-    const [email, setEmail] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handleEmailSubmit = (event) => {
+    event.preventDefault();
+    if (!email) {
+      setEmailError('Please fill out this field.');
+    } else {
+      setEmailError('');
+      setIsEmailSubmitted(true);
+    }
+  };
+
+  const validatePassword = (password) => {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const isValidLength = password.length >= 8;
+
+    return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isValidLength;
+  };
+
+  const handlePasswordSubmit = (event) => {
+    event.preventDefault();
+    if (validatePassword(password)) {
+      alert('Email: ' + email + '\nPassword: ' + password);
+      // Proceed with your authentication logic here
+    } else {
+      setPasswordError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+      setPassword('');
+    }
+  };
   
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      alert('Email or phone entered: ' + email);
-    };
-  
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="login-container">
-          <h1>Sign in</h1>
-          <p>to continue to YouTube</p>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email or phone</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <a href="#" className="d-block mb-3">Forgot email?</a>
-            <button type="submit" className="btn btn-primary">Next</button>
-            <a href="#" className="d-block mt-3">Create account</a>
-            <div className="mt-3">
-              <a href="#">Learn more about using Guest mode</a>
-            </div>
-          </form>
-        </div>
+  const clearPasswordError = () => {
+    if (passwordError) {
+      setPasswordError('');
+    }
+  };
+
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="login-container">
+        <h2>Sign in</h2>
+        <h1> continue to ViewTube</h1>
+        {!isEmailSubmitted ? (
+          <EmailForm
+            email={email}
+            setEmail={setEmail}
+            handleEmailSubmit={handleEmailSubmit}
+            emailError={emailError}
+          />
+        ) : (
+          <PasswordForm
+            password={password}
+            setPassword={setPassword}
+            handlePasswordSubmit={handlePasswordSubmit}
+            passwordError={passwordError}
+            clearPasswordError={clearPasswordError}
+          />
+        )}
       </div>
-    );
-  }
-  
-  export default Login;
+    </div>
+  );
+};
+
+export default Login;
