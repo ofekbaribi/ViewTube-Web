@@ -18,7 +18,7 @@ const [videosList, setVideosList] = useState(videos);
   return (
     <div className={styles.videoList}>
       {videosList.map((video) => (
-        <VideoItem key={video.id} {...video} />
+        <VideoItem {...video} />
       ))}
     </div>
   );
