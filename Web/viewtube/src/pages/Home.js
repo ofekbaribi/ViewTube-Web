@@ -1,11 +1,11 @@
 import React from 'react';
 import VideoList from '../components/homePage/VideoList';
 import Navbar from '../components/commonComponents/Navbar';
-import styles from './Home.css';
+import './Home.css';
 
 const Home = () => {
   return (
-    <div className={styles.homePage}>
+    <div>
       <Navbar />
       <VideoList />
     </div>

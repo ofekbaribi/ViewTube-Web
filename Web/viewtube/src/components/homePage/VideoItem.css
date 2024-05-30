@@ -1,14 +1,41 @@
 .videoItem {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    width: 200px;
-  }
-  
-  .videoItem h3 {
-    margin: 0 0 10px;
-  }
-  
-  .videoItem p {
-    margin: 0;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced out */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px; /* Adjust as needed */
+  background-color: white;
+  text-align: right;
+  padding: 10px;
+}
+
+.videoItem img {
+  width: 170px; /* Adjust as needed */
+  height: auto;
+  margin-left: 10px; /* Add margin to the left side */
+  border-radius: 5px;
+}
+
+.videoItem .card-body {
+  flex: 1;
+}
+
+.videoItem .card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.videoItem .card-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.videoItem .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+}
