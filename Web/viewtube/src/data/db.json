@@ -1,13 +1,58 @@
 [
-    {
-      "id": 1,
-      "title": "Video 1", 
-      "description": "Description for Video 1"
-    },
+  {
+    "id": 1,
+    "title": "Bibi dancing techno in the off week festival with Elon Musk",
+    "description": "Dancing cats",
+    "author": "Ofek Baribi",
+    "views": 460,
+    "date": "26/05/2021",
+    "duration": 80,
+    "imgURL": "bibi.jpg",
+    "videoURL": "../videoWatchPage/omeradam.mp4"
+  },
     {
       "id": 2,
-      "title": "Video 2", 
-      "description": "Description for Video 2"
+      "title": "Dogs", 
+      "description": "all lahav friend asking him why are you gay?",
+      "author": "Ziv Elbaz",
+      "views": 100,
+      "date": "26/05/2021", 
+      "duration": 80,
+      "imgURL": "lahav.jpg", 
+      "videoURL": "../videoWatchPage/omeradam.mp4"
+    },
+    {
+      "id": 3,
+      "title": "why always me??????", 
+      "description": "Description for Video 1",
+      "author": "Author 1",
+      "views": 40,
+      "date": "26/05/2021", 
+      "duration": 80,
+      "imgURL": "balu.jpg", 
+      "videoURL": "../videoWatchPage/omeradam.mp4"
+    },
+    {
+      "id": 4,
+      "title": "Video 404 not found", 
+      "description": "Description for Video 1sdas",
+      "author": "Author 404",
+      "views": 999,
+      "date": "26/05/2021", 
+      "duration": 80,
+      "imgURL": "mecg.jpg", 
+      "videoURL": "../videoWatchPage/omeradam.mp4"
+    },
+    {
+      "id": 5,
+      "title": "ma kore 1", 
+      "description": "Description for sdas ",
+      "author": "Author 1",
+      "views": 400,
+      "date": "26/05/2021", 
+      "duration": 80,
+      "imgURL": "bibi.jpg", 
+      "videoURL": "../videoWatchPage/omeradam.mp4"
     }
 ]
   
