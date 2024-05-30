@@ -1,18 +1,23 @@
-.videoWatchPage {
-    display: flex;
-    padding: 20px;
+  .relatedVideosBar {
+    position: relative;
+    float: left;
+    padding-left: 20px;
+    width: 30%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-top: 40px;
+    
   }
   
   .videoMain {
-    flex: 3;
-    padding-right: 20px;
     position: relative;
-    left: 80px; 
-    top: 40px; 
+    float: right;
+    width: 60%;
+    height: 10%;
+    padding-right: 20px;
+    background-color: #ffffff;
+    margin-top: 40px;
   }
   
-  .relatedVideos {
-    padding-left: 20px;
-    flex: 1;
-    left: 400px; 
-  }
+  

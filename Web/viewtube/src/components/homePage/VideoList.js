@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoItem from './VideoItem';
-import styles from './VideoList.css';
+import  './VideoList.css';
 import videos from "../../data/db.json";
 import { useState } from 'react';
 
@@ -16,10 +16,10 @@ import { useState } from 'react';
 function VideoList() {
 const [videosList, setVideosList] = useState(videos);
   return (
-    <div className={styles.videoList}>
+    <div>
       {videosList.map((video) => (
-        <VideoItem {...video} />
-      ))}
+          <VideoItem {...video} />
+        ))}  
     </div>
   );
 }

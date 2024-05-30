@@ -1,23 +1,23 @@
 import React from 'react';
+import VideoItem from '../homePage/VideoItem';
+import videos from "../../data/db.json";
+import { useState } from 'react';
 import './RelatedVideos.css';
 
 function RelatedVideos () {
-  const relatedVideos = [
-    { id: 1, title: 'Related Video 1' },
-    { id: 2, title: 'Related Video 2' },
-    // Add more related video data here
-  ];
+
+  const [videosList, setVideosList] = useState(videos);
 
   return (
-    <div className="relatedVideos">
-      <h3>Related Videos</h3>
-      <ul>
-        {relatedVideos.map((video) => (
-          <li key={video.id}>{video.title}</li>
-        ))}
-      </ul>
+    <div className="relatedVideos1">
+        {videosList.map((video) => (
+          <VideoItem {...video} />
+        ))}  
     </div>
   );
 };
 
 export default RelatedVideos;
+
+
+
