@@ -1,41 +1,84 @@
-.videoItem {
+/* VideoItem.css */
+
+.video-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* Ensure content is spaced out */
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 400px; /* Increase the height of each video item */
+}
+
+.video-thumbnail {
+  position: relative;
+  overflow: hidden;
+  height: 60%; /* Adjust as needed */
+}
+
+.video-thumbnail img {
   width: 100%;
-  max-width: 400px; /* Adjust as needed */
-  background-color: white;
-  text-align: right;
+  height: 100%; /* Ensure the image covers the container */
+  object-fit: cover; /* Make sure the image covers the container */
+  transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover img {
+  transform: scale(1.05);
+}
+
+.duration {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.video-details {
   padding: 10px;
+  height: 40%; /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
 }
 
-.videoItem img {
-  width: 170px; /* Adjust as needed */
-  height: auto;
-  margin-left: 10px; /* Add margin to the left side */
-  border-radius: 5px;
-}
-
-.videoItem .card-body {
-  flex: 1;
-}
-
-.videoItem .card-title {
+.video-details h3 {
+  margin: 0;
   font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  color: #333;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%; /* Ensure the title container takes up the full width */
 }
 
-.videoItem .card-text {
+.video-details p {
+  margin: 5px 0;
   font-size: 14px;
-  color: #555;
-  margin-bottom: 5px;
+  color: #666;
 }
 
-.videoItem .btn {
-  font-size: 12px;
-  padding: 5px 10px;
+.video-details .author {
+  font-weight: bold;
+}
+
+.video-details .watch-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #ff0000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.video-details .watch-btn:hover {
+  background-color: #cc0000;
+}
+
+.sidebar-open .video-item {
+  margin-left: 250px; /* Adjust according to your sidebar width */
 }

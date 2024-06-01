@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VideoList from '../components/homePage/VideoList';
 import Navbar from '../components/commonComponents/Navbar';
-<<<<<<< sidebar-branch
 import styles from './Home.css';
 import Sidebar from '../components/commonComponents/Sidebar';
-=======
-import './Home.css';
->>>>>>> main
 
 const Home = () => {
-  return (
-    <div>
-      <Navbar />
-      <Sidebar />
-      <VideoList />
-    </div>
-  );
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
+    };
+
+    return (
+        <>
+            <div><Navbar toggleSidebar={toggleSidebar} /></div>
+            <div className={styles.homePage}>
+                <Sidebar isOpen={sidebarOpen} />
+                <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
+                    {/* Main content goes here */}
+                </div>
+            </div>
+            <div><VideoList/></div>
+        </>
+    );
 };
 
 export default Home;

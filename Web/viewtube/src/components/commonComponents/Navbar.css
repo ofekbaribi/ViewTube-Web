@@ -18,6 +18,7 @@ nav {
 .nav-left .menu-icon {
     width: 22px;
     margin-right: 25px;
+    cursor: pointer;
 }
 
 .nav-left .logo {
