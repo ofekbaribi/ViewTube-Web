@@ -1,25 +1,25 @@
 [
   {
     "id": 1,
-    "title": "Bibi dancing techno in the off week festival with Elon Musk",
+    "title": "mallorca sunrise summer vibes - kygo, chainsmokers, bhaskar robin schulz, gryffin, lost frequencies",
     "description": "Dancing cats",
     "author": "Ofek Baribi",
     "views": 460,
     "date": "26/05/2021",
-    "duration": 80,
-    "imgURL": "bibi.jpg",
-    "videoURL": "../videoWatchPage/omeradam.mp4"
+    "duration": "01:24:43",
+    "imgURL": "/media/bibi.jpg",
+    "videoURL": "/media/omeradam.mp4"
   },
     {
       "id": 2,
-      "title": "Dogs", 
+      "title": "Ibiza Summer Mix 2024 🍓 Best Of Tropical Deep House Music Chill Out Mix 2023 🍓 Chillout Lounge", 
       "description": "all lahav friend asking him why are you gay?",
       "author": "Ziv Elbaz",
       "views": 100,
       "date": "26/05/2021", 
-      "duration": 80,
-      "imgURL": "lahav.jpg", 
-      "videoURL": "../videoWatchPage/omeradam.mp4"
+      "duration": "01:10:23",
+      "imgURL": "/media/lahav.jpg", 
+      "videoURL": "/media/video2.mp4"
     },
     {
       "id": 3,
@@ -28,9 +28,9 @@
       "author": "Author 1",
       "views": 40,
       "date": "26/05/2021", 
-      "duration": 80,
-      "imgURL": "balu.jpg", 
-      "videoURL": "../videoWatchPage/omeradam.mp4"
+      "duration": "52:39",
+      "imgURL": "/media/balu.jpg", 
+      "videoURL": "/media/video3.mp4"
     },
     {
       "id": 4,
@@ -39,9 +39,9 @@
       "author": "Author 404",
       "views": 999,
       "date": "26/05/2021", 
-      "duration": 80,
-      "imgURL": "mecg.jpg", 
-      "videoURL": "../videoWatchPage/omeradam.mp4"
+      "duration": "01:10:23",
+      "imgURL": "/media/mecg.jpg", 
+      "videoURL": "/media/omeradam.mp4"
     },
     {
       "id": 5,
@@ -50,9 +50,9 @@
       "author": "Author 1",
       "views": 400,
       "date": "26/05/2021", 
-      "duration": 80,
-      "imgURL": "bibi.jpg", 
-      "videoURL": "../videoWatchPage/omeradam.mp4"
+      "duration": "02:10:23",
+      "imgURL": "/media/bibi.jpg", 
+      "videoURL": "/media/omeradam.mp4"
     }
 ]
   

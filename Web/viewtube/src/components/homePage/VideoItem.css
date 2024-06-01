@@ -1,41 +1,75 @@
 .videoItem {
   display: flex;
   align-items: center;
+  align-items: flex-start;
   justify-content: space-between; /* Ensure content is spaced out */
-  border: 1px solid #ddd;
   border-radius: 5px;
   overflow: hidden;
-  width: 100%;
-  max-width: 400px; /* Adjust as needed */
+  width: 400px;
+  height: 100px;
   background-color: white;
   text-align: right;
   padding: 10px;
+  margin: 10px;
 }
 
 .videoItem img {
-  width: 170px; /* Adjust as needed */
-  height: auto;
+  position: relative;
+  display: block;
+  width: 160px; /* Adjust as needed */
+  height: 90px;
   margin-left: 10px; /* Add margin to the left side */
   border-radius: 5px;
+  object-fit: cover; /* Ensures the image covers the entire container */
 }
 
 .videoItem .card-body {
+  text-align: right;
+  line-height: 2;
   flex: 1;
 }
 
 .videoItem .card-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  position: relative;
+  width: 200px;
+  height: 30px;
+  font-size: 14px;
+  overflow: hidden;
+
+
+  -webkit-line-clamp: 2; /* Number of lines to display */
+  -webkit-box-orient: vertical;
+  
 }
 
+.videoItem .card-details {
+  position: relative;
+  top: 10px;
+}
 .videoItem .card-text {
+  position: relative;
   font-size: 14px;
   color: #555;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
-.videoItem .btn {
-  font-size: 12px;
-  padding: 5px 10px;
+.video-duration {
+  position: absolute; /* Positions the duration text absolutely within the container */
+  bottom: 5px; /* Adjusts the distance from the bottom of the container */
+  left: 15px; /* Adjusts the distance from the right of the container */
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better visibility */
+  color: white; /* Text color */
+  padding: 2px; /* Padding around the text */
+  border-radius: 3px; /* Rounded corners for the text box */
+  font-size: 11px; /* Font size */
+  font-weight: bold; /* Font weight */
+}
+
+.thumbnail-container {
+  position: relative; /* Establishes a positioning context for the duration text */
+}
+
+.no-link-style {
+  color: inherit;
+  text-decoration: none;
 }

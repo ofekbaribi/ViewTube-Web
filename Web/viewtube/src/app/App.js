@@ -9,12 +9,13 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route path="/videoWatch" element={<VideoWatch />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          
-        </Routes>
+
+
+      <Routes>
+        <Route path="/video/:videoId" element={<VideoWatch />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />    
+      </Routes>
       </div>
     </Router>
   );
