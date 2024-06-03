@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import '../../css/bootstrap.min.css';
 import '../../pages/Login.css';
+import '../RegisterComponents/NewPasswordForm.css'
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
 
@@ -15,7 +16,6 @@ const PasswordForm = ({ password, setPassword, handlePasswordSubmit, passwordErr
   return (
     <form onSubmit={handlePasswordSubmit} className="position-relative">
       <div className="mb-3">
-        <label htmlFor="password" className="form-label">Password</label>
         <div className="input-group">
           <input
             type={showPassword ? "text" : "password"}
@@ -27,8 +27,12 @@ const PasswordForm = ({ password, setPassword, handlePasswordSubmit, passwordErr
             required
           />
           <div className="input-group-append">
-            <button type="button" className="btn btn-outline-secondary" onClick={toggleShowPassword}>
-              <img src={showPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ width: '1em', height: '1em' }} />
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-password-toggle"
+              onClick={toggleShowPassword}
+            >
+              <img src={toggleShowPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ width: '1em', height: '1em' }} />
             </button>
           </div>
         </div>

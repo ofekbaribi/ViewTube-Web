@@ -4,6 +4,7 @@ import '../css/bootstrap.min.css';
 import './Login.css'; // Ensure this path is correct
 import UsernameForm from '../components/LoginComponents/UsernameForm';
 import PasswordForm from '../components/LoginComponents/PasswordForm';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -33,26 +34,32 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="login-container">
-        <h2>Sign in</h2>
-        <h1> continue to ViewTube</h1>
-        {!isUsernameSubmitted ? (
-          <UsernameForm
-            username={username}
-            setUsername={setUsername}
-            handleUsernameSubmit={handleUsernameSubmit}
-            usernameError={usernameError}
-          />
-        ) : (
-          <PasswordForm
-            password={password}
-            setPassword={setPassword}
-            handlePasswordSubmit={handlePasswordSubmit}
-            passwordError={passwordError}
-            clearPasswordError={clearPasswordError}
-          />
-        )}
+    <div className='login-page'>
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="login-container">
+          <h2>Sign in</h2>
+          <h1> continue to ViewTube</h1>
+          {!isUsernameSubmitted ? (
+            <UsernameForm
+              username={username}
+              setUsername={setUsername}
+              handleUsernameSubmit={handleUsernameSubmit}
+              usernameError={usernameError}
+            />
+          ) : (
+            <PasswordForm
+              password={password}
+              setPassword={setPassword}
+              handlePasswordSubmit={handlePasswordSubmit}
+              passwordError={passwordError}
+              clearPasswordError={clearPasswordError}
+            />
+          )}
+          <br/>
+          <label htmlFor="member" className="form-label">New here?</label>
+          <br/>
+          <Link to="/register">Create an account</Link>
+        </div>
       </div>
     </div>
   );

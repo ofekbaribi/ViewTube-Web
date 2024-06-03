@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../css/bootstrap.min.css';
-import './Login.css'; // Assuming you want to reuse some styles from Login.css
+import './Login.css';
+import './Register.css'
 import NewUsernameForm from '../components/RegisterComponents/NewUsernameForm';
 import NewNameForm from '../components/RegisterComponents/NewNameForm';
 import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
+import NewImageForm from '../components/RegisterComponents/NewImageForm';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -11,29 +14,8 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isUsernameSubmitted, setIsUsernameSubmitted] = useState(false);
-  const [isNameSubmitted, setIsNameSubmitted] = useState(false);
+  const [image, setImage] = useState('');
   const [error, setError] = useState('');
-
-  const handleUsernameSubmit = (event) => {
-    event.preventDefault();
-    if (!username) {
-      setError('Username is required.');
-    } else {
-      setError('');
-      setIsUsernameSubmitted(true);
-    }
-  };
-
-  const handleNameSubmit = (event) => {
-    event.preventDefault();
-    if (!firstName) {
-      setError('First name is required.');
-    } else {
-      setError('');
-      setIsNameSubmitted(true);
-    }
-  };
 
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -53,41 +35,57 @@ const Register = () => {
       setError('Password does not meet requirement.');
     } else {
       setError('');
-      alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (handlePasswordSubmit(event)) {
+      alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
+    }
+  }
+
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="login-container">
-        <h2>Create a ViewTube Account</h2>
-        {!isUsernameSubmitted ? (
-          <NewUsernameForm
-            username={username}
-            setUsername={setUsername}
-            handleUsernameSubmit={handleUsernameSubmit}
-            error={error}
-          />
-        ) : !isNameSubmitted ? (
-          <NewNameForm
-            firstName={firstName}
-            setFirstName={setFirstName}
-            lastName={lastName}
-            setLastName={setLastName}
-            handleNameSubmit={handleNameSubmit}
-            error={error}
-          />
-        ) : (
-          <NewPasswordForm
-            password={password}
-            setPassword={setPassword}
-            confirmPassword={confirmPassword}
-            setConfirmPassword={setConfirmPassword}
-            handlePasswordSubmit={handlePasswordSubmit}
-            error={error}
-            setError={setError}
-          />
-        )}
+    <div className='login-page'>
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="login-container">
+          <h2>Create a ViewTube Account</h2>
+          <form onSubmit={handleSubmit} className="position-relative">
+            <NewUsernameForm
+              username={username}
+              setUsername={setUsername}
+            />
+            <NewNameForm
+              firstName={firstName}
+              setFirstName={setFirstName}
+              lastName={lastName}
+              setLastName={setLastName}
+            />
+            <NewPasswordForm
+              password={password}
+              setPassword={setPassword}
+              confirmPassword={confirmPassword}
+              setConfirmPassword={setConfirmPassword}
+              error={error}
+              setError={setError}
+            />
+            <NewImageForm
+              image={image}
+              setImage={setImage}
+            />
+            <div id="passwordReq">
+              <a className='passwordReq' target="_blank" draggable="false" data-tooltip='Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'>
+                ?
+              </a>
+            </div>
+            <br/>
+            <button type="submit" className="btn btn-primary">Register</button>
+            <br/><br/>
+            <label htmlFor="member" className="form-label">Already a member?</label>
+            <br/>
+            <Link to="/login">Log in</Link>
+          </form>
+        </div>
       </div>
     </div>
   );

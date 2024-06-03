@@ -6,7 +6,7 @@ import './NewPasswordForm.css';
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
 
-const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPassword, handlePasswordSubmit, error, setError }) => {
+const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPassword, error, setError }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -33,7 +33,6 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
   };
 
   return (
-    <form onSubmit={handlePasswordSubmit} className="position-relative">
       <div className="mb-3">
         <div className="input-group">
           <input
@@ -48,15 +47,13 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
           <div className="input-group-append">
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary btn-password-toggle"
               onClick={toggleShowPassword}
             >
               <img src={showPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ width: '1em', height: '1em' }} />
             </button>
           </div>
         </div>
-      </div>
-      <div className="mb-3">
         <div className="input-group">
           <input
             type={showConfirmPassword ? "text" : "password"}
@@ -70,7 +67,7 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
           <div className="input-group-append">
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary btn-password-toggle"
               onClick={toggleShowConfirmPassword}
             >
               <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ width: '1em', height: '1em' }} />
@@ -82,14 +79,7 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
             {error}
           </div>
         )}
-        <div id="passwordReq">
-          <a className='passwordReq' target="_blank" draggable="false" data-tooltip='Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'>
-            ???
-          </a>
-        </div>
       </div>
-      <button type="submit" className="btn btn-primary">Sign Up</button>
-    </form>
   );
 };
 
