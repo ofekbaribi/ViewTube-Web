@@ -1,13 +1,13 @@
 import React from 'react';
 import './VideoDetails.css';
 
-function VideoDetails () {
+function VideoDetails({ video }) {
   return (
     <div className="videoDetails">
-      <h2>the first video</h2>
-      <p>Description of the video goes here. This section can include the upload date and any other relevant information about the video.</p>
+      <h1>{video.title}</h1>
+      <p>{video.description}</p>
     </div>
   );
-};
+}
 
 export default VideoDetails;
