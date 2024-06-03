@@ -41,13 +41,13 @@ function VideoWatch() {
   return (
     <div>
       <Navbar />
-      <div className="relatedVideosBar">
-        <RelatedVideos />
-      </div>
       <div className="videoMain">
         <VideoPlayer videoUrl={video.videoURL} />
         <VideoDetails video={video} />
         <CommentsSection />
+      </div>
+      <div className="relatedVideosBar">
+        <RelatedVideos />
       </div>
     </div>
   );
