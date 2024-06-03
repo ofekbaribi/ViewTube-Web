@@ -50,10 +50,6 @@ function VideoWatch() {
     <div>
       <div><Navbar toggleSidebar={toggleSidebar} /></div>
       <Sidebar isOpen={sidebarOpen} />
-      <div className="relatedVideosBar">
-        <RelatedVideos />
-      </div>
-      <Navbar />
       <div className="videoMain">
         <VideoPlayer videoUrl={video.videoURL} />
         <VideoDetails video={video} />
