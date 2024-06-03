@@ -3,7 +3,6 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
     background: #fff;
     position: sticky;
     top: 0;
@@ -22,7 +21,7 @@ nav {
 }
 
 .nav-left .logo {
-    width: 70px;
+    width: 200px;
 }
 
 .nav-middle {

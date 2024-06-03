@@ -1,4 +1,14 @@
 import React, { useState } from 'react';
+
+import Navbar from '../components/commonComponents/Navbar';
+import styles from './Home.css';
+import Sidebar from '../components/commonComponents/Sidebar';
+import Feed from '../components/commonComponents/Feed';
+
+const Home = () => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
 import VideoList from '../components/homePage/VideoList';
 import Navbar from '../components/commonComponents/Navbar';
 import styles from './Home.css';
@@ -7,21 +17,34 @@ import Sidebar from '../components/commonComponents/Sidebar';
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
+
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+    };
+
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const clearSearchQuery = () => {
+        setSearchQuery('');
+    };
+
     return (
         <>
-            <div><Navbar toggleSidebar={toggleSidebar} /></div>
+            <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} clearSearchQuery={clearSearchQuery} />
             <div className={styles.homePage}>
                 <Sidebar isOpen={sidebarOpen} />
                 <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
-                    {/* Main content goes here */}
+                    <Feed searchQuery={searchQuery} />
                 </div>
             </div>
-            <div><VideoList/></div>
-        </>
+
     );
 };
 
