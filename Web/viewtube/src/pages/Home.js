@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Navbar from '../components/commonComponents/Navbar';
 import styles from './Home.css';
 import Sidebar from '../components/commonComponents/Sidebar';
@@ -8,9 +9,19 @@ const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
+import VideoList from '../components/homePage/VideoList';
+import Navbar from '../components/commonComponents/Navbar';
+import styles from './Home.css';
+import Sidebar from '../components/commonComponents/Sidebar';
+
+const Home = () => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
+
 
     const handleSearch = (query) => {
         setSearchQuery(query);
@@ -33,7 +44,7 @@ const Home = () => {
                     <Feed searchQuery={searchQuery} />
                 </div>
             </div>
-        </>
+
     );
 };
 

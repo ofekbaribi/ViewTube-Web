@@ -8,11 +8,16 @@ const Sidebar = ({ isOpen }) => {
         <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <div className='shortcut-links'>
                 <div className='side-links'>
+
                     <Link to="/" className="no-link-style">
                         <img src={home_icon} alt="home icon" className="icon" /><p>Home</p>
                     </Link>
                 </div>
                 {/* Add more links as needed */}
+
+                    <img src={home_icon} alt="home icon"/><p>Home</p>
+                </div>
+
             </div>
         </div>
     );
