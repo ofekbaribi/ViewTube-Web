@@ -1,0 +1,75 @@
+.relatedVideoItem {
+    display: flex;
+    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between; /* Ensure content is spaced out */
+    border-radius: 5px;
+    overflow: hidden;
+    width: 400px;
+    height: 100px;
+    background-color: white;
+    text-align: right;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .relatedVideoItem img {
+    position: relative;
+    display: block;
+    width: 160px; /* Adjust as needed */
+    height: 90px;
+    margin-right: 10px; /* Add margin to the left side */
+    border-radius: 5px;
+    object-fit: cover; /* Ensures the image covers the entire container */
+  }
+  
+  .relatedVideoItem .card-body {
+    text-align: left;
+    line-height: 2;
+    flex: 1;
+  }
+  
+  .relatedVideoItem .card-title {
+    position: relative;
+    width: 200px;
+    height: 30px;
+    font-size: 14px;
+    overflow: hidden;
+  
+  
+    -webkit-line-clamp: 2; /* Number of lines to display */
+    -webkit-box-orient: vertical;
+    
+  }
+  
+  .relatedVideoItem .card-details {
+    position: relative;
+    top: 10px;
+  }
+  .relatedVideoItem .card-text {
+    position: relative;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 0px;
+  }
+  
+  .relatedVideoItem .video-duration {
+    position: relative; /* Positions the duration text absolutely within the container */
+    bottom: 27px; /* Adjusts the distance from the bottom of the container */
+    right: 25px; /* Adjusts the distance from the right of the container */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better visibility */
+    color: white; /* Text color */
+    padding: 2px; /* Padding around the text */
+    border-radius: 3px; /* Rounded corners for the text box */
+    font-size: 10px; /* Font size */
+    font-weight: bold; /* Font weight */
+  }
+  
+  .relatedVideoItem .thumbnail-container {
+    position: relative; /* Establishes a positioning context for the duration text */
+  }
+  
+  .relatedVideoItem .no-link-style {
+    color: inherit;
+    text-decoration: none;
+  }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import VideoItem from '../homePage/VideoItem';
+import RelatedVideoItem from './RelatedVideoItem';
 import videos from '../../data/db.json';
 import './RelatedVideos.css';
 
@@ -13,7 +13,7 @@ function RelatedVideos() {
   return (
     <div className="relatedVideos1">
       {videosList.map((video) => (
-        <VideoItem {...video} />
+        <RelatedVideoItem {...video} />
       ))} 
     </div>
   );
