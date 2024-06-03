@@ -1,28 +1,18 @@
 import React from 'react';
 import VideoItem from './VideoItem';
-import  './VideoList.css';
+import './VideoList.css';
 import videos from "../../data/db.json";
-import { useState } from 'react';
-
-
-
-// const VideoList = () => {
-//   const videos = [
-//     { id: 1, title: 'Video 1', description: 'Description for Video 1' },
-//     { id: 2, title: 'Video 2', description: 'Description for Video 2' },
-//     // Add more video data here
-//   ];
 
 function VideoList() {
-const [videosList, setVideosList] = useState(videos);
   return (
-    <div>
-      {videosList.map((video) => (
+    <div className="video-grid">
+      {videos.map((video) => (
+        <a href={`video.html?id=${video.id}`} key={video.id} className="video-link">
           <VideoItem {...video} />
-        ))}  
+        </a>
+      ))}
     </div>
   );
 }
-
 
 export default VideoList;
