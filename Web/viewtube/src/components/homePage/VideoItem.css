@@ -18,13 +18,13 @@
   display: block;
   width: 160px; /* Adjust as needed */
   height: 90px;
-  margin-left: 10px; /* Add margin to the left side */
+  margin-right: 10px; /* Add margin to the left side */
   border-radius: 5px;
   object-fit: cover; /* Ensures the image covers the entire container */
 }
 
 .videoItem .card-body {
-  text-align: right;
+  text-align: left;
   line-height: 2;
   flex: 1;
 }
@@ -55,13 +55,13 @@
 
 .video-duration {
   position: absolute; /* Positions the duration text absolutely within the container */
-  bottom: 5px; /* Adjusts the distance from the bottom of the container */
-  left: 15px; /* Adjusts the distance from the right of the container */
+  bottom: 3px; /* Adjusts the distance from the bottom of the container */
+  right: 15px; /* Adjusts the distance from the right of the container */
   background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better visibility */
   color: white; /* Text color */
   padding: 2px; /* Padding around the text */
   border-radius: 3px; /* Rounded corners for the text box */
-  font-size: 11px; /* Font size */
+  font-size: 10px; /* Font size */
   font-weight: bold; /* Font weight */
 }
 
