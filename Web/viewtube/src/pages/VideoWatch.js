@@ -7,11 +7,17 @@ import CommentsSection from '../components/videoWatchPage/CommentsSection';
 import RelatedVideos from '../components/videoWatchPage/RelatedVideos';
 import Navbar from '../components/commonComponents/Navbar';
 import './VideoWatch.css';
+import Sidebar from '../components/commonComponents/Sidebar';
 
 function VideoWatch() {
   const { videoId } = useParams();
   const [video, setVideo] = useState(null);
   const [error, setError] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar
+  
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   useEffect(() => {
     const getVideoDetails = async () => {
@@ -40,7 +46,8 @@ function VideoWatch() {
   }
   return (
     <div>
-      <Navbar />
+      <div><Navbar toggleSidebar={toggleSidebar} /></div>
+      <Sidebar isOpen={sidebarOpen} />
       <div className="relatedVideosBar">
         <RelatedVideos />
       </div>

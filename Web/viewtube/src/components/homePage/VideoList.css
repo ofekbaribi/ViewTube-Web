@@ -1,12 +1,10 @@
-/* VideoList.css */
 .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 20px;
-  }
-  
-  .video-link {
-    text-decoration: none; /* Remove underline from anchor tags */
-    color: inherit; /* Inherit text color */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.video-link {
+  text-decoration: none;
+  color: inherit;
+}
