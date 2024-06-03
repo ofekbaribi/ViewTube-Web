@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import VideoItem from '../homePage/VideoItem';
-import videos from "../../data/db.json";
-import { useState } from 'react';
+import videos from '../../data/db.json';
 import './RelatedVideos.css';
 
-function RelatedVideos () {
+function RelatedVideos() {
+  const [videosList, setVideosList] = useState([]);
 
-  const [videosList, setVideosList] = useState(videos);
+  useEffect(() => {
+    setVideosList(videos); // This sets the videos list from the JSON file
+  }, []);
 
   return (
     <div className="relatedVideos1">
-        {videosList.map((video) => (
-          <VideoItem {...video} />
-        ))}  
+      {videosList.map((video) => (
+        <VideoItem {...video} />
+      ))} 
     </div>
   );
-};
+}
 
 export default RelatedVideos;
-
-
-
