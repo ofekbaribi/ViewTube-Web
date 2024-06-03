@@ -2,45 +2,28 @@
 import React, { useState } from 'react';
 import '../css/bootstrap.min.css';
 import './Login.css'; // Ensure this path is correct
-import EmailForm from '../components/LoginComponents/EmailForm';
+import UsernameForm from '../components/LoginComponents/UsernameForm';
 import PasswordForm from '../components/LoginComponents/PasswordForm';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
-  const [emailError, setEmailError] = useState('');
+  const [isUsernameSubmitted, setIsUsernameSubmitted] = useState(false);
+  const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleEmailSubmit = (event) => {
+  const handleUsernameSubmit = (event) => {
     event.preventDefault();
-    if (!email) {
-      setEmailError('Please fill out this field.');
+    if (!username) {
+      setUsernameError('Please fill out this field.');
     } else {
-      setEmailError('');
-      setIsEmailSubmitted(true);
+      setUsernameError('');
+      setIsUsernameSubmitted(true);
     }
-  };
-
-  const validatePassword = (password) => {
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    const isValidLength = password.length >= 8;
-
-    return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isValidLength;
   };
 
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
-    if (validatePassword(password)) {
-      alert('Email: ' + email + '\nPassword: ' + password);
-      // Proceed with your authentication logic here
-    } else {
-      setPasswordError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
-      setPassword('');
-    }
   };
   
   const clearPasswordError = () => {
@@ -54,12 +37,12 @@ const Login = () => {
       <div className="login-container">
         <h2>Sign in</h2>
         <h1> continue to ViewTube</h1>
-        {!isEmailSubmitted ? (
-          <EmailForm
-            email={email}
-            setEmail={setEmail}
-            handleEmailSubmit={handleEmailSubmit}
-            emailError={emailError}
+        {!isUsernameSubmitted ? (
+          <UsernameForm
+            username={username}
+            setUsername={setUsername}
+            handleUsernameSubmit={handleUsernameSubmit}
+            usernameError={usernameError}
           />
         ) : (
           <PasswordForm
