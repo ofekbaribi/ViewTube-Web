@@ -1,4 +1,13 @@
 .homePage {
-    padding: 20px;
-    background-color: #ffffff;
-  }
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  flex: 1;
+  padding: 20px;
+}
+
+.sidebar-open .container {
+  margin-left: 250px; /* Adjust according to your sidebar width */
+}

@@ -1,0 +1,17 @@
+/* src/components/VideoPlayer.css */
+.videoPlayer {
+ 
+  position: relative;
+  right: 100px;
+  width: 100%;
+  
+}
+
+video {
+  
+  width: 100%;
+  border-radius: 3%;
+  height: auto;
+  
+  
+}

@@ -1,5 +1,10 @@
-.videoList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.video-link {
+  text-decoration: none;
+  color: inherit;
+}

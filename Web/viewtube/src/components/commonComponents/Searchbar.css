@@ -1,0 +1,20 @@
+.search-box {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    width: 100%;
+    font-size: 15px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+.search-box img {
+    width: 30px;
+    margin-left: 10px;
+}

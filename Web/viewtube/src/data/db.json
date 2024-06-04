@@ -1,13 +1,58 @@
 [
-    {
-      "id": 1,
-      "title": "Video 1", 
-      "description": "Description for Video 1"
-    },
+  {
+    "id": 1,
+    "title": "mallorca sunrise summer vibes - kygo, chainsmokers, bhaskar robin schulz, gryffin, lost frequencies",
+    "description": "Dancing cats",
+    "author": "Ofek Baribi",
+    "views": 460,
+    "date": "26/05/2021",
+    "duration": "01:24:43",
+    "imgURL": "/media/bibi.jpg",
+    "videoURL": "/media/omeradam.mp4"
+  },
     {
       "id": 2,
-      "title": "Video 2", 
-      "description": "Description for Video 2"
+      "title": "Ibiza Summer Mix 2024 🍓 Best Of Tropical Deep House Music Chill Out Mix 2023 🍓 Chillout Lounge", 
+      "description": "all lahav friend asking him why are you gay?",
+      "author": "Ziv Elbaz",
+      "views": 100,
+      "date": "26/05/2021", 
+      "duration": "01:10:23",
+      "imgURL": "/media/lahav.jpg", 
+      "videoURL": "/media/video2.mp4"
+    },
+    {
+      "id": 3,
+      "title": "why always me??????", 
+      "description": "Description for Video 1",
+      "author": "Author 1",
+      "views": 40,
+      "date": "26/05/2021", 
+      "duration": "52:39",
+      "imgURL": "/media/balu.jpg", 
+      "videoURL": "/media/video3.mp4"
+    },
+    {
+      "id": 4,
+      "title": "Video 404 not found", 
+      "description": "Description for Video 1sdas",
+      "author": "Author 404",
+      "views": 999,
+      "date": "26/05/2021", 
+      "duration": "01:10:23",
+      "imgURL": "/media/mecg.jpg", 
+      "videoURL": "/media/omeradam.mp4"
+    },
+    {
+      "id": 5,
+      "title": "ma kore 1", 
+      "description": "Description for sdas ",
+      "author": "Author 1",
+      "views": 400,
+      "date": "26/05/2021", 
+      "duration": "02:10:23",
+      "imgURL": "/media/bibi.jpg", 
+      "videoURL": "/media/omeradam.mp4"
     }
 ]
   
