@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import '../css/bootstrap.min.css';
 import './Login.css'; // Ensure this path is correct
@@ -15,8 +14,11 @@ const Login = () => {
 
   const handleUsernameSubmit = (event) => {
     event.preventDefault();
+    const users = JSON.parse(sessionStorage.getItem('users')) || [];
     if (!username) {
       setUsernameError('Please fill out this field.');
+    } else if(!users.find(user => username)) {
+      setUsernameError('User name does not exist!');
     } else {
       setUsernameError('');
       setIsUsernameSubmitted(true);
@@ -25,6 +27,13 @@ const Login = () => {
 
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
+    const users = JSON.parse(sessionStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username && user.password === password);
+    if (user) {
+      alert('Login successful');
+    } else {
+      setPasswordError('Invalid username or password.');
+    }
   };
   
   const clearPasswordError = () => {
@@ -45,6 +54,7 @@ const Login = () => {
               setUsername={setUsername}
               handleUsernameSubmit={handleUsernameSubmit}
               usernameError={usernameError}
+              setUsernameError={setUsernameError}
             />
           ) : (
             <PasswordForm

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import '../css/bootstrap.min.css';
 import './Login.css';
 import './Register.css'
@@ -15,7 +15,8 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [image, setImage] = useState('');
-  const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
 
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -28,19 +29,34 @@ const Register = () => {
   };
 
   const handlePasswordSubmit = (event) => {
-    event.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setPasswordError('Passwords do not match.');
+      return false;
     } else if (!validatePassword(password)) {
-      setError('Password does not meet requirement.');
+      setPasswordError('Password does not meet requirement.');
+      return false;
     } else {
-      setError('');
+      setPasswordError('');
+      return true;
     }
   };
 
+  const handleUsernameSubmit = (event) => {
+    const users = JSON.parse(sessionStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username)
+    if (user){
+      setUsernameError('Username already exist!')
+      return false;
+    }
+    return true;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (handlePasswordSubmit(event)) {
+    if (handleUsernameSubmit() && handlePasswordSubmit()) {
+      const users = JSON.parse(sessionStorage.getItem('users')) || [];
+      users.push({ username, firstName, lastName, password, image });
+      sessionStorage.setItem('users', JSON.stringify(users));
       alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
     }
   }
@@ -54,6 +70,8 @@ const Register = () => {
             <NewUsernameForm
               username={username}
               setUsername={setUsername}
+              usernameError={usernameError}
+              setUsernameError={setUsernameError}
             />
             <NewNameForm
               firstName={firstName}
@@ -66,8 +84,8 @@ const Register = () => {
               setPassword={setPassword}
               confirmPassword={confirmPassword}
               setConfirmPassword={setConfirmPassword}
-              error={error}
-              setError={setError}
+              passwordError={passwordError}
+              setPasswordError={setPasswordError}
             />
             <NewImageForm
               image={image}
@@ -75,7 +93,7 @@ const Register = () => {
             />
             <div id="passwordReq">
               <a className='passwordReq' target="_blank" draggable="false" data-tooltip='Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'>
-                ?
+                ???
               </a>
             </div>
             <br/>

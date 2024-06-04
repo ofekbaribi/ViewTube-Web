@@ -2,7 +2,15 @@ import React from 'react';
 import '../../css/bootstrap.min.css';
 import '../../pages/Login.css';
 
-const UsernameForm = ({ username, setUsername, handleUsernameSubmit, usernameError }) => {
+const UsernameForm = ({ username, setUsername, handleUsernameSubmit, usernameError, setUsernameError }) => {
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (usernameError) {
+      setUsernameError('');
+    }
+  };
+
   return (
     <form onSubmit={handleUsernameSubmit} className="position-relative">
       <div className="mb-3">
@@ -12,7 +20,7 @@ const UsernameForm = ({ username, setUsername, handleUsernameSubmit, usernameErr
           id="username"
           placeholder="Enter your username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={handleUsernameChange}
           required
         />
         {usernameError && (

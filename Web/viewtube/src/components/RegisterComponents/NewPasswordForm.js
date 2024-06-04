@@ -6,7 +6,7 @@ import './NewPasswordForm.css';
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
 
-const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPassword, error, setError }) => {
+const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPassword, passwordError, setPasswordError }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -20,15 +20,15 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    if (error) {
-      setError('');
+    if (passwordError) {
+      setPasswordError('');
     }
   };
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
-    if (error) {
-      setError('');
+    if (passwordError) {
+      setPasswordError('');
     }
   };
 
@@ -37,7 +37,7 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
         <div className="input-group">
           <input
             type={showPassword ? "text" : "password"}
-            className={`form-control input-center ${error ? 'is-invalid' : ''}`}
+            className={`form-control input-center ${passwordError ? 'is-invalid' : ''}`}
             id="password"
             placeholder="Enter your password"
             value={password}
@@ -57,7 +57,7 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
         <div className="input-group">
           <input
             type={showConfirmPassword ? "text" : "password"}
-            className={`form-control input-center ${error ? 'is-invalid' : ''}`}
+            className={`form-control input-center ${passwordError ? 'is-invalid' : ''}`}
             id="confirmPassword"
             placeholder="Confirm your password"
             value={confirmPassword}
@@ -74,9 +74,9 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
             </button>
           </div>
         </div>
-        {error && (
+        {passwordError && (
           <div className="invalid-tooltip">
-            {error}
+            {passwordError}
           </div>
         )}
       </div>

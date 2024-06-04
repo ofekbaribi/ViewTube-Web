@@ -3,7 +3,14 @@ import React from 'react';
 import '../../css/bootstrap.min.css';
 import '../../pages/Login.css';
 
-const NewUsernameForm = ({ username, setUsername}) => {
+const NewUsernameForm = ({ username, setUsername, usernameError, setUsernameError}) => {
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (usernameError) {
+      setUsernameError('');
+    }
+  };
+  
   return (
     <div className="mb-3">
       <input
@@ -12,7 +19,7 @@ const NewUsernameForm = ({ username, setUsername}) => {
         id="username"
         placeholder="Enter your username"
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={handleUsernameChange}
         required
       />
     </div>
