@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React, { useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/bootstrap.min.css';
 import './Login.css';
 import './Register.css'
@@ -17,6 +17,7 @@ const Register = () => {
   const [image, setImage] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [usernameError, setUsernameError] = useState('');
+  const Navigate = useNavigate();
 
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -58,6 +59,7 @@ const Register = () => {
       users.push({ username, firstName, lastName, password, image });
       sessionStorage.setItem('users', JSON.stringify(users));
       alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
+      Navigate('/login')
     }
   }
 
@@ -65,7 +67,7 @@ const Register = () => {
     <div className='login-page'>
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="login-container">
-          <h2>Create a ViewTube Account</h2>
+          <h2>Create a <Link to='/'>ViewTube</Link> Account</h2>
           <form onSubmit={handleSubmit} className="position-relative">
             <NewUsernameForm
               username={username}

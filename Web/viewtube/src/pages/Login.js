@@ -3,7 +3,7 @@ import '../css/bootstrap.min.css';
 import './Login.css'; // Ensure this path is correct
 import UsernameForm from '../components/LoginComponents/UsernameForm';
 import PasswordForm from '../components/LoginComponents/PasswordForm';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -11,6 +11,7 @@ const Login = () => {
   const [isUsernameSubmitted, setIsUsernameSubmitted] = useState(false);
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const Navigate=useNavigate();
 
   const handleUsernameSubmit = (event) => {
     event.preventDefault();
@@ -28,9 +29,10 @@ const Login = () => {
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
     const users = JSON.parse(sessionStorage.getItem('users')) || [];
-    const user = users.find(user => user.username === username && user.password === password);
-    if (user) {
+    const detailsMatching = users.find(user => user.username === username && user.password === password);
+    if (detailsMatching) {
       alert('Login successful');
+      Navigate('/')
     } else {
       setPasswordError('Invalid username or password.');
     }
@@ -46,8 +48,7 @@ const Login = () => {
     <div className='login-page'>
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="login-container">
-          <h2>Sign in</h2>
-          <h1> continue to ViewTube</h1>
+          <h2>Log into your <Link to='/'>ViewTube</Link> account</h2>
           {!isUsernameSubmitted ? (
             <UsernameForm
               username={username}

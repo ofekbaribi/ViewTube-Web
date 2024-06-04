@@ -3,7 +3,7 @@ body {
   }
   
   .login-page {
-    background: linear-gradient(to bottom, rgba(224, 234, 255, 0.427), rgba(224, 234, 255, 0.427)), url('../assets/Background.jpg');
+    background: linear-gradient(to bottom, rgba(224, 234, 255, 0.427), rgba(224, 234, 255, 0.427)), url('../assets/Background4.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
