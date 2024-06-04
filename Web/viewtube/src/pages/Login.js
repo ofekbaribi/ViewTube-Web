@@ -1,46 +1,78 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './Login.css';
-import reportWebVitals from '../reportWebVitals';
+import React, { useState } from 'react';
 import '../css/bootstrap.min.css';
-import { useState } from 'react';
+import './Login.css'; // Ensure this path is correct
+import UsernameForm from '../components/LoginComponents/UsernameForm';
+import PasswordForm from '../components/LoginComponents/PasswordForm';
+import { Link } from 'react-router-dom';
 
-function Login() {
-    const [email, setEmail] = useState('');
+const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isUsernameSubmitted, setIsUsernameSubmitted] = useState(false);
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handleUsernameSubmit = (event) => {
+    event.preventDefault();
+    const users = JSON.parse(sessionStorage.getItem('users')) || [];
+    if (!username) {
+      setUsernameError('Please fill out this field.');
+    } else if(!users.find(user => username)) {
+      setUsernameError('User name does not exist!');
+    } else {
+      setUsernameError('');
+      setIsUsernameSubmitted(true);
+    }
+  };
+
+  const handlePasswordSubmit = (event) => {
+    event.preventDefault();
+    const users = JSON.parse(sessionStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username && user.password === password);
+    if (user) {
+      alert('Login successful');
+    } else {
+      setPasswordError('Invalid username or password.');
+    }
+  };
   
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      alert('Email or phone entered: ' + email);
-    };
-  
-    return (
+  const clearPasswordError = () => {
+    if (passwordError) {
+      setPasswordError('');
+    }
+  };
+
+  return (
+    <div className='login-page'>
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="login-container">
-          <h1>Sign in</h1>
-          <p>to continue to YouTube</p>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email or phone</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <a href="#" className="d-block mb-3">Forgot email?</a>
-            <button type="submit" className="btn btn-primary">Next</button>
-            <a href="#" className="d-block mt-3">Create account</a>
-            <div className="mt-3">
-              <a href="#">Learn more about using Guest mode</a>
-            </div>
-          </form>
+          <h2>Sign in</h2>
+          <h1> continue to ViewTube</h1>
+          {!isUsernameSubmitted ? (
+            <UsernameForm
+              username={username}
+              setUsername={setUsername}
+              handleUsernameSubmit={handleUsernameSubmit}
+              usernameError={usernameError}
+              setUsernameError={setUsernameError}
+            />
+          ) : (
+            <PasswordForm
+              password={password}
+              setPassword={setPassword}
+              handlePasswordSubmit={handlePasswordSubmit}
+              passwordError={passwordError}
+              clearPasswordError={clearPasswordError}
+            />
+          )}
+          <br/>
+          <label htmlFor="member" className="form-label">New here?</label>
+          <br/>
+          <Link to="/register">Create an account</Link>
         </div>
       </div>
-    );
-  }
-  
-  export default Login;
+    </div>
+  );
+};
+
+export default Login;
