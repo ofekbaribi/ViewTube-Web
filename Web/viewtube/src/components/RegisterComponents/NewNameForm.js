@@ -3,7 +3,21 @@ import React from 'react';
 import '../../css/bootstrap.min.css';
 import '../../pages/Login.css';
 
-const NewNameForm = ({ firstName, setFirstName, lastName, setLastName}) => {
+const NewNameForm = ({ firstName, setFirstName, lastName, setLastName, nameError, setNameError}) => {
+  const handleNameChange = (e) => {
+    setFirstName(e.target.value);
+    if (nameError) {
+      setNameError('');
+    }
+  }
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    if (nameError) {
+      setNameError('');
+    }
+  }
+  
   return (
       <div className="mb-3">
         <input
@@ -12,7 +26,7 @@ const NewNameForm = ({ firstName, setFirstName, lastName, setLastName}) => {
           id="firstName"
           placeholder="First name"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={handleNameChange}
           required
         />
         <input
@@ -21,9 +35,14 @@ const NewNameForm = ({ firstName, setFirstName, lastName, setLastName}) => {
           id="lastName"
           placeholder="Last name"
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={handleLastNameChange}
           required
         />
+        {nameError && (
+          <div className="invalid-tooltip">
+            {nameError}
+          </div>
+        )}
       </div>
   );
 };

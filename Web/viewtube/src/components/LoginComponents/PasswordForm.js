@@ -6,11 +6,18 @@ import '../RegisterComponents/NewPasswordForm.css'
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
 
-const PasswordForm = ({ password, setPassword, handlePasswordSubmit, passwordError }) => {
+const PasswordForm = ({ password, setPassword, handlePasswordSubmit, passwordError, setPasswordError }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (passwordError) {
+      setPasswordError('');
+    }
   };
 
   return (
@@ -23,7 +30,7 @@ const PasswordForm = ({ password, setPassword, handlePasswordSubmit, passwordErr
             id="password"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
           />
           <div className="input-group-append">

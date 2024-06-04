@@ -4,6 +4,7 @@ import './Login.css'; // Ensure this path is correct
 import UsernameForm from '../components/LoginComponents/UsernameForm';
 import PasswordForm from '../components/LoginComponents/PasswordForm';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png'
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -48,7 +49,9 @@ const Login = () => {
     <div className='login-page'>
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="login-container">
-          <h2>Log into your <Link to='/'>ViewTube</Link> account</h2>
+        <h2 className="d-flex align-items-center">
+            Sign into your <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> Account
+          </h2>
           {!isUsernameSubmitted ? (
             <UsernameForm
               username={username}
@@ -62,8 +65,9 @@ const Login = () => {
               password={password}
               setPassword={setPassword}
               handlePasswordSubmit={handlePasswordSubmit}
-              passwordError={passwordError}
               clearPasswordError={clearPasswordError}
+              passwordError={passwordError}
+              setPasswordError={setPasswordError}
             />
           )}
           <br/>

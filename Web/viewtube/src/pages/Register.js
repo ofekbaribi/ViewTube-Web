@@ -7,6 +7,7 @@ import NewUsernameForm from '../components/RegisterComponents/NewUsernameForm';
 import NewNameForm from '../components/RegisterComponents/NewNameForm';
 import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
 import NewImageForm from '../components/RegisterComponents/NewImageForm';
+import logo from '../assets/logo.png'
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -17,6 +18,7 @@ const Register = () => {
   const [image, setImage] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [usernameError, setUsernameError] = useState('');
+  const [nameError, setNameError] = useState('');
   const Navigate = useNavigate();
 
   const validatePassword = (password) => {
@@ -29,7 +31,29 @@ const Register = () => {
     return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isValidLength;
   };
 
-  const handlePasswordSubmit = (event) => {
+  const validateUsername = (username) => {
+    const hasUpperCase = /[A-Z]/.test(username);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(username);
+    const isValidLength = username.length < 2;
+
+    return !(hasUpperCase && hasSpecialChar && isValidLength);
+  }
+
+
+
+  const validateName = (firstName, lastName) => {
+    const firstNameHasNumber = /\d/.test(firstName);
+    const firstNameHasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(firstName);
+    const firstNameValidLength = firstName.length < 2;
+
+    const lastNameHasNumber = /\d/.test(lastName);
+    const lastNameHasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(lastName);
+    const lastNameValidLength = lastName.length < 2;
+
+    return !((firstNameHasNumber && firstNameHasSpecialChar && firstNameValidLength) && (lastNameHasNumber && lastNameHasSpecialChar && lastNameValidLength));
+  };
+
+  const handlePasswordSubmit = () => {
     if (password !== confirmPassword) {
       setPasswordError('Passwords do not match.');
       return false;
@@ -42,12 +66,16 @@ const Register = () => {
     }
   };
 
-  const handleUsernameSubmit = (event) => {
+  const handleUsernameSubmit = () => {
     const users = JSON.parse(sessionStorage.getItem('users')) || [];
     const user = users.find(user => user.username === username)
-    if (user){
+    if (user) {
       setUsernameError('Username already exist!')
       return false;
+    } else if (validateUsername(username)) {
+      setUsernameError('Username can only contain lowercase letters!')
+    } else if (validateName(firstName, lastName)) {
+
     }
     return true;
   }
@@ -67,7 +95,9 @@ const Register = () => {
     <div className='login-page'>
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="login-container">
-          <h2>Create a <Link to='/'>ViewTube</Link> Account</h2>
+        <h2 className="d-flex align-items-center">
+            Create a <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> Account
+          </h2>
           <form onSubmit={handleSubmit} className="position-relative">
             <NewUsernameForm
               username={username}
@@ -80,6 +110,8 @@ const Register = () => {
               setFirstName={setFirstName}
               lastName={lastName}
               setLastName={setLastName}
+              nameError={nameError}
+              setNameError={setNameError}
             />
             <NewPasswordForm
               password={password}

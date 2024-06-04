@@ -22,6 +22,11 @@ const NewUsernameForm = ({ username, setUsername, usernameError, setUsernameErro
         onChange={handleUsernameChange}
         required
       />
+      {usernameError && (
+          <div className="invalid-tooltip">
+            {usernameError}
+          </div>
+        )}
     </div>
   );
 };
