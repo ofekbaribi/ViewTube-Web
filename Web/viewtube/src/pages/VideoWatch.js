@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams} from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 import { fetchVideoDetails } from '../data/videoService';
 import VideoPlayer from '../components/videoWatchPage/VideoPlayer';
 import VideoDetails from '../components/videoWatchPage/VideoDetails';
@@ -15,6 +15,7 @@ function VideoWatch({ videos }) {
   const [video, setVideo] = useState(null);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar
 
@@ -48,8 +49,7 @@ function VideoWatch({ videos }) {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    // Redirect to homepage with search query as URL parameter
-    window.location.href = `/?search=${query}`;
+    navigate(`/?search=${query}`);
   };
   
   if (error) {
