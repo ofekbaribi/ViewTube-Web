@@ -1,9 +1,9 @@
+// Home.js
 import React, { useState } from 'react';
 import Navbar from '../components/commonComponents/Navbar';
 import styles from './Home.css';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
-
 
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,10 +20,7 @@ const Home = () => {
 
     const handleSearchInputChange = (event) => {
         setSearchQuery(event.target.value);
-        
     };
-
-
 
     return (
         <>

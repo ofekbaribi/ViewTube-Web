@@ -15,3 +15,6 @@ video {
   
   
 }
+[data-theme='dark'] .videoPlayer{
+  background-color: #151515;
+}

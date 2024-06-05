@@ -1,10 +1,13 @@
+
 .video-title {
   position: relative;
   font-size: 20px;
   margin-bottom: 10px;
   text-align: left;
   right: 100px;
-
+}
+[data-theme='dark'] .videoDetails{
+  background-color: #151515;
 }
 
 

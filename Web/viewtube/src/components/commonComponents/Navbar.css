@@ -4,24 +4,20 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
     position: fixed; /* Changed to fixed */
     width: 100%; /* Make navbar span the full width */
     top: 0;
     z-index: 10;
 }
-/* Light mode styles */
-.navbar-light {
-    background: #fff;
-    color: #000;
-  }
-  
-  /* Dark mode styles */
-  .navbar-dark {
-    background: #333;
-    color: #fff;
-  }
-  
+
+[data-theme='dark'] nav {
+    background: black;
+}
+
+[data-theme='light'] nav {
+    background: white;
+}
+
 
 /* Navbar left, middle, and right sections */
 .nav-left,
@@ -39,11 +35,15 @@ nav {
     position: relative; /* Added */
     z-index: 11; /* Added */
 }
+[data-theme='dark'] .nav-left .menu-icon{
+    filter: invert(100%);
+}
 
 /* Styles for logo */
 .nav-left .logo {
     width: 200px;
 }
+
 
 /* Styles for search box */
 .nav-middle {
@@ -69,11 +69,18 @@ nav {
     border: 0;
     outline: 0;
     background: transparent;
+    color: black;
+}
+[data-theme='dark'] .nav-middle .search-box input{
+    color: white;
 }
 
 .nav-middle .search-box img {
-    width: 30px;
+    width: 22px;
     cursor: pointer;
+}
+[data-theme='dark'] .nav-middle .search-box img{
+    filter: invert(100%);
 }
 
 /* Styles for right section */
@@ -81,3 +88,14 @@ nav {
     width: 20px;
     margin-right: 25px;
 }
+[data-theme='dark']  .nav-right img {
+    filter: invert(100%);
+}
+
+.log_reg p {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+ 
+
