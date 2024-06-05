@@ -1,69 +1,93 @@
+// src/pages/UploadPage.js
 import React, { useState } from 'react';
-import './Upload.css'; // Add necessary styles
+import { useNavigate } from 'react-router-dom';
+import '../css/bootstrap.min.css';
+import './Upload.css';
+import useVideo from '../contexts/VideosContext';
 
-function Upload() {
+const UploadPage = ({ videos, addVideo }) => {
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState(null);
-  const [thumbnailFile, setThumbnailFile] = useState(null);
-  const [videos, setVideos] = useState([]); // Local state to manage uploaded videos
+  const navigate = useNavigate();
 
-  const handleUpload = (e) => {
-    e.preventDefault();
-    const newVideo = {
-      id: videos.length + 1,
-      title,
-      author,
-      videoURL: URL.createObjectURL(videoFile),
-      imgURL: URL.createObjectURL(thumbnailFile),
-      views: 0,
-      date: new Date().toLocaleDateString(),
-      duration: '0:00' // Placeholder duration
+  const handleUpload = async (event) => {
+    event.preventDefault();
+    if (!title || !description || !videoFile) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    const getVideoDuration = (file) => {
+      return new Promise((resolve) => {
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = () => {
+          window.URL.revokeObjectURL(video.src);
+          resolve(video.duration);
+        };
+        video.src = URL.createObjectURL(file);
+      });
     };
 
-    setVideos([...videos, newVideo]);
+    const id = (videos ? (videos.length + 11) : 11);
+    const duration = await getVideoDuration (videoFile);
+    const metadata = {
+      id,
+      title,
+      description,
+      videoURL: URL.createObjectURL(videoFile),
+      date: new Date().toLocaleDateString(),
+      views: 0,
+      likes: 0,
+      duration
+    };
 
-    // Clear form fields
-    setTitle('');
-    setAuthor('');
-    setVideoFile(null);
-    setThumbnailFile(null);
+    addVideo(metadata);
+    alert('Video uploaded successfully.');
+    navigate('/');
   };
 
   return (
     <div className="upload-page">
       <h2>Upload Video</h2>
       <form onSubmit={handleUpload}>
-        <div>
-          <label>Title:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-        <div>
-          <label>Author:</label>
-          <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">Description</label>
+          <textarea
+            className="form-control"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
         </div>
-        <div>
-          <label>Video File:</label>
-          <input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} required />
+        <div className="mb-3">
+          <label htmlFor="videoFile" className="form-label">Video File</label>
+          <input
+            type="file"
+            className="form-control"
+            id="videoFile"
+            accept="video/*"
+            onChange={(e) => setVideoFile(e.target.files[0])}
+            required
+          />
         </div>
-        <div>
-          <label>Thumbnail File:</label>
-          <input type="file" accept="image/*" onChange={(e) => setThumbnailFile(e.target.files[0])} required />
-        </div>
-        <button type="submit">Upload</button>
+        <button type="submit" className="btn btn-primary">Upload</button>
       </form>
-      <div className="uploaded-videos">
-        {videos.map((video) => (
-          <div key={video.id} className="uploaded-video">
-            <video src={video.videoURL} controls />
-            <img src={video.imgURL} alt="thumbnail" />
-            <h3>{video.title}</h3>
-            <p>{video.author}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
-}
+};
 
-export default Upload;
+export default UploadPage;

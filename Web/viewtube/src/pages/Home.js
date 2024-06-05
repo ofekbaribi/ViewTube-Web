@@ -1,14 +1,14 @@
-// Home.js
 import React, { useState } from 'react';
 import Navbar from '../components/commonComponents/Navbar';
 import styles from './Home.css';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
 
-const Home = () => {
+const Home = ({ videos }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
+    console.log(videos);
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
@@ -28,7 +28,7 @@ const Home = () => {
             <div className={styles.homePage}>
                 <Sidebar isOpen={sidebarOpen} />
                 <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
-                    <Feed searchQuery={searchQuery} />
+                    <Feed searchQuery={searchQuery} videos={videos}/>
                 </div>
             </div>
         </>

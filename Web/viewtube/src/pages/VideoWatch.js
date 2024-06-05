@@ -10,7 +10,7 @@ import './VideoWatch.css';
 import Sidebar from '../components/commonComponents/Sidebar';
 
 
-function VideoWatch() {
+function VideoWatch({ videos }) {
   const { videoId } = useParams();
   const [video, setVideo] = useState(null);
   const [error, setError] = useState(null);
@@ -26,13 +26,16 @@ function VideoWatch() {
   useEffect(() => {
     const getVideoDetails = async () => {
       try {
-        const videoData = await fetchVideoDetails(videoId);
+        let videoData = await fetchVideoDetails(videoId);
         if (!videoData) {
-          throw new Error('Video not found');
+          videoData = await videos.find(video => video.id === parseInt(videoId, 10));
+          if (!videoData) {
+            throw new Error('Video not found');
+          }
         }
         setVideo(videoData);
       } catch (err) {
-        setError('Failed to fetch video details');
+          setError('Failed to fetch video details');
       }
     };
 
