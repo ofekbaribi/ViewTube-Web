@@ -1,0 +1,87 @@
+
+.videoOptionsBar {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+
+
+.video-author {
+    display: absolute;
+    font-size: 20px;
+}
+
+.video-likes-dislikes {
+    display: flex;
+    margin-left: 250px;
+    background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
+    color: rgb(0, 0, 0); /* Text color */
+    border-radius: 10px; /* Rounded corners for the text box */
+    transform: scale(1.1);
+}
+
+.video-likes {
+    border-radius: 10px; /* Rounded corners for the text box */
+    cursor: pointer;
+    padding-left: 3px;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    transform: scale(0.9);
+}
+
+.video-dislikes {
+    border-radius: 6px; /* Rounded corners for the text box */
+    padding-right: 4px;
+    padding-left: 4px;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    cursor: pointer;
+    transform: scale(0.9);
+}
+.video-likes:hover, .video-dislikes:hover {
+    background-color: rgba(155, 151, 151, 0.5); /* Semi-transparent background for better visibility */
+    transform: scale(1); /* Increase size slightly */
+  }
+.dislike-image {
+    transform: scaleX(-1);
+}
+
+.like-text {
+    font-size: 15px; /* Font size */
+    margin-left: 7px;
+    padding-right: 4px;
+}
+
+
+.video-share {
+    background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
+    color: rgb(0, 0, 0); /* Text color */
+    padding: 3px; /* Padding around the text */
+    border-radius: 10px; /* Rounded corners for the text box */
+    font-size: 10px; /* Font size */
+    transform: scale(1.4);
+  
+  }
+.share-image {
+    transform: scaleX(-1);
+    margin-bottom: 1px;
+}
+
+
+.video-download {
+    background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
+    color: rgb(0, 0, 0); /* Text color */
+    padding: 3px; /* Padding around the text */
+    border-radius: 10px; /* Rounded corners for the text box */
+    font-size: 10px; /* Font size */
+    transform: scale(1.4);
+    margin-left: 10px;
+
+}
+
+.video-share:hover, .video-download:hover {
+    background-color: rgba(155, 151, 151, 0.5); /* Semi-transparent background for better visibility */
+    transform: scale(1.5); /* Increase size slightly */
+  }
+  
