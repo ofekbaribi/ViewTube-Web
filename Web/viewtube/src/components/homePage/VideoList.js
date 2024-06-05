@@ -17,10 +17,10 @@ function VideoList({ videos }) {
     : baseVideos;
 
     const addedFilteredVideos = searchQuery 
-    ? videos.filter((video) =>
+    ? (videos ? videos.filter((video) =>
         video.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : videos;
+      ) : [])
+    : (videos ? videos : []);
 
     const totalFilteredVideos = [...baseFilteredVideos, ...addedFilteredVideos];
 

@@ -12,7 +12,7 @@ import { useUser } from '../../contexts/UserContext';
 
 const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQuery }) => {
   const [darkMode, setDarkMode] = useState(false);
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const { currentUser } = useUser();
   const { logout }=useUser();
   const Navigate = useNavigate();
 

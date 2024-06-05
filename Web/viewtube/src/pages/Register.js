@@ -8,7 +8,6 @@ import NewNameForm from '../components/RegisterComponents/NewNameForm';
 import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
 import NewImageForm from '../components/RegisterComponents/NewImageForm';
 import logo from '../assets/logo.png';
-import UploaderDetails from '../components/videoWatchPage/UploaderDetails';
 import { useUser } from '../contexts/UserContext';
 
 const Register = () => {
@@ -23,7 +22,7 @@ const Register = () => {
   const [nameError, setNameError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { addUser, setUser, users } = useUser();
 
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -69,8 +68,7 @@ const Register = () => {
   };
 
   const handleUsernameSubmit = () => {
-    const users = JSON.parse(sessionStorage.getItem('users')) || [];
-    const user = users.find(user => user.username === username)
+    const user = users.find(user => user.username === username);
     if (user) {
       setUsernameError('Username already exists!');
       return false;
@@ -90,11 +88,8 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (handleUsernameSubmit() && handlePasswordSubmit()) {
-      const users = JSON.parse(sessionStorage.getItem('users')) || [];
       const newUser = { username, firstName, lastName, password, image };
-      users.push(newUser);
-      sessionStorage.setItem('users', JSON.stringify(users));
-      sessionStorage.setItem('currentUser', JSON.stringify(newUser));
+      addUser(newUser);
       setUser(newUser);
       alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
       navigate('/');
