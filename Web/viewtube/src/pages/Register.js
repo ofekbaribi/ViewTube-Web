@@ -38,21 +38,21 @@ const Register = () => {
   const validateUsername = (username) => {
     const hasUpperCase = /[A-Z]/.test(username);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(username);
-    const isValidLength = username.length < 2;
+    const isValidLength = username.length >= 2;
 
-    return !(hasUpperCase && hasSpecialChar && isValidLength);
+    return !(hasUpperCase || hasSpecialChar || !isValidLength); // Return false if invalid
   };
 
   const validateName = (firstName, lastName) => {
     const firstNameHasNumber = /\d/.test(firstName);
     const firstNameHasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(firstName);
-    const firstNameValidLength = firstName.length < 2;
+    const firstNameValidLength = firstName.length >= 2;
 
     const lastNameHasNumber = /\d/.test(lastName);
     const lastNameHasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(lastName);
-    const lastNameValidLength = lastName.length < 2;
+    const lastNameValidLength = lastName.length >= 2;
 
-    return !((firstNameHasNumber && firstNameHasSpecialChar && firstNameValidLength) && (lastNameHasNumber && lastNameHasSpecialChar && lastNameValidLength));
+    return !(firstNameHasNumber || firstNameHasSpecialChar || !firstNameValidLength || lastNameHasNumber || lastNameHasSpecialChar || !lastNameValidLength);
   };
 
   const handlePasswordSubmit = () => {
@@ -72,9 +72,9 @@ const Register = () => {
     const users = JSON.parse(sessionStorage.getItem('users')) || [];
     const user = users.find(user => user.username === username)
     if (user) {
-      setUsernameError('Username already exist!');
+      setUsernameError('Username already exists!');
       return false;
-    } else if (validateUsername(username)) {
+    } else if (!validateUsername(username)) {
       setUsernameError('Username can only contain lowercase letters!');
       return false;
     } else if (!validateName(firstName, lastName)) {
@@ -82,6 +82,7 @@ const Register = () => {
       return false;
     } else {
       setUsernameError('');
+      setNameError('');
       return true;
     }
   };
@@ -114,7 +115,7 @@ const Register = () => {
               usernameError={usernameError}
               setUsernameError={setUsernameError}
             />
-                        <NewNameForm
+            <NewNameForm
               firstName={firstName}
               setFirstName={setFirstName}
               lastName={lastName}
@@ -154,4 +155,3 @@ const Register = () => {
 };
 
 export default Register;
-
