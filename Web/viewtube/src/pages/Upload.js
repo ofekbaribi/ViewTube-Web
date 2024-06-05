@@ -1,4 +1,3 @@
-// src/pages/UploadPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/bootstrap.min.css';
@@ -30,8 +29,21 @@ const UploadPage = ({ videos, addVideo }) => {
       });
     };
 
+    const formatDuration = (duration) => {
+      const hours = Math.floor(duration / 3600);
+      const minutes = Math.floor((duration % 3600) / 60);
+      const seconds = Math.floor(duration % 60);
+      if (hours > 0){
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      } else {
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+      };
+
     const id = (videos ? (videos.length + 11) : 11);
-    const duration = await getVideoDuration (videoFile);
+    const durationInSeconds = await getVideoDuration(videoFile);
+    const duration = formatDuration(durationInSeconds);
+    
     const metadata = {
       id,
       title,

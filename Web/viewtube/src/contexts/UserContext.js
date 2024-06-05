@@ -3,20 +3,27 @@ import React, { createContext, useContext, useState } from 'react';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('currentUser')) || null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [users, setUsers] = useState([]);
 
   const setUser = (user) => {
     setCurrentUser(user);
-    sessionStorage.setItem('currentUser', JSON.stringify(user));
+  };
+
+  const addUser = (newUser) => {
+    setUsers((prevUsers) => [...prevUsers, newUser]);
   };
 
   const logout = () => {
     setCurrentUser(null);
-    sessionStorage.removeItem('currentUser');
   };
 
+  const getUser = () => {
+    return currentUser;
+  }
+
   return (
-    <UserContext.Provider value={{ currentUser, setUser, logout }}>
+    <UserContext.Provider value={{ currentUser, setUser, addUser, logout, users }}>
       {children}
     </UserContext.Provider>
   );
