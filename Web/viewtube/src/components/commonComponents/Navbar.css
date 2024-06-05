@@ -4,7 +4,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed; /* Changed to fixed */
+    position: fixed; 
     width: 100%; /* Make navbar span the full width */
     top: 0;
     z-index: 10;

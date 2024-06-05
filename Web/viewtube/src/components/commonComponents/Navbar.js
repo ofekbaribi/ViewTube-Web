@@ -8,7 +8,6 @@ import upload from '../../assets/upload.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './Searchbar';
 import { useUser } from '../../contexts/UserContext';
-import { Navigate } from 'react-router-dom';
 
 
 const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQuery }) => {
@@ -68,17 +67,17 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQ
         </div>)}
         
         <div class="dark-mode-toggle">
-  <input
-    class="dark-mode-checkbox"
-    type="checkbox"
-    id="darkmode-toggle"
-    checked={darkMode}
-    onChange={toggleDarkMode}
-  />
-  <label class="dark-mode-label" for="darkmode-toggle">
-    <span class="dark-mode-text">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
-    <span class="dark-mode-slider" ></span>
-  </label>
+         <input
+            class="dark-mode-checkbox"
+            type="checkbox"
+            id="darkmode-toggle"
+            checked={darkMode}
+            onChange={toggleDarkMode}
+        />
+        <label class="dark-mode-label" for="darkmode-toggle">
+        <span class="dark-mode-text">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+        <span class="dark-mode-slider" ></span>
+    </label>
 </div>
 
       </div>

@@ -1,7 +1,7 @@
 /* Feed.css */
 
 .feed {
-  margin-top: 80px; /* Adjusted margin-top */
+  margin-top: 60px;
   font-family: "Roboto", sans-serif;
 }
 
@@ -19,6 +19,7 @@
 .video-item {
   border-radius: 8px;
   overflow: hidden;
+  
 }
 
 .video-thumbnail img {
@@ -84,4 +85,5 @@
     justify-self: center;
     text-align: center;
   }
+  
 }

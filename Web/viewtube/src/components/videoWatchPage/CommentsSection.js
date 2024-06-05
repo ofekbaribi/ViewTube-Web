@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CommentsSection.css';
+import Profile from '../../assets/profile-circle.jpg'
 
 function CommentsSection() {
   const [comments, setComments] = useState([
@@ -7,12 +8,14 @@ function CommentsSection() {
     { id: 2, text: 'Very informative.', author: 'Ziv' },
     { id: 3, text: 'I love my mom.', author: 'Yuval' },
   ]);
-
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   const [newComment, setNewComment] = useState('');
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    setComments([...comments, { id: comments.length + 1, text: newComment, author: 'CurrentUser' }]);
+    {currentUser ? (setComments([...comments, { id: comments.length + 1, text: newComment, author: currentUser.username }])):
+    setComments([...comments, { id: comments.length + 1, text: newComment, author: 'Guest' }])}
+    
     setNewComment('');
   };
   
@@ -23,7 +26,8 @@ function CommentsSection() {
         <div className="comment-count">{comments.length} Comments</div>
       </div>
       <div className="comment-input">
-        <img src='/media/bibi.jpg' alt="Profile" className="profile-image" />
+      {currentUser ? (<img src={currentUser.image} alt='profile picture' className="rounded-circle profile-image" width="40" height="40" />):
+      (<img src={Profile} alt='profile picture' className="rounded-circle profile-image" width="40" height="40" />)}
         <input
           type="text"
           value={newComment}

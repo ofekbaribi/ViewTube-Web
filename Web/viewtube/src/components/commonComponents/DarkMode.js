@@ -14,7 +14,7 @@ const DarkMode = ({ darkMode, setDarkMode }) => {
   };
 
   return (
-    <div className="dark_mode">
+    <div >
 
     </div>
   );

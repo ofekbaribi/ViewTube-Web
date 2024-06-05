@@ -66,29 +66,33 @@
 }
 
 .title {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 550;
   line-height: 1.2;
   color: #000;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  width: 400px;
+  text-align: left; /* Align text to the left */
 }
+
 
 [data-theme='dark'] .title{
   color: white;
 }
 
 .author {
-  font-size: 12px;
+  font-size: 14px;
   color: #606060;
   margin: 2px 0;
+  margin-right: 130px;
 }
 
 .metadata {
-  font-size: 12px;
+  font-size: 14px;
   color: #606060;
+  margin-right: 50px
 }
 
 .no-link-style {
