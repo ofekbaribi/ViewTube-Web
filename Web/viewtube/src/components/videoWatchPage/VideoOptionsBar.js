@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './VideoOptionsBar.css';
 import like_icon from '../../assets/like.svg';
 import dislike_icon from '../../assets/dislike.svg';
@@ -9,6 +9,7 @@ import UploaderDetails from './UploaderDetails';
 function VideoOptionsBar({ video }) {
   const videoUplaoder = video.author;
   const users = JSON.parse(sessionStorage.getItem('users')) || [];
+  const videoRef = useRef(null);
   
   let uploaderImage;
   if (video.id <= 10) {
@@ -17,6 +18,24 @@ function VideoOptionsBar({ video }) {
     const user = users.find(user => user.username === video.author);
     uploaderImage = user ? user.profilePicture : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
   }
+
+  const handleDownload = () => {
+    const videoUrl = video.videoURL;
+    const a = document.createElement('a');
+    a.href = videoUrl;
+    a.download = "video.mp4";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const handleShare = async () => {
+        await navigator.share({
+          title: 'Check out this video!',
+          text: `Check out this video by ${videoUplaoder}`,
+          url: video.videoURL,
+        });
+  };
 
   return (
     <div className="videoOptionsBar">
@@ -34,11 +53,11 @@ function VideoOptionsBar({ video }) {
           <img src={dislike_icon} alt="dislike icon" className="dislike-image" />
         </div>
       </div>
-      <div className="video-share">
+      <div className="video-share" onClick={handleShare}>
         <img src={share_icon} alt="share icon" className="share-image"/> Share    
       </div>
-      <div className="video-download">
-        <img src={download_icon} alt="download icon" /> Download    
+      <div className="video-download" onClick={handleDownload}>
+        <img src={download_icon} alt="download icon"  /> Download    
       </div>
     </div>
   );
