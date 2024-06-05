@@ -1,0 +1,41 @@
+/* SearchResultItem.css */
+.search-result-item {
+    display: flex;
+    align-items: flex-start; /* Align items at the start of the cross axis */
+    padding: 10px; /* Add padding to the search result item */
+  }
+  
+  .search-result-item .thumbnail-container {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+  
+  .search-result-item .thumbnail-container img {
+    width: 240px; /* Adjust thumbnail width to make it much bigger */
+    height: auto;
+    border-radius: 4px; /* Add border radius to the thumbnail */
+  }
+  
+  .search-result-item .video-details {
+    flex-grow: 1;
+  }
+  
+  .search-result-item .title {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #030303; /* Match YouTube's title text color */
+    overflow: hidden; /* Add overflow property to truncate long titles */
+    text-overflow: ellipsis; /* Add ellipsis for truncated text */
+    white-space: nowrap; /* Prevent title from wrapping */
+  }
+  
+  .search-result-item .author {
+    font-size: 14px;
+    color: #606060; /* Match YouTube's author text color */
+  }
+  
+  .search-result-item .metadata {
+    font-size: 14px;
+    color: #606060; /* Match YouTube's metadata text color */
+  }
+  

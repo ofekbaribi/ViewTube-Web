@@ -2,11 +2,15 @@
     padding: 20px;
     max-width: 600px;
     margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .upload-page h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #333;
   }
   
   .upload-page form {
@@ -15,27 +19,30 @@
   }
   
   .upload-page form div {
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* Increased margin-bottom */
   }
   
   .upload-page form label {
     margin-bottom: 5px;
     font-weight: bold;
+    color: #555;
   }
   
   .upload-page form input {
-    padding: 8px;
+    padding: 10px; /* Increased padding */
     border: 1px solid #ccc;
     border-radius: 4px;
+    outline: none; /* Remove outline on focus */
   }
   
   .upload-page form button {
-    padding: 10px;
+    padding: 12px 20px; /* Adjusted padding */
     background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Added transition */
   }
   
   .upload-page form button:hover {

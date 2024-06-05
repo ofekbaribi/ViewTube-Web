@@ -10,6 +10,7 @@ const SearchBar = ({ onSearch }) => {
 
     const handleSearch = () => {
         onSearch(searchQuery);
+
     };
 
     const handleKeyPress = (event) => {

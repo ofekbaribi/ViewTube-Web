@@ -1,13 +1,13 @@
 /* Feed.css */
 
 .feed {
-  margin-top: 20px;
+  margin-top: 80px; /* Adjusted margin-top */
   font-family: "Roboto", sans-serif;
 }
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 20px;
 }
 
@@ -19,7 +19,6 @@
 .video-item {
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .video-thumbnail img {
@@ -85,5 +84,4 @@
     justify-self: center;
     text-align: center;
   }
-  
 }

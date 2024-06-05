@@ -4,6 +4,7 @@ import styles from './Home.css';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
 
+
 const Home = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -14,19 +15,19 @@ const Home = () => {
 
     const handleSearch = (query) => {
         setSearchQuery(query);
+        window.location.href = `/?search=${encodeURIComponent(query)}`;
     };
 
     const handleSearchInputChange = (event) => {
         setSearchQuery(event.target.value);
+        
     };
 
-    const clearSearchQuery = () => {
-        setSearchQuery('');
-    };
+
 
     return (
         <>
-            <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} clearSearchQuery={clearSearchQuery} />
+            <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
             <div className={styles.homePage}>
                 <Sidebar isOpen={sidebarOpen} />
                 <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>

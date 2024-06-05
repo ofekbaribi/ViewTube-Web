@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { fetchVideoDetails } from '../data/videoService';
 import VideoPlayer from '../components/videoWatchPage/VideoPlayer';
 import VideoDetails from '../components/videoWatchPage/VideoDetails';
@@ -9,13 +9,15 @@ import Navbar from '../components/commonComponents/Navbar';
 import './VideoWatch.css';
 import Sidebar from '../components/commonComponents/Sidebar';
 
+
 function VideoWatch() {
   const { videoId } = useParams();
   const [video, setVideo] = useState(null);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar
-  
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -39,6 +41,12 @@ function VideoWatch() {
     getVideoDetails();
   }, [videoId]); // Depend on videoId
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    // Redirect to homepage with search query as URL parameter
+    window.location.href = `/?search=${query}`;
+  };
+  
   if (error) {
     return <div>{error}</div>;
   }
@@ -46,9 +54,13 @@ function VideoWatch() {
   if (!video) {
     return <div>Loading...</div>;
   }
+
+  
+
+
   return (
     <div>
-      <div><Navbar toggleSidebar={toggleSidebar} /></div>
+      <Navbar toggleSidebar={toggleSidebar} onSearch={handleSearch} />
       <Sidebar isOpen={sidebarOpen} />
       <div className="videoMain">
         <VideoPlayer videoUrl={video.videoURL} />
@@ -56,7 +68,7 @@ function VideoWatch() {
         <CommentsSection />
       </div>
       <div className="relatedVideosBar">
-        <RelatedVideos />
+        <RelatedVideos searchQuery={searchQuery} />
       </div>
     </div>
   );
