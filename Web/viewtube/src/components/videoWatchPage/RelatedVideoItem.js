@@ -7,7 +7,7 @@ function RelatedVideoItem({ id, title, author, views, date, duration, imgURL }) 
   return (
     <Link to={`/video/${id}`} className="no-link-style">
       <div className="relatedVideoItem">
-      <div className="thumbnail-container">
+        <div className="thumbnail-container">
           <img src={imgURL} alt="video thumbnail" />
           <span className="video-duration">{duration}</span>
         </div>
