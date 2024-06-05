@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/bootstrap.min.css';
 import './Login.css';
@@ -7,7 +7,9 @@ import NewUsernameForm from '../components/RegisterComponents/NewUsernameForm';
 import NewNameForm from '../components/RegisterComponents/NewNameForm';
 import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
 import NewImageForm from '../components/RegisterComponents/NewImageForm';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
+import UploaderDetails from '../components/videoWatchPage/UploaderDetails';
+import { useUser } from '../contexts/UserContext';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -15,11 +17,13 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [passwordError, setPasswordError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [nameError, setNameError] = useState('');
-  const Navigate = useNavigate();
+  const [imagePreview, setImagePreview] = useState(null);
+  const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
@@ -37,9 +41,7 @@ const Register = () => {
     const isValidLength = username.length < 2;
 
     return !(hasUpperCase && hasSpecialChar && isValidLength);
-  }
-
-
+  };
 
   const validateName = (firstName, lastName) => {
     const firstNameHasNumber = /\d/.test(firstName);
@@ -70,33 +72,40 @@ const Register = () => {
     const users = JSON.parse(sessionStorage.getItem('users')) || [];
     const user = users.find(user => user.username === username)
     if (user) {
-      setUsernameError('Username already exist!')
+      setUsernameError('Username already exist!');
       return false;
     } else if (validateUsername(username)) {
-      setUsernameError('Username can only contain lowercase letters!')
-    } else if (validateName(firstName, lastName)) {
-
+      setUsernameError('Username can only contain lowercase letters!');
+      return false;
+    } else if (!validateName(firstName, lastName)) {
+      setNameError('Name validation failed!');
+      return false;
+    } else {
+      setUsernameError('');
+      return true;
     }
-    return true;
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (handleUsernameSubmit() && handlePasswordSubmit()) {
       const users = JSON.parse(sessionStorage.getItem('users')) || [];
-      users.push({ username, firstName, lastName, password, image });
+      const newUser = { username, firstName, lastName, password, image };
+      users.push(newUser);
       sessionStorage.setItem('users', JSON.stringify(users));
+      sessionStorage.setItem('currentUser', JSON.stringify(newUser));
+      setUser(newUser);
       alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
-      Navigate('/login')
+      navigate('/');
     }
-  }
+  };
 
   return (
     <div className='login-page'>
-      <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="register-page">
         <div className="login-container">
-        <h2 className="d-flex align-items-center">
-            Create a <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> Account
+          <h2 className="d-flex align-items-center">
+            Create a <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> account
           </h2>
           <form onSubmit={handleSubmit} className="position-relative">
             <NewUsernameForm
@@ -105,7 +114,7 @@ const Register = () => {
               usernameError={usernameError}
               setUsernameError={setUsernameError}
             />
-            <NewNameForm
+                        <NewNameForm
               firstName={firstName}
               setFirstName={setFirstName}
               lastName={lastName}
@@ -122,19 +131,20 @@ const Register = () => {
               setPasswordError={setPasswordError}
             />
             <NewImageForm
-              image={image}
               setImage={setImage}
+              setImagePreview={setImagePreview}
+              imagePreview={imagePreview}
             />
             <div id="passwordReq">
               <a className='passwordReq' target="_blank" draggable="false" data-tooltip='Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'>
                 ???
               </a>
             </div>
-            <br/>
+            <br />
             <button type="submit" className="btn btn-primary">Register</button>
-            <br/><br/>
+            <br /><br />
             <label htmlFor="member" className="form-label">Already a member?</label>
-            <br/>
+            <br />
             <Link to="/login">Log in</Link>
           </form>
         </div>
@@ -144,3 +154,4 @@ const Register = () => {
 };
 
 export default Register;
+
