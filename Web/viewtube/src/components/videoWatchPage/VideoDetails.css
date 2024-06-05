@@ -1,18 +1,10 @@
-.relatedVideos {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.relatedVideos h3 {
+.video-title {
+  position: relative;
+  font-size: 20px;
   margin-bottom: 10px;
+  text-align: left;
+  right: 100px;
+
 }
 
-.relatedVideos ul {
-  list-style-type: none;
-  padding: 0;
-}
 
-.relatedVideos li {
-  margin-bottom: 10px;
-}

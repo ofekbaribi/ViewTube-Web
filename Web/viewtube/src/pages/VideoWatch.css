@@ -11,14 +11,13 @@
     
   }
   
-  .videoMain {
+  .videoMain-container {
     left: 160px;
     position: relative;
     float: left;
     width: 60%;
     height: 10%;
     padding-left: 20px;
-    background-color: #ffffff;
     margin-top: 55px;
   }
   

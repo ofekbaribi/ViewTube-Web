@@ -28,10 +28,8 @@ function VideoWatch() {
         if (!videoData) {
           throw new Error('Video not found');
         }
-        console.log('Fetched video data:', videoData); // Debugging
         setVideo(videoData);
       } catch (err) {
-        console.error('Failed to fetch video details:', err); // Debugging
         setError('Failed to fetch video details');
       }
     };
@@ -50,7 +48,7 @@ function VideoWatch() {
     <div>
       <div><Navbar toggleSidebar={toggleSidebar} /></div>
       <Sidebar isOpen={sidebarOpen} />
-      <div className="videoMain">
+      <div className="videoMain-container">
         <VideoPlayer videoUrl={video.videoURL} />
         <VideoDetails video={video} />
         <CommentsSection />
