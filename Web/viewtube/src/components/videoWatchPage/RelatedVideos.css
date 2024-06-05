@@ -6,4 +6,8 @@
     margin-left: 30px;
     
   }
+  [data-theme='dark'] .relatedVideos1{
+    background-color: #151515;
+  }
+  
   

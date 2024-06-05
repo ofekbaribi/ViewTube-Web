@@ -38,3 +38,7 @@
   .commentsSection button:hover {
     background-color: #45a049;
   }
+  [data-theme='dark'] .commentsSection{
+    background-color: #151515;
+  }
+  

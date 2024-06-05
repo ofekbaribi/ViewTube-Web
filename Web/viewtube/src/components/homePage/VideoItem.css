@@ -76,6 +76,10 @@
   white-space: nowrap;
 }
 
+[data-theme='dark'] .title{
+  color: white;
+}
+
 .author {
   font-size: 12px;
   color: #606060;

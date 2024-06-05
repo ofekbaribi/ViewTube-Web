@@ -3,13 +3,18 @@
     position: fixed;
     width: 200px; 
     height: 100%;
-    background-color: #fff;
     z-index: 1000;
-    top: 60px; /* Adjusted top position to be below the navbar */
+    background: white;
+    top: 64px; /* Adjusted top position to be below the navbar */
+}
+[data-theme='dark'] .sidebar{
+    background: rgb(17, 17, 17);
 }
 
+
 .sidebar.closed {
-    width: 45px; 
+
+    width: 80px; 
 }
 
 .shortcut-links {
@@ -37,3 +42,8 @@
 .sidebar.open .side-links img {
     margin-right: 10px;
 }
+
+[data-theme='dark'] .sidebar img{
+    filter: invert(100%);
+}
+

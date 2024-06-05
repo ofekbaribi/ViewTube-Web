@@ -13,11 +13,11 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/video/:videoId" element={<VideoWatch />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/video/:videoId" element={<VideoWatch />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/" element={<Home />} />
         </Routes>
       </div>
     </Router>
