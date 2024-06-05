@@ -14,11 +14,10 @@ const Login = () => {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { setUser, users } = useUser();
 
   const handleUsernameSubmit = (event) => {
     event.preventDefault();
-    const users = JSON.parse(sessionStorage.getItem('users')) || [];
     if (!username) {
       setUsernameError('Please fill out this field.');
     } else if (!users.find(user => user.username === username)) {
@@ -31,13 +30,10 @@ const Login = () => {
 
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
-    const users = JSON.parse(sessionStorage.getItem('users')) || [];
     const detailsMatching = users.find(user => user.username === username && user.password === password);
     if (detailsMatching) {
-      sessionStorage.setItem('currentUser', JSON.stringify(detailsMatching));
       setUser(detailsMatching);
       alert('Login successful');
-      console.log(sessionStorage.getItem('currentUser'));
       navigate('/');
     } else {
       setPasswordError('Invalid username or password.');

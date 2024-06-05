@@ -21,7 +21,7 @@ const NewImageForm = ({ setImage, setImagePreview, imagePreview }) => {
 
   return (
     <div className="mb-3">
-      <label className="form-label" htmlFor="profilePicture">Upload profile Picture</label>
+      <label className="form-label" htmlFor="profilePicture">Upload profile picture</label>
       <input 
         type="file" 
         className="form-control" 
@@ -29,7 +29,10 @@ const NewImageForm = ({ setImage, setImagePreview, imagePreview }) => {
         onChange={handleImageChange} 
         required
       />
-      {imagePreview && <img src={imagePreview} alt="Preview" className="img-preview mt-2" />}
+      {imagePreview && 
+        <div className='image-preview-container'> 
+        <img src={imagePreview} alt="Preview" className="mt-2" />
+        </div>}
     </div>
   );
 };
