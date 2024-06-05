@@ -4,17 +4,33 @@
     align-items: center;
     gap: 30px;
 }
+.video-uploader {
+    position: relative;
+    margin-bottom: 10px;
+    text-align: left;
+    right: 100px;
+    max-width: 100%;
+    transform: scale(0.9);
+  }
 
-
-
-.video-author {
-    display: absolute;
-    font-size: 20px;
+  .video-subscribe {
+    background-color: black; /* Semi-transparent background for better visibility */
+    color: rgb(255, 255, 255); /* Text color */
+    padding: 5px; /* Padding around the text */
+    border-radius: 10px; /* Rounded corners for the text box */
+    font-size: 10px;
+    font-weight: bold;
+    transform: scale(1.4);
+    position: relative;
+    text-align: left;
+    right: 100px;
+    max-width: 100%;
+    cursor: pointer;
 }
 
 .video-likes-dislikes {
     display: flex;
-    margin-left: 250px;
+    margin-left: 220px;
     background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
     color: rgb(0, 0, 0); /* Text color */
     border-radius: 10px; /* Rounded corners for the text box */
@@ -39,10 +55,8 @@
     cursor: pointer;
     transform: scale(0.9);
 }
-.video-likes:hover, .video-dislikes:hover {
-    background-color: rgba(155, 151, 151, 0.5); /* Semi-transparent background for better visibility */
-    transform: scale(1); /* Increase size slightly */
-  }
+
+
 .dislike-image {
     transform: scaleX(-1);
 }
@@ -61,7 +75,7 @@
     border-radius: 10px; /* Rounded corners for the text box */
     font-size: 10px; /* Font size */
     transform: scale(1.4);
-  
+    cursor: pointer;
   }
 .share-image {
     transform: scaleX(-1);
@@ -77,11 +91,12 @@
     font-size: 10px; /* Font size */
     transform: scale(1.4);
     margin-left: 10px;
-
+    cursor: pointer;
 }
 
-.video-share:hover, .video-download:hover {
+.video-likes:hover, .video-dislikes:hover, .video-share:hover, .video-download:hover {
     background-color: rgba(155, 151, 151, 0.5); /* Semi-transparent background for better visibility */
-    transform: scale(1.5); /* Increase size slightly */
   }
+
+
   
