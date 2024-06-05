@@ -1,31 +1,39 @@
+/* Sidebar.css */
 .sidebar {
     position: fixed;
-    width: 250px;
+    width: 200px; 
     height: 100%;
     background-color: #fff;
-    transition: transform 0.3s ease;
-    transform: translateX(-100%);
     z-index: 1000;
-}
-
-.sidebar.open {
-    transform: translateX(0);
+    top: 60px; /* Adjusted top position to be below the navbar */
 }
 
 .sidebar.closed {
-    transform: translateX(-100%);
+    width: 45px; 
 }
 
 .shortcut-links {
-    padding: 10px;
+    padding: 20px;
 }
 
 .side-links {
     display: flex;
     align-items: center;
-    padding: 10px 0;
+    padding: 15px 0;
 }
 
-.side-links img {
+.side-links:hover {
+    transform: scale(1.05);
+}
+
+.side-links p {
+    font-size: 12px; /* Default font size */
+}
+
+.sidebar.open .side-links p {
+    font-size: 14px; /* Increase font size when sidebar is open */
+}
+
+.sidebar.open .side-links img {
     margin-right: 10px;
 }

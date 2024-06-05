@@ -1,6 +1,6 @@
 .homePage {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .container {
@@ -9,5 +9,5 @@
 }
 
 .sidebar-open .container {
-  margin-left: 250px; /* Adjust according to your sidebar width */
+  margin-left:400px; 
 }
