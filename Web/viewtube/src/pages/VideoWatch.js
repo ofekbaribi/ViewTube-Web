@@ -39,6 +39,10 @@ function VideoWatch() {
     getVideoDetails();
   }, [videoId]); // Depend on videoId
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top whenever videoId changes
+  }, [videoId]);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     // Redirect to homepage with search query as URL parameter

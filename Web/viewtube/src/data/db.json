@@ -8,56 +8,107 @@
     "likes": 6,
     "date": "26/05/2021",
     "duration": "01:24:43",
-    "imgURL": "/media/bibi.jpg",
-    "videoURL": "/media/omeradam.mp4"
+    "videoURL": "/media/feel.mp4"
   },
     {
       "id": 2,
-      "title": "Ibiza Summer Mix 2024 🍓 Best Of Tropical Deep House Music Chill Out Mix 2023 🍓 Chillout Lounge", 
-      "description": "all lahav friend asking him why are you gay?",
+      "title": "Feel So Close x Roses x Summer x I Love It MASHUP", 
+      "description": "Summer Mashup Vol.1 (Feel so Close Hudszn Remix)",
       "author": "Ziv Elbaz",
       "views": 100,
       "likes": 354,
       "date": "26/05/2021", 
       "duration": "01:10:23",
-      "imgURL": "/media/lahav.jpg", 
-      "videoURL": "/media/video2.mp4"
+      "videoURL": "/media/deep.mp4"
     },
     {
       "id": 3,
-      "title": "why always me??????", 
-      "description": "Description for Video 1",
-      "author": "Author 1",
+      "title": "נס X סטילה - חרבו דרבו (Prod. By Stilla)", 
+      "description": "מילים ולחן: דור סורוקר, נסיה לוי, אנדרדוג (אוראל שמאילוב) ורוישה (רוי שני כרמל)",
+      "author": "Ness Ve Stilla",
       "views": 40,
       "likes": 200,
       "date": "26/05/2021", 
       "duration": "52:39",
-      "imgURL": "/media/balu.jpg", 
-      "videoURL": "/media/video3.mp4"
+      "videoURL": "/media/video2.mp4"
     },
     {
       "id": 4,
-      "title": "Video 404 not found", 
-      "description": "Description for Video 1sdas",
+      "title": "AM I WRONG || REMIX 2024", 
+      "description": "check this🔥",
       "author": "Author 404",
       "views": 999,
       "likes": 200,
       "date": "26/05/2021", 
       "duration": "01:10:23",
-      "imgURL": "/media/mecg.jpg", 
-      "videoURL": "/media/omeradam.mp4"
+      "videoURL": "/media/wrong.mp4"
     },
     {
       "id": 5,
-      "title": "ma kore 1", 
-      "description": "Description for sdas ",
-      "author": "Author 1",
-      "views": 400,
-      "likes": 200,
-      "date": "26/05/2021", 
-      "duration": "02:10:23",
-      "imgURL": "/media/bibi.jpg", 
-      "videoURL": "/media/omeradam.mp4"
+      "title": "Jonas Blue, Galantis, Zoe Wees - Mountains (Official Audio)", 
+      "description": "Jonas Blue, Galantis, Zoe Wees - Mountains (Official Lyric Video)",
+      "author": "CS biu",
+      "views": 111,
+      "likes": 1111,
+      "date": "11/11/2021", 
+      "duration": "01:11:11",
+      "videoURL": "/media/mountains.mp4"
+    },
+    {
+      "id": 6,
+      "title": "Payphone - Maroon 5 (Lyrics - No rap)", 
+      "description": "Jonas Blue, Galantis, Zoe Wees - Mountains (Official Lyric Video)",
+      "author": "Maroon 5",
+      "views": 106,
+      "likes": 124,
+      "date": "19/01/2024", 
+      "duration": "03:11",
+      "videoURL": "/media/payphone.mp4"
+    },
+    {
+      "id": 7,
+      "title": "Calvin Harris - Summer (Lyrics)", 
+      "description": "🎵 Follow the official 7clouds playlist on Spotify : http://spoti.fi/2SJsUcZ ​🎧 Calvin Harris - Summer (Lyrics)⏬ Download / Stream: https://open.spotify.com/track/6YUTL4...🔔 Turn on notifications to stay updated with new uploads!",
+      "author": "Calvin Harris",
+      "views": 106,
+      "likes": 124,
+      "date": "19/01/2024", 
+      "duration": "03:11",
+      "videoURL": "/media/summer.mp4"
+    },
+    {
+      "id": 8,
+      "title": "Wake Me Up x Beautiful life remix", 
+      "description": "🎵 Follow the official 7clouds playlist on Spotify ",
+      "author": "CS biu",
+      "views": 106,
+      "likes": 124,
+      "date": "19/01/2024", 
+      "duration": "03:11",
+      "videoURL": "/media/wake.mp4"
+    },
+    {
+      "id": 9,
+      "title": "Whistle - Flo Rida [Vietsub + Lyrics]", 
+      "description": "🎵 Follow the official 7clouds playlist on Spotify ",
+      "author": "CS biu",
+      "views": 106,
+      "likes": 124,
+      "date": "19/01/2024", 
+      "duration": "03:11",
+      "videoURL": "/media/whistle.mp4"
+    },
+    {
+      "id": 10,
+      "title": "Pantropiko x Shape of You remix", 
+      "description": "🎵 Follow the official 7clouds playlist on Spotify ",
+      "author": "CS biu",
+      "views": 106,
+      "likes": 124,
+      "date": "19/01/2024", 
+      "duration": "03:11",
+      "videoURL": "/media/shape.mp4"
     }
+    
 ]
   
