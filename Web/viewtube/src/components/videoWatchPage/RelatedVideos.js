@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RelatedVideoItem from './RelatedVideoItem';
 import videos from '../../data/db.json';
-import './RelatedVideos.css';
+
 
 function RelatedVideos() {
   const [videosList, setVideosList] = useState([]);
@@ -11,7 +11,7 @@ function RelatedVideos() {
   }, []);
 
   return (
-    <div className="relatedVideos1">
+    <div >
       {videosList.map((video) => (
         <RelatedVideoItem {...video} />
       ))} 

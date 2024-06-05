@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './CommentsSection.css';
 
-function CommentsSection (){
+function CommentsSection() {
   const [comments, setComments] = useState([
     { id: 1, text: 'Great video!', author: 'Ofek' },
     { id: 2, text: 'Very informative.', author: 'Ziv' },
-    { id: 2, text: 'I love my mom.', author: 'Yuval' },
+    { id: 3, text: 'I love my mom.', author: 'Yuval' },
   ]);
 
   const [newComment, setNewComment] = useState('');
@@ -15,10 +15,24 @@ function CommentsSection (){
     setComments([...comments, { id: comments.length + 1, text: newComment, author: 'CurrentUser' }]);
     setNewComment('');
   };
+  
 
   return (
-    <div className="commentsSection">
-      <h3>Comments</h3>
+    <div className="comment-section">
+      <div className="comment-header">
+        <div className="comment-count">{comments.length} Comments</div>
+      </div>
+      <div className="comment-input">
+        <img src='/media/bibi.jpg' alt="Profile" className="profile-image" />
+        <input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Add a comment..."
+          className="input-box"
+        />
+        <button type="submit" className="submit-button" onClick={handleCommentSubmit}>Submit</button>
+      </div>
       <ul>
         {comments.map((comment) => (
           <li key={comment.id}>
@@ -26,17 +40,9 @@ function CommentsSection (){
           </li>
         ))}
       </ul>
-      <form onSubmit={handleCommentSubmit}>
-        <input
-          type="text"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment"
-        />
-        <button type="submit">Submit</button>
-      </form>
+
     </div>
   );
-};
+}
 
 export default CommentsSection;

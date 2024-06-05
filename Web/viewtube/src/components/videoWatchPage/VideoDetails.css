@@ -5,9 +5,28 @@
   margin-bottom: 10px;
   text-align: left;
   right: 100px;
+  max-width: 100%;
 }
+
+.video-description {
+  position: relative;
+  background-color: #d1d1d1; /* Light gray background */
+  text-align: left;
+  font-size: 13px;
+  padding: 15px;
+  border-radius: 10px; /* Rounded corners */
+  right: 100px;
+  max-width: 100%;
+  margin: 20px auto; /* Center align with margin */
+  color: #000;
+}
+
+
 [data-theme='dark'] .videoDetails{
   background-color: #151515;
+}
+[data-theme='dark'] .video-title{
+  color: white;
 }
 
 

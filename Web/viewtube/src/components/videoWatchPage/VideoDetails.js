@@ -8,10 +8,8 @@ function VideoDetails({ video }) {
       <div className='video-title'>
         <p>{video.title}</p>
       </div>
-      <div>
-        <VideoOptionsBar video={video} />
-      </div>
-      <div>
+      <VideoOptionsBar video={video} />
+      <div className='video-description'>
         <p>{video.description}</p>
       </div>
     </div>
