@@ -5,11 +5,22 @@ import menu_icon from '../../assets/menu.svg';
 import logo from '../../assets/logo.png';
 import dark_logo from '../../assets/logo-dark.png';
 import upload from '../../assets/upload.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './Searchbar';
+import { useUser } from '../../contexts/UserContext';
+import { Navigate } from 'react-router-dom';
+
 
 const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQuery }) => {
   const [darkMode, setDarkMode] = useState(false);
+  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const { logout }=useUser();
+  const Navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    Navigate('/')
+  }
 
   useEffect(() => {
     const theme = darkMode ? 'dark' : 'light';
@@ -39,27 +50,37 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQ
             <img className='upload-icon' src={upload} alt="upload icon" />
           </Link>
         </div>
-        <div className='log_reg'>
+        
+        {currentUser ? (
+            <div className='profile-pic'>
+            <Link to="/">
+            <img  src={currentUser.image} alt='profile picture' className="rounded-circle" width="40" height="40" />
+            </Link>
+            <button className='btn btn-primary logout' onClick={handleLogout}>Logout</button>
+            </div>
+        ): (<div className='log-reg'>
         <Link to="/login">
-            <p className='login-icon'  alt="login">Login</p>
+            <p className='login'  alt="login">Login</p>
           </Link>
           <Link to="/register">
-            <p className='login-icon'  alt="login">Register</p>
+            <p className='register'  alt="register">Register</p>
           </Link>
-        </div>
-        <div>
-          {/* Dark Mode toggle */}
-          <input
-            className="dark_mode_input"
-            type="checkbox"
-            id="darkmode-toggle"
-            checked={darkMode}
-            onChange={toggleDarkMode}
-          />
-          <label className="dark_mode_label" htmlFor="darkmode-toggle">
-            {darkMode ? 'Light Mode' : 'Dark Mode'}
-          </label>
-        </div>
+        </div>)}
+        
+        <div class="dark-mode-toggle">
+  <input
+    class="dark-mode-checkbox"
+    type="checkbox"
+    id="darkmode-toggle"
+    checked={darkMode}
+    onChange={toggleDarkMode}
+  />
+  <label class="dark-mode-label" for="darkmode-toggle">
+    <span class="dark-mode-text">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+    <span class="dark-mode-slider" ></span>
+  </label>
+</div>
+
       </div>
     </nav>
   );

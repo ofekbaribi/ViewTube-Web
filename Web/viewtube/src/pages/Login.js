@@ -37,6 +37,7 @@ const Login = () => {
       sessionStorage.setItem('currentUser', JSON.stringify(detailsMatching));
       setUser(detailsMatching);
       alert('Login successful');
+      console.log(sessionStorage.getItem('currentUser'));
       navigate('/');
     } else {
       setPasswordError('Invalid username or password.');

@@ -84,18 +84,98 @@ nav {
 }
 
 /* Styles for right section */
-.nav-right img {
+.nav-right .upload-icon {
     width: 20px;
     margin-right: 25px;
 }
-[data-theme='dark']  .nav-right img {
+[data-theme='dark']  .nav-right .upload-icon {
     filter: invert(100%);
 }
 
-.log_reg p {
-    display: inline-block;
-    margin-right: 10px;
+
+
+.profile-pic img {
+    width: 40;
+    height: 40;
+    margin-right: 25px;
+
+
+    
 }
 
+/* Toggle container */
+.dark-mode-toggle {
+    display: inline-block;
+  }
+  
+  /* Hide default checkbox */
+  .dark-mode-checkbox {
+    display: none;
+  }
+  
+  /* Slider */
+  .dark-mode-slider {
+    
+    position: sticky;
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    background-color: #aeaeae;
+    border-radius: 20px;
+  }
+  
+  /* Slider button */
+  .dark-mode-slider::before {
+    position: absolute;
+    content: '';
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Checked state */
+  .dark-mode-checkbox:checked + .dark-mode-label .dark-mode-slider::before {
+    transform: translateX(20px);
+  }
+  
+  /* Label */
+  .dark-mode-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90px;
+    height: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 2px;
+  }
+  
+  /* Text */
+  .dark-mode-text {
+    font-size: 12px;
+    margin: 0 4px;
+  }
+  
+  [data-theme='light'] .sidebar{
+    color: rgb(17, 17, 17);
+}
+[data-theme='dark'] .sidebar{
+    color: rgb(255, 247, 247);
+}
+
+.nav-right .log-reg p {
+    display: inline-block;
+    margin-right: 10px;
+    align-items: center;
+    height: 15px;
+
+}
+.logout {
+    margin-right: 3px;
+}  
  
 
