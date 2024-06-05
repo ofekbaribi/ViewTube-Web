@@ -3,8 +3,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchResultItem.css'; // Import the CSS file for SearchResultItem
 
-function SearchResultItem({ id, title, author, views, date, duration, videoURL }) {
+function SearchResultItem({ id, title, author, views, date, videoURL }) {
   const [thumbnail, setThumbnail] = useState('');
+  const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -21,8 +22,14 @@ function SearchResultItem({ id, title, author, views, date, duration, videoURL }
     video.src = videoURL;
     video.crossOrigin = 'anonymous'; // Allow cross-origin resource sharing if needed
     video.load();
-    video.currentTime = 7; // Set the time to capture the thumbnail
 
+    video.addEventListener('loadedmetadata', function () {
+      const minutes = Math.floor(video.duration / 60);
+      const seconds = Math.floor(video.duration % 60);
+      setDuration(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
+    });
+
+    video.currentTime = 7; // Set the time to capture the thumbnail
 
     video.addEventListener('seeked', function () {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
