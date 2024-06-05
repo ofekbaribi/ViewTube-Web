@@ -2,22 +2,36 @@ import React from 'react';
 import '../../css/bootstrap.min.css';
 import '../../pages/Login.css';
 
-const NewImageForm = ({ image, setImage }) => {
-  const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
+const NewImageForm = ({ setImage, setImagePreview, imagePreview }) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   return (
-    <div className="input-group custom-file-button mb-3">
-      <label className="input-group-text mb-3" htmlFor="inputGroupFile">Profile Picture</label>
-      <input 
-        type="file" 
-        className="form-control" 
-        id="inputGroupFile"
-        onChange={handleImageChange}
-      />
+    <div className="mb-3">
+      <label className="form-label">Upload profile Picture</label>
+      <div className="input-group">
+        <input
+          type="file"
+          className="form-control"
+          id="inputGroupFile"
+          onChange={handleImageChange}
+          accept="image/*"
+        />
+      </div>
+      {imagePreview && (
+        <div className="mt-3 image-preview-container">
+          <img src={imagePreview} alt="Profile Preview" className="img-thumbnail" />
+        </div>
+      )}
     </div>
   );
 };
