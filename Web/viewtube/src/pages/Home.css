@@ -1,6 +1,6 @@
 .homePage {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .container {
@@ -8,6 +8,3 @@
   padding: 20px;
 }
 
-.sidebar-open .container {
-  margin-left:400px; 
-}
