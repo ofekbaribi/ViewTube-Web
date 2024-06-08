@@ -5,18 +5,18 @@ import dislike_icon from '../../assets/dislike.svg';
 import share_icon from '../../assets/share.svg';
 import download_icon from '../../assets/download.svg';
 import UploaderDetails from './UploaderDetails';
+import { useUser } from '../../contexts/UserContext';
 
 function VideoOptionsBar({ video }) {
   const videoUplaoder = video.author;
-  const users = JSON.parse(sessionStorage.getItem('users')) || [];
   const videoRef = useRef(null);
+  const { currentUser } = useUser();
   
   let uploaderImage;
   if (video.id <= 10) {
     uploaderImage = ('/media/lahav.jpg');
   } else {
-    const user = users.find(user => user.username === video.author);
-    uploaderImage = user ? user.profilePicture : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
+    uploaderImage = currentUser ? currentUser.image : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
   }
 
   const handleDownload = () => {

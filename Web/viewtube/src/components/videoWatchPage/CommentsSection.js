@@ -1,33 +1,39 @@
+// src/components/videoWatchPage/CommentsSection.js
 import React, { useState } from 'react';
 import './CommentsSection.css';
-import Profile from '../../assets/profile-circle.jpg'
+import Profile from '../../assets/profile-circle.jpg';
+import { useComments } from '../../contexts/CommentsContext';
+import { useUser } from '../../contexts/UserContext';
 
-function CommentsSection() {
-  const [comments, setComments] = useState([
-    { id: 1, text: 'Great video!', author: 'Ofek' },
-    { id: 2, text: 'Very informative.', author: 'Ziv' },
-    { id: 3, text: 'I love my mom.', author: 'Yuval' },
-  ]);
-  const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+function CommentsSection({ videoId }) {
+  const { comments, addComment, getCommentsByVideoId } = useComments();
+  const { currentUser } = useUser();
+  const videoComments = getCommentsByVideoId(videoId);
   const [newComment, setNewComment] = useState('');
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    {currentUser ? (setComments([...comments, { id: comments.length + 1, text: newComment, author: currentUser.username }])):
-    setComments([...comments, { id: comments.length + 1, text: newComment, author: 'Guest' }])}
-    
+    const comment = {
+      id: comments.length + 1,
+      text: newComment,
+      author: currentUser ? currentUser.username : 'Guest',
+      videoId,
+    };
+    addComment(comment);
     setNewComment('');
   };
-  
 
   return (
     <div className="comment-section">
       <div className="comment-header">
-        <div className="comment-count">{comments.length} Comments</div>
+        <div className="comment-count">{videoComments.length} Comments</div>
       </div>
       <div className="comment-input">
-      {currentUser ? (<img src={currentUser.image} alt='profile picture' className="rounded-circle profile-image" width="40" height="40" />):
-      (<img src={Profile} alt='profile picture' className="rounded-circle profile-image" width="40" height="40" />)}
+        {currentUser ? (
+          <img src={currentUser.image} alt="profile picture" className="rounded-circle profile-image" width="40" height="40" />
+        ) : (
+          <img src={Profile} alt="profile picture" className="rounded-circle profile-image" width="40" height="40" />
+        )}
         <input
           type="text"
           value={newComment}
@@ -38,13 +44,12 @@ function CommentsSection() {
         <button type="submit" className="submit-button" onClick={handleCommentSubmit}>Submit</button>
       </div>
       <ul>
-        {comments.map((comment) => (
+        {videoComments.map((comment) => (
           <li key={comment.id}>
             <strong>{comment.author}</strong>: {comment.text}
           </li>
         ))}
       </ul>
-
     </div>
   );
 }
