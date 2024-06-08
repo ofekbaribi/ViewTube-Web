@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchVideoDetails } from '../data/videoService';
 import VideoPlayer from '../components/videoWatchPage/VideoPlayer';
 import VideoDetails from '../components/videoWatchPage/VideoDetails';
 import CommentsSection from '../components/videoWatchPage/CommentsSection';
 import RelatedVideos from '../components/videoWatchPage/RelatedVideos';
 import Navbar from '../components/commonComponents/Navbar';
-import './VideoWatch.css';
 import Sidebar from '../components/commonComponents/Sidebar';
-
+import './VideoWatch.css';
 
 function VideoWatch({ videos }) {
   const { videoId } = useParams();
@@ -16,13 +15,11 @@ function VideoWatch({ videos }) {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
 
   useEffect(() => {
     const getVideoDetails = async () => {
@@ -36,22 +33,22 @@ function VideoWatch({ videos }) {
         }
         setVideo(videoData);
       } catch (err) {
-          setError('Failed to fetch video details');
+        setError('Failed to fetch video details');
       }
     };
 
     getVideoDetails();
-  }, [videoId]); // Depend on videoId
+  }, [videoId]);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top whenever videoId changes
+    window.scrollTo(0, 0);
   }, [videoId]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
     navigate(`/?search=${query}`);
   };
-  
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -60,9 +57,6 @@ function VideoWatch({ videos }) {
     return <div>Loading...</div>;
   }
 
-  
-
-
   return (
     <div>
       <Navbar toggleSidebar={toggleSidebar} onSearch={handleSearch} />
@@ -70,7 +64,7 @@ function VideoWatch({ videos }) {
       <div className="videoMain-container">
         <VideoPlayer videoUrl={video.videoURL} />
         <VideoDetails video={video} />
-        <CommentsSection />
+        <CommentsSection videoId={video.id} />
       </div>
       <div className="relatedVideosBar">
         <RelatedVideos searchQuery={searchQuery} />

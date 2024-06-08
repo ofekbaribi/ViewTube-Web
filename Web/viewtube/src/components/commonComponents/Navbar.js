@@ -8,10 +8,11 @@ import upload from '../../assets/upload.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './Searchbar';
 import { useUser } from '../../contexts/UserContext';
+import { useTheme } from '../../contexts/DarkModeContext';
 
 
-const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQuery }) => {
-  const [darkMode, setDarkMode] = useState(false);
+const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch}) => {
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const { currentUser } = useUser();
   const { logout }=useUser();
   const Navigate = useNavigate();
@@ -22,21 +23,18 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQ
   }
 
   useEffect(() => {
-    const theme = darkMode ? 'dark' : 'light';
+    const theme = isDarkMode ? 'dark' : 'light';
     document.body.setAttribute('data-theme', theme);
-  }, [darkMode]);
+  }, [isDarkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(prevMode => !prevMode);
-  };
 
   return (
     <nav className='flex-div'>
       <div className='nav-left flex-div'>
         <img className='menu-icon' src={menu_icon} alt="menu icon" onClick={toggleSidebar} />
         <div className="logo-container">
-          <Link to="/" onClick={clearSearchQuery}>
-            <img className={`logo`} src={darkMode ? dark_logo : logo} alt="logo" />
+          <Link to="/">
+            <img className={`logo`} src={isDarkMode ? dark_logo : logo} alt="logo" />
           </Link>
         </div>
       </div>
@@ -44,38 +42,38 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch, clearSearchQ
         <SearchBar onChange={handleSearchInputChange} onSearch={onSearch} />
       </div>
       <div className='nav-right flex-div'>
-        <div>
-          <Link to="/upload">
-            <img className='upload-icon' src={upload} alt="upload icon" />
-          </Link>
-        </div>
         
         {currentUser ? (
-            <div className='profile-pic'>
-            <Link to="/">
-            <img  src={currentUser.image} alt='profile picture' className="rounded-circle" width="40" height="40" />
+          <div className='profile-pic'>
+            <Link to="/upload">
+              <img className='upload-icon' src={upload} alt="upload" />
             </Link>
-            <button className='btn btn-primary logout' onClick={handleLogout}>Logout</button>
-            </div>
-        ): (<div className='log-reg'>
-        <Link to="/login">
-            <p className='login'  alt="login">Login</p>
-          </Link>
-          <Link to="/register">
-            <p className='register'  alt="register">Register</p>
-          </Link>
-        </div>)}
+            <Link to="/">
+              <img  src={currentUser.image} alt='profile picture' className="rounded-circle" width="40" height="40" />
+            </Link>
+            <button className='logout' onClick={handleLogout}>Logout</button>  
+          </div>
+        ): (
+          <div className='container-sign'>
+              <Link to="/login">
+                <p className='log'  alt="login">Login</p>
+              </Link>
+              <Link to="/register">
+                <p className='reg'  alt="register">Register</p>
+              </Link>
+          </div>
+        )}
         
         <div class="dark-mode-toggle">
          <input
             class="dark-mode-checkbox"
             type="checkbox"
             id="darkmode-toggle"
-            checked={darkMode}
+            checked={isDarkMode}
             onChange={toggleDarkMode}
         />
         <label class="dark-mode-label" for="darkmode-toggle">
-        <span class="dark-mode-text">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+        <span class="dark-mode-text">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
         <span class="dark-mode-slider" ></span>
     </label>
 </div>
