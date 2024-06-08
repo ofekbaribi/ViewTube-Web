@@ -5,11 +5,8 @@
 }
 
 .video-list {
-  position: absolute;
-
-  padding: 10px; /* Add padding for inner content */
-  margin-left: 35px;
- 
+  position: relative;
+  padding: 10px; 
 }
 
 

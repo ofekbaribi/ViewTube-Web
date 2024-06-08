@@ -2,9 +2,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchResultItem.css'; // Import the CSS file for SearchResultItem
+import buffering from '../../assets/loadin-place-holder.png'
 
 function SearchResultItem({ id, title, author, views, date, videoURL }) {
-  const [thumbnail, setThumbnail] = useState('');
+  const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
 

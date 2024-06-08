@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './RelatedVideoItem.css';
+import buffering from '../../assets/loadin-place-holder.png'
 
 function RelatedVideoItem({ id, title, author, views, date, videoURL }) {
-  const [thumbnail, setThumbnail] = useState('');
+  const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
 
