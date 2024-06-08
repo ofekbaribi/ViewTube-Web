@@ -44,23 +44,25 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch}) => {
       <div className='nav-right flex-div'>
         
         {currentUser ? (
-            <div className='profile-pic'>
-              <Link to="/upload">
-              <img className='upload-icon' src={upload} alt="upload icon" />
+          <div className='profile-pic'>
+            <Link to="/upload">
+              <img className='upload-icon' src={upload} alt="upload" />
+            </Link>
+            <Link to="/">
+              <img  src={currentUser.image} alt='profile picture' className="rounded-circle" width="40" height="40" />
+            </Link>
+            <button className='logout' onClick={handleLogout}>Logout</button>  
+          </div>
+        ): (
+          <div className='container-sign'>
+              <Link to="/login">
+                <p className='log'  alt="login">Login</p>
               </Link>
-              <Link to="/">
-                <img  src={currentUser.image} alt='profile picture' className="rounded-circle" width="40" height="40" />
+              <Link to="/register">
+                <p className='reg'  alt="register">Register</p>
               </Link>
-              <button className='btn btn-primary logout' onClick={handleLogout}>Logout</button>  
-            </div>
-        ): (<div className='log-reg'>
-        <Link to="/login">
-            <p className='login'  alt="login">Login</p>
-          </Link>
-          <Link to="/register">
-            <p className='register'  alt="register">Register</p>
-          </Link>
-        </div>)}
+          </div>
+        )}
         
         <div class="dark-mode-toggle">
          <input

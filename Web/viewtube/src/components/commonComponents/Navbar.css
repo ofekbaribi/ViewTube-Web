@@ -85,22 +85,53 @@ nav {
 
 /* Styles for right section */
 .nav-right .upload-icon {
-    width: 20px;
+    width: 25px;
     margin-right: 25px;
 }
 [data-theme='dark']  .nav-right .upload-icon {
     filter: invert(100%);
 }
 
+.nav-right .upload-icon:hover {
+    transform: scale(1.1);
+    transition: 0.4s;
+}
 
 
 .profile-pic img {
     width: 40;
     height: 40;
-    margin-right: 25px;
+    margin-right: 20px;
 
 
     
+}
+
+.profile-pic button {
+    cursor: pointer;
+    border: 0px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 0 5px;
+    width: 90px;
+    max-width: 90px;
+    height: 40px;
+    padding: 10px 0;
+    box-shadow: 0 0 6px rgba(224, 85, 85, 0.2);
+    transition: 0.4s;
+    text-decoration: none;
+} 
+
+.profile-pic button:hover {
+    color: white;
+    width: 90px;
+    box-shadow: 0 0 15px rgba(224, 85, 85, 0.6);
+    background-color: rgb(224, 85, 85);
+}
+
+.profile-pic .logout {
+    color: rgb(224, 85, 85);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 /* Toggle container */
@@ -174,8 +205,51 @@ nav {
     height: 15px;
 
 }
+
 .logout {
     margin-right: 3px;
 }  
  
+.nav-right .container-sign {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    text-align: center;
+  }
+  
+.container-sign a {
+    text-decoration: none; 
+  }
 
+  .container-sign p {
+    cursor: pointer;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 0 10px;
+    width: 90px;
+    padding: 10px 0;
+    box-shadow: 0 0 6px rgba(224, 85, 85, 0.2);
+    transition: 0.4s;
+    text-decoration: none;
+  }
+  
+  .reg {
+    color: rgb(224, 85, 85);
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgb(224, 85, 85);
+  }
+  
+  .log {
+    color: rgb(224, 85, 85);
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgb(224, 85, 85);
+  }
+  
+  p:hover {
+    color: white;
+    width: 90px;
+    box-shadow: 0 0 15px rgba(224, 85, 85, 0.6);
+    background-color: rgb(224, 85, 85);
+  }
+  
