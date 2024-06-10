@@ -62,5 +62,65 @@ ul {
 li {
   margin-bottom: 10px;
   padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
+.comment-text {
+  flex-grow: 1;
+}
+
+.comment-actions {
+  margin-left: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.action-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.edit-button img,
+.delete-button img {
+  width: 16px;
+  height: 16px;
+}
+
+.save-button img,
+.cancel-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.edit-button img:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+.delete-button img:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+.save-button img:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+.cancel-button img:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+.edit-input {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 10px;
+}
