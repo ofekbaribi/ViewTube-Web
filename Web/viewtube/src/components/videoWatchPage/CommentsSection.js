@@ -34,6 +34,9 @@ function CommentsSection({ videoId }) {
   };
 
   const handleSaveEdit = (id) => {
+    if (editCommentText === '') {
+      deleteComment(id);
+    }
     updateComment(id, editCommentText);
     setEditingCommentId(null);
     setEditCommentText('');

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/bootstrap.min.css';
 import './Upload.css';
-import useVideo from '../contexts/VideosContext';
+import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 
-const UploadPage = ({ videos, addVideo }) => {
+const UploadPage = () => {
+  const {videos, addVideo} = useVideos();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState(null);

@@ -31,20 +31,26 @@
 .video-likes-dislikes {
     display: flex;
     margin-left: 220px;
-    background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
+    background-color: #f2f2f2; /* Semi-transparent background for better visibility */
     color: rgb(0, 0, 0); /* Text color */
     border-radius: 10px; /* Rounded corners for the text box */
     transform: scale(1.1);
-}
+} 
+
 
 .video-likes {
-    border-radius: 10px; /* Rounded corners for the text box */
+    border-radius: 10px; /* Rounded corners for te text box */
     cursor: pointer;
     padding-left: 3px;
     padding-bottom: 3px;
     padding-top: 2px;
     transform: scale(0.9);
 }
+
+.video-likes.liked img {
+    filter: brightness(0) saturate(100%) invert(41%) sepia(47%) saturate(3000%) hue-rotate(149deg) brightness(99%) contrast(105%);
+  }
+  
 
 .video-dislikes {
     border-radius: 6px; /* Rounded corners for the text box */
@@ -67,9 +73,14 @@
     padding-right: 4px;
 }
 
+.like-text.liked {
+    filter: brightness(0) saturate(100%) invert(41%) sepia(47%) saturate(3000%) hue-rotate(149deg) brightness(99%) contrast(105%);
+  }
+  
+
 
 .video-share {
-    background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
+    background-color:#f2f2f2; /* Semi-transparent background for better visibility */
     color: rgb(0, 0, 0); /* Text color */
     padding: 3px; /* Padding around the text */
     border-radius: 10px; /* Rounded corners for the text box */
@@ -84,14 +95,20 @@
 
 
 .video-download {
-    background-color: rgba(197, 197, 197, 0.7); /* Semi-transparent background for better visibility */
+    background-color:#f2f2f2; /* Semi-transparent background for better visibility */
     color: rgb(0, 0, 0); /* Text color */
     padding: 3px; /* Padding around the text */
+    padding-right: 5px;
+    padding-left: 5px;
     border-radius: 10px; /* Rounded corners for the text box */
     font-size: 10px; /* Font size */
     transform: scale(1.4);
     margin-left: 10px;
     cursor: pointer;
+}
+
+.download-image {
+    margin-right: 3px;
 }
 
 .video-likes:hover, .video-dislikes:hover, .video-share:hover, .video-download:hover {

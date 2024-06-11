@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import RelatedVideoItem from './RelatedVideoItem';
-import videos from '../../data/db.json';
+import { useVideos } from '../../contexts/VideosContext';
 
 
 function RelatedVideos() {
   const [videosList, setVideosList] = useState([]);
+  const { videos } = useVideos();
 
   useEffect(() => {
-    setVideosList(videos); // This sets the videos list from the JSON file
+    setVideosList(videos);
   }, []);
 
   return (

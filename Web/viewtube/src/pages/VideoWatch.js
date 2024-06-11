@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchVideoDetails } from '../data/videoService';
 import VideoPlayer from '../components/videoWatchPage/VideoPlayer';
 import VideoDetails from '../components/videoWatchPage/VideoDetails';
 import CommentsSection from '../components/videoWatchPage/CommentsSection';
@@ -8,8 +7,10 @@ import RelatedVideos from '../components/videoWatchPage/RelatedVideos';
 import Navbar from '../components/commonComponents/Navbar';
 import Sidebar from '../components/commonComponents/Sidebar';
 import './VideoWatch.css';
+import { useVideos } from '../contexts/VideosContext';
 
-function VideoWatch({ videos }) {
+function VideoWatch() {
+  const { videos } = useVideos();
   const { videoId } = useParams();
   const [video, setVideo] = useState(null);
   const [error, setError] = useState(null);
@@ -22,23 +23,17 @@ function VideoWatch({ videos }) {
   };
 
   useEffect(() => {
-    const getVideoDetails = async () => {
-      try {
-        let videoData = await fetchVideoDetails(videoId);
-        if (!videoData) {
-          videoData = await videos.find(video => video.id === parseInt(videoId, 10));
-          if (!videoData) {
-            throw new Error('Video not found');
-          }
-        }
+    const getVideoDetails = () => {
+      const videoData = videos.find(video => video.id === parseInt(videoId, 10));
+      if (videoData) {
         setVideo(videoData);
-      } catch (err) {
-        setError('Failed to fetch video details');
+      } else {
+        setError('Video not found');
       }
     };
 
     getVideoDetails();
-  }, [videoId]);
+  }, [videoId, videos]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

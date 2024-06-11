@@ -4,8 +4,10 @@ import Navbar from '../components/commonComponents/Navbar';
 import styles from './Home.css';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
+import { useVideos } from '../contexts/VideosContext';
 
-const Home = ({ videos }) => {
+const Home = () => {
+    const { videos } = useVideos();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();

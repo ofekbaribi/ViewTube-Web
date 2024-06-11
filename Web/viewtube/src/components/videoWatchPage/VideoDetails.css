@@ -10,7 +10,7 @@
 
 .video-description {
   position: relative;
-  background-color: #d1d1d1; /* Light gray background */
+  background-color: hsl(0, 0%, 96%); /* Light gray background */
   text-align: left;
   font-size: 13px;
   padding: 15px;
