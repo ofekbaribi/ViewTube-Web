@@ -49,7 +49,7 @@ const UploadPage = () => {
       }
     };
 
-    const id = (videos ? (videos.length + 11) : 11);
+    const id = videos.reduce((maxId, video) => Math.max(video.id, maxId), 0) + 1;
     const durationInSeconds = await getVideoDuration(videoFile);
     const duration = formatDuration(durationInSeconds);
     const author = currentUser.username;

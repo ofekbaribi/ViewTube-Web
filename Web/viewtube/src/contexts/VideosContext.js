@@ -1,3 +1,4 @@
+// src/contexts/VideosContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import defaultVideos from '../data/db.json';
 
@@ -13,6 +14,12 @@ export const VideosProvider = ({ children }) => {
 
   const addVideo = (video) => {
     setVideos((prevVideos) => [...prevVideos, video]);
+  };
+
+  const updateVideoDetails = (id, updates) => {
+    setVideos((prevVideos) =>
+      prevVideos.map((video) => (video.id === id ? { ...video, ...updates } : video))
+    );
   };
 
   const toggleLikeVideo = (userId, videoId) => {
@@ -37,8 +44,12 @@ export const VideosProvider = ({ children }) => {
     });
   };
 
+  const deleteVideo = (id) => {
+    setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
+  };
+
   return (
-    <VideosContext.Provider value={{ videos, addVideo, toggleLikeVideo, userLikes }}>
+    <VideosContext.Provider value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes }}>
       {children}
     </VideosContext.Provider>
   );
