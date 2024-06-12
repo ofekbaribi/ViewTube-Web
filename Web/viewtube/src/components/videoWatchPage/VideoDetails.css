@@ -10,7 +10,7 @@
 
 .video-description {
   position: relative;
-  background-color: #d1d1d1; /* Light gray background */
+  background-color: hsl(0, 0%, 96%); /* Light gray background */
   text-align: left;
   font-size: 13px;
   padding: 15px;
@@ -29,4 +29,50 @@
   color: white;
 }
 
+.input-box {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  width: 600px;
+  max-width: 100%;
+  font-size: 16px;
+}
 
+.action-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.edit-button img {
+  width: 16px;
+  height: 16px;
+}
+
+.save-button img,
+.cancel-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.edit-video-description {
+  position: relative;
+  background-color: hsl(0, 0%, 96%); /* Light gray background */
+  text-align: left;
+  font-size: 13px;
+  border-radius: 10px; /* Rounded corners */
+  width: 850px;
+  max-width: 100%;
+  color: #000;
+}
+
+.delete-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 200px;
+  margin-bottom: 10px;
+}

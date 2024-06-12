@@ -29,12 +29,12 @@ function RelatedVideoItem({ id, title, author, views, date, videoURL }) {
       setDuration(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
     });
 
-    video.currentTime = 7; // Set the time to capture the thumbnail
+    video.currentTime = 7; 
 
     video.addEventListener('seeked', function () {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataURL = canvas.toDataURL();
-      setThumbnail(dataURL); // Set the thumbnail data URL as the image source
+      setThumbnail(dataURL); 
     }, { once: true });
   };
 

@@ -1,3 +1,4 @@
+// src/app/App.js
 import './App.css';
 import Home from '../pages/Home';
 import React from 'react';
@@ -6,36 +7,32 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import VideoWatch from '../pages/VideoWatch';
 import Upload from '../pages/Upload';
-import useVideo from '../contexts/VideosContext';
+import { VideosProvider } from '../contexts/VideosContext';
 import { UserProvider } from '../contexts/UserContext';
 import { CommentsProvider } from '../contexts/CommentsContext';
 import { ThemeProvider } from '../contexts/DarkModeContext';
-
+import { useVideos } from '../contexts/VideosContext';
 
 function App() {
-  const { videos, addVideo } = useVideo();
-
   return (
     <UserProvider>
-      <CommentsProvider>
-        <ThemeProvider>
-          <Router>
-            <div className="App">
-              <Routes>
-                <Route 
-                  path="/video/:videoId" 
-                  element={<VideoWatch videos={videos}/>} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route 
-                  path="/upload"
-                  element={<Upload videos={videos} addVideo={addVideo} />} />
-                <Route path="/" element={<Home videos={videos} />} />
-              </Routes>
-            </div>
-          </Router>
-        </ThemeProvider>
-      </CommentsProvider>
+      <VideosProvider>
+        <CommentsProvider>
+          <ThemeProvider>
+            <Router>
+              <div className="App">
+                <Routes>
+                  <Route path="/video/:videoId" element={<VideoWatch/>} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/upload" element={<Upload/>} />
+                  <Route path="/" element={<Home/>} />
+                </Routes>
+              </div>
+            </Router>
+          </ThemeProvider>
+        </CommentsProvider>
+      </VideosProvider>
     </UserProvider>
   );
 }

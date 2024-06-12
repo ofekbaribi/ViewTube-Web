@@ -41,12 +41,12 @@ function SearchResultItem({ id, title, author, views, date, videoURL }) {
 
   return (
     <Link to={`/video/${id}`} className="no-link-style">
-      <div className="search-result-item"> {/* Ensure class name matches */}
-        <div className="thumbnail-container-search"> {/* Ensure class name matches */}
+      <div className="search-result-item"> 
+        <div className="thumbnail-container-search"> 
           <img src={thumbnail} alt="video thumbnail" />
         </div>
-        <div className="video-info"> {/* Ensure class name matches */}
-          <div className="video-details"> {/* Ensure class name matches */}
+        <div className="video-info">
+          <div className="video-details"> 
             <h3 className="title">{title}</h3>
             <p className="author">{author}</p>
             <p className="metadata">{views} views • {date}</p>

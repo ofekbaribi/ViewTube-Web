@@ -95,6 +95,19 @@ li {
   width: 20px;
   height: 20px;
 }
+[data-theme='dark'] .delete-button img {
+  filter: invert(100%);
+}
+[data-theme='dark'] .edit-button img {
+  filter: invert(100%);
+}
+[data-theme='dark'] .save-button img {
+  filter: invert(100%);
+}
+[data-theme='dark'] .cancel-button img {
+  filter: invert(100%);
+}
+
 
 .edit-button img:hover {
   transform: scale(1.2);

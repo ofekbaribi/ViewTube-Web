@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/bootstrap.min.css';
 import './Upload.css';
-import useVideo from '../contexts/VideosContext';
+import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 
-const UploadPage = ({ videos, addVideo }) => {
+const UploadPage = () => {
+  const {videos, addVideo} = useVideos();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState(null);
@@ -48,7 +49,7 @@ const UploadPage = ({ videos, addVideo }) => {
       }
     };
 
-    const id = (videos ? (videos.length + 11) : 11);
+    const id = videos.reduce((maxId, video) => Math.max(video.id, maxId), 0) + 1;
     const durationInSeconds = await getVideoDuration(videoFile);
     const duration = formatDuration(durationInSeconds);
     const author = currentUser.username;
