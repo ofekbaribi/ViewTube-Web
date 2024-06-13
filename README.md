@@ -48,5 +48,6 @@ Testing and Refinement: After combining all the files and components, we conduct
 Android App Development: Following the completion of the website, we began developing an Android app for the project. This involved adapting the website’s features and logic for a mobile environment, ensuring a consistent user experience across platforms.
 
 By dividing tasks effectively, maintaining clear communication, and integrating our work cohesively, we successfully developed both a fully functioning website and a complementary Android application.
+
 Working Team:
 Ofek Baribi, Ziv Elbaz, Yuval Maaravi.
