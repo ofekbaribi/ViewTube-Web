@@ -49,4 +49,4 @@ Android App Development: Following the completion of the website, we began devel
 
 By dividing tasks effectively, maintaining clear communication, and integrating our work cohesively, we successfully developed both a fully functioning website and a complementary Android application.
 Working Team:
-Ziv Elbaz, Ofek Baribi, Yuval Maaravi.
+Ofek Baribi, Ziv Elbaz, Yuval Maaravi.
