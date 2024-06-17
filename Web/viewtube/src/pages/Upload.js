@@ -6,26 +6,32 @@ import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 
 const UploadPage = () => {
-  const {videos, addVideo} = useVideos();
+  // State variables for form inputs and hooks
+  const { videos, addVideo } = useVideos();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const navigate = useNavigate();
   const { currentUser } = useUser();
 
+  // Effect hook to redirect to login if currentUser is null
   useEffect(() => {
     if (!currentUser) {
-      navigate('/login');
+      navigate('/login'); // Redirect to login page if currentUser is null
     }
   }, [currentUser, navigate]);
 
+  // Function to handle form submission (video upload)
   const handleUpload = async (event) => {
     event.preventDefault();
+
+    // Validate form fields
     if (!title || !description || !videoFile) {
       alert('Please fill in all fields.');
       return;
     }
 
+    // Function to get video duration asynchronously
     const getVideoDuration = (file) => {
       return new Promise((resolve) => {
         const video = document.createElement('video');
@@ -38,6 +44,7 @@ const UploadPage = () => {
       });
     };
 
+    // Function to format video duration into HH:MM:SS format
     const formatDuration = (duration) => {
       const hours = Math.floor(duration / 3600);
       const minutes = Math.floor((duration % 3600) / 60);
@@ -49,33 +56,40 @@ const UploadPage = () => {
       }
     };
 
+    // Generate unique ID for new video
     const id = videos.reduce((maxId, video) => Math.max(video.id, maxId), 0) + 1;
+
+    // Calculate video duration and format it
     const durationInSeconds = await getVideoDuration(videoFile);
     const duration = formatDuration(durationInSeconds);
-    const author = currentUser.username;
 
+    // Prepare metadata for new video
     const metadata = {
       id,
       title,
       description,
-      author,
+      author: currentUser.username,
       videoURL: URL.createObjectURL(videoFile),
       date: new Date().toLocaleDateString(),
       views: 0,
       likes: 0,
       duration
     };
- 
+
+    // Add new video to context
     addVideo(metadata);
+
+    // Show success message and navigate to home page
     alert('Video uploaded successfully.');
     navigate('/');
   };
 
   return (
     <div className="upload-page">
-      <div>
+      <div className="container">
         <h2>Upload Video</h2>
         <form onSubmit={handleUpload}>
+          {/* Title input */}
           <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
             <input
@@ -87,6 +101,8 @@ const UploadPage = () => {
               required
             />
           </div>
+
+          {/* Description textarea */}
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
             <textarea
@@ -97,6 +113,8 @@ const UploadPage = () => {
               required
             />
           </div>
+
+          {/* Video file input */}
           <div className="mb-3">
             <label htmlFor="videoFile" className="form-label">Video File</label>
             <input
@@ -108,6 +126,8 @@ const UploadPage = () => {
               required
             />
           </div>
+
+          {/* Submit button */}
           <button type="submit" className="btn btn-primary">Upload</button>
         </form>
       </div>

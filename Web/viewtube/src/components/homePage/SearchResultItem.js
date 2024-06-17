@@ -1,21 +1,14 @@
-// SearchResultItem.js
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchResultItem.css'; // Import the CSS file for SearchResultItem
-import buffering from '../../assets/loadin-place-holder.png'
+import buffering from '../../assets/loadin-place-holder.png';
 
 function SearchResultItem({ id, title, author, views, date, videoURL }) {
   const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    if (videoURL) {
-      captureThumbnail();
-    }
-  }, [videoURL]);
-
-  const captureThumbnail = () => {
+  const captureThumbnail = useRef(() => {
     const video = document.createElement('video');
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -37,20 +30,27 @@ function SearchResultItem({ id, title, author, views, date, videoURL }) {
       const dataURL = canvas.toDataURL();
       setThumbnail(dataURL); // Set the thumbnail data URL as the image source
     }, { once: true });
-  };
+  });
+
+  useEffect(() => {
+    captureThumbnail.current();
+  }, [videoURL, captureThumbnail]);
 
   return (
     <Link to={`/video/${id}`} className="no-link-style">
-      <div className="search-result-item"> 
-        <div className="thumbnail-container-search"> 
-          <img src={thumbnail} alt="video thumbnail" />
+      <div className="search-result-item">
+        {/* Container for video thumbnail */}
+        <div className="thumbnail-container-search">
+          <img src={thumbnail} alt="video thumbnail" /> {/* Display thumbnail image */}
         </div>
+        {/* Container for video information */}
         <div className="video-info">
-          <div className="video-details"> 
-            <h3 className="title">{title}</h3>
-            <p className="author">{author}</p>
-            <p className="metadata">{views} views • {date}</p>
-            <canvas ref={canvasRef} width="320" height="180" style={{ display: 'none' }}></canvas>
+          <div className="video-details">
+            <h3 className="title">{title}</h3> {/* Title of the video */}
+            <p className="author">{author}</p> {/* Author of the video */}
+            {/* Display metadata: views, date, and duration */}
+            <p className="metadata">{views} views • {date} • Duration: {duration}</p>
+            <canvas ref={canvasRef} width="320" height="180" style={{ display: 'none' }}></canvas> {/* Hidden canvas for thumbnail capture */}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CommentsSection.css';
+import './CommentsSection.css'; // Import CSS for styling
 import Profile from '../../assets/profile-circle.jpg';
 import editIcon from '../../assets/edit_icon.svg';
 import deleteIcon from '../../assets/delete_icon.svg';
@@ -9,13 +9,17 @@ import { useComments } from '../../contexts/CommentsContext';
 import { useUser } from '../../contexts/UserContext';
 
 function CommentsSection({ videoId }) {
+  // Context hooks to manage comments and user data
   const { comments, addComment, updateComment, deleteComment, getCommentsByVideoId } = useComments();
   const { currentUser } = useUser();
+
+  // State variables
   const videoComments = getCommentsByVideoId(videoId);
   const [newComment, setNewComment] = useState('');
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editCommentText, setEditCommentText] = useState('');
 
+  // Handle new comment submission
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     const comment = {
@@ -28,20 +32,24 @@ function CommentsSection({ videoId }) {
     setNewComment('');
   };
 
+  // Handle comment edit initiation
   const handleEditComment = (comment) => {
     setEditingCommentId(comment.id);
     setEditCommentText(comment.text);
   };
 
+  // Handle saving edited comment
   const handleSaveEdit = (id) => {
     if (editCommentText === '') {
       deleteComment(id);
+    } else {
+      updateComment(id, editCommentText);
     }
-    updateComment(id, editCommentText);
     setEditingCommentId(null);
     setEditCommentText('');
   };
 
+  // Handle canceling edit
   const handleCancelEdit = () => {
     setEditingCommentId(null);
     setEditCommentText('');
@@ -53,11 +61,13 @@ function CommentsSection({ videoId }) {
         <div className="comment-count">{videoComments.length} Comments</div>
       </div>
       <div className="comment-input">
+        {/* Display current user's profile image or a default image */}
         {currentUser ? (
-          <img src={currentUser.image} alt="profile picture" className="rounded-circle profile-image" width="40" height="40" />
+          <img src={currentUser.image} alt="profile" className="rounded-circle profile-image" width="40" height="40" />
         ) : (
-          <img src={Profile} alt="profile picture" className="rounded-circle profile-image" width="40" height="40" />
+          <img src={Profile} alt="profile" className="rounded-circle profile-image" width="40" height="40" />
         )}
+        {/* Input for adding a new comment */}
         <input
           type="text"
           value={newComment}
@@ -75,6 +85,7 @@ function CommentsSection({ videoId }) {
                 <div className="comment-text">
                   <strong>{comment.author}</strong>:
                 </div>
+                {/* Input for editing a comment */}
                 <input
                   type="text"
                   value={editCommentText}

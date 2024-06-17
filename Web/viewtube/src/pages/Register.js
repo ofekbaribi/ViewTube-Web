@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/bootstrap.min.css';
 import './Login.css';
-import './Register.css'
+import './Register.css';
 import NewUsernameForm from '../components/RegisterComponents/NewUsernameForm';
 import NewNameForm from '../components/RegisterComponents/NewNameForm';
 import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
 import NewImageForm from '../components/RegisterComponents/NewImageForm';
 import logo from '../assets/logo.png';
+import InfoIcon from '../assets/info-circle.svg'; // Assuming this is an SVG icon
 import { useUser } from '../contexts/UserContext';
 
 const Register = () => {
+  // State variables for form inputs and errors
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,9 +23,14 @@ const Register = () => {
   const [usernameError, setUsernameError] = useState('');
   const [nameError, setNameError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+
+  // Navigation hook from React Router
   const navigate = useNavigate();
+
+  // Accessing user context functions and state
   const { addUser, setUser, users } = useUser();
 
+  // Function to validate password format
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
@@ -34,6 +41,7 @@ const Register = () => {
     return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isValidLength;
   };
 
+  // Function to validate username format
   const validateUsername = (username) => {
     const hasUpperCase = /[A-Z]/.test(username);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(username);
@@ -42,6 +50,7 @@ const Register = () => {
     return !(hasUpperCase || hasSpecialChar || !isValidLength); // Return false if invalid
   };
 
+  // Function to validate first and last name format
   const validateName = (firstName, lastName) => {
     const firstNameHasNumber = /\d/.test(firstName);
     const firstNameHasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(firstName);
@@ -54,12 +63,13 @@ const Register = () => {
     return !(firstNameHasNumber || firstNameHasSpecialChar || !firstNameValidLength || lastNameHasNumber || lastNameHasSpecialChar || !lastNameValidLength);
   };
 
+  // Handle password submission and validation
   const handlePasswordSubmit = () => {
     if (password !== confirmPassword) {
       setPasswordError('Passwords do not match.');
       return false;
     } else if (!validatePassword(password)) {
-      setPasswordError('Password does not meet requirement.');
+      setPasswordError('Password does not meet requirements.');
       return false;
     } else {
       setPasswordError('');
@@ -67,16 +77,17 @@ const Register = () => {
     }
   };
 
+  // Handle username submission and validation
   const handleUsernameSubmit = () => {
     const user = users.find(user => user.username === username);
     if (user) {
       setUsernameError('Username already exists!');
       return false;
     } else if (!validateUsername(username)) {
-      setUsernameError('Username can only contain lowercase letters!');
+      setUsernameError('Username can only contain lowercase letters and be at least 2 characters long.');
       return false;
     } else if (!validateName(firstName, lastName)) {
-      setNameError('Name validation failed!');
+      setNameError('Invalid name format.');
       return false;
     } else {
       setUsernameError('');
@@ -85,14 +96,14 @@ const Register = () => {
     }
   };
 
+  // Handle overall form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     if (handleUsernameSubmit() && handlePasswordSubmit()) {
       const newUser = { username, firstName, lastName, password, image };
-      addUser(newUser);
-      setUser(newUser);
-      alert(`User registered successfully!\nUsername: ${username}\nFirst Name: ${firstName}\nLast Name: ${lastName}`);
-      navigate('/');
+      addUser(newUser); // Add new user to context
+      setUser(newUser); // Set current user in context
+      navigate('/'); // Navigate to home page after successful registration
     }
   };
 
@@ -100,10 +111,14 @@ const Register = () => {
     <div className='login-page'>
       <div className="register-page">
         <div className="login-container">
+          {/* Title with logo */}
           <h2 className="d-flex align-items-center">
             Create a <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> account
           </h2>
+
+          {/* Registration form */}
           <form onSubmit={handleSubmit} className="position-relative">
+            {/* Components for username, name, password, and image upload */}
             <NewUsernameForm
               username={username}
               setUsername={setUsername}
@@ -131,11 +146,16 @@ const Register = () => {
               setImagePreview={setImagePreview}
               imagePreview={imagePreview}
             />
+
+            {/* Password requirements */}
             <div id="passwordReq">
-              <a className='passwordReq' target="_blank" draggable="false" data-tooltip='Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'>
-                ???
-              </a>
+              <img src={InfoIcon} alt="Password Requirements" />
+              <span className='passwordReq' data-tooltip='Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'>
+                Password Guidance
+              </span>
             </div>
+
+            {/* Submit button and link to login */}
             <br />
             <button type="submit" className="btn btn-primary">Register</button>
             <br /><br />

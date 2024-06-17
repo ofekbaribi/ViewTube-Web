@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './VideoDetails.css';
-import '../../css/bootstrap.min.css'
+import '../../css/bootstrap.min.css';
 import VideoOptionsBar from './VideoOptionsBar';
 import editIcon from '../../assets/edit_icon.svg';
 import saveIcon from '../../assets/tick_icon.svg';
@@ -18,39 +18,35 @@ function VideoDetails({ video }) {
   const [newDescription, setNewDescription] = useState(video.description);
   const navigate = useNavigate();
 
+  // Sync state with video prop
   useEffect(() => {
     setNewTitle(video.title);
     setNewDescription(video.description);
   }, [video]);
 
-  const handleEditTitleClick = () => {
-    setEditingTitle(true);
-  };
-
+  // Handlers for editing title
+  const handleEditTitleClick = () => setEditingTitle(true);
   const handleSaveTitleClick = () => {
     updateVideoDetails(video.id, { title: newTitle });
     setEditingTitle(false);
   };
-
   const handleCancelTitleClick = () => {
     setNewTitle(video.title);
     setEditingTitle(false);
   };
 
-  const handleEditDescriptionClick = () => {
-    setEditingDescription(true);
-  };
-
+  // Handlers for editing description
+  const handleEditDescriptionClick = () => setEditingDescription(true);
   const handleSaveDescriptionClick = () => {
     updateVideoDetails(video.id, { description: newDescription });
     setEditingDescription(false);
   };
-
   const handleCancelDescriptionClick = () => {
     setNewDescription(video.description);
     setEditingDescription(false);
   };
 
+  // Handler for deleting video
   const handleDeleteClick = () => {
     if (window.confirm("Are you sure you want to delete this video?")) {
       deleteVideo(video.id);
@@ -67,7 +63,7 @@ function VideoDetails({ video }) {
               <p>
                 {video.title}
                 <button className="edit-button action-button" onClick={handleEditTitleClick}>
-                  <img src={editIcon} alt='edit'/>
+                  <img src={editIcon} alt="Edit title" />
                 </button>
               </p>
             ) : (
@@ -80,10 +76,10 @@ function VideoDetails({ video }) {
                   className='input-box'
                 />
                 <button className="save-button action-button" onClick={handleSaveTitleClick}>
-                  <img src={saveIcon} alt='edit'/>
+                  <img src={saveIcon} alt="Save title" />
                 </button>
                 <button className="cancel-button action-button" onClick={handleCancelTitleClick}>
-                  <img src={cancelIcon} alt='edit'/>
+                  <img src={cancelIcon} alt="Cancel editing title" />
                 </button>
               </>
             )}
@@ -92,7 +88,9 @@ function VideoDetails({ video }) {
           <p>{video.title}</p>
         )}
       </div>
+      
       <VideoOptionsBar video={video} />
+      
       <div className='video-description'>
         {currentUser && currentUser.username === video.author ? (
           <>
@@ -100,7 +98,7 @@ function VideoDetails({ video }) {
               <p>
                 {video.description}
                 <button className="edit-button action-button" onClick={handleEditDescriptionClick}>
-                  <img src={editIcon} alt='edit'/>
+                  <img src={editIcon} alt="Edit description" />
                 </button>
               </p>
             ) : (
@@ -112,10 +110,10 @@ function VideoDetails({ video }) {
                   className='edit-video-description'
                 />
                 <button className="save-button action-button" onClick={handleSaveDescriptionClick}>
-                  <img src={saveIcon} alt='edit'/>
+                  <img src={saveIcon} alt="Save description" />
                 </button>
                 <button className="cancel-button action-button" onClick={handleCancelDescriptionClick}>
-                  <img src={cancelIcon} alt='edit'/>
+                  <img src={cancelIcon} alt="Cancel editing description" />
                 </button>
               </>
             )}
@@ -124,6 +122,7 @@ function VideoDetails({ video }) {
           <p>{video.description}</p>
         )}
       </div>
+
       {currentUser && currentUser.username === video.author && (
         <div className="delete-button-container">
           <button className="btn btn-outline-danger" onClick={handleDeleteClick}>

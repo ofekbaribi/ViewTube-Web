@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './VideoOptionsBar.css';
 import like_icon from '../../assets/like.svg';
 import dislike_icon from '../../assets/dislike.svg';
@@ -9,13 +9,12 @@ import { useUser } from '../../contexts/UserContext';
 import { useVideos } from '../../contexts/VideosContext';
 
 function VideoOptionsBar({ video }) {
-  const videoUploader = video.author;
-  const videoRef = useRef(null);
   const { currentUser } = useUser();
   const { toggleLikeVideo, userLikes } = useVideos();
   const [likes, setLikes] = useState(video.likes);
   const [hasLiked, setHasLiked] = useState(false);
 
+  // Update likes and like status when the component mounts or when dependencies change
   useEffect(() => {
     setLikes(video.likes);
     if (currentUser) {
@@ -23,13 +22,10 @@ function VideoOptionsBar({ video }) {
     }
   }, [video.likes, video.id, userLikes, currentUser]);
 
-  let uploaderImage;
-  if (video.id <= 10) {
-    uploaderImage = '/media/lahav.jpg';
-  } else {
-    uploaderImage = currentUser ? currentUser.image : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
-  }
+  // Determine uploader image
+  const uploaderImage = video.id <= 10 ? '/media/lahav.jpg' : (currentUser ? currentUser.image : '/media/lahav.jpg');
 
+  // Handle video download
   const handleDownload = () => {
     const videoUrl = video.videoURL;
     const a = document.createElement('a');
@@ -40,14 +36,21 @@ function VideoOptionsBar({ video }) {
     document.body.removeChild(a);
   };
 
+  // Handle video sharing
   const handleShare = async () => {
-    await navigator.share({
-      title: 'Check out this video!',
-      text: `Check out this video by ${videoUploader}`,
-      url: video.videoURL,
-    });
+    try {
+      await navigator.share({
+        title: 'Check out this video!',
+        text: `Check out this video by ${video.author}`,
+        url: video.videoURL,
+      });
+    } catch (error) {
+      console.error('Error sharing the video:', error);
+      alert('Failed to share the video.');
+    }
   };
 
+  // Handle like button click
   const handleLikeClick = () => {
     if (currentUser) {
       toggleLikeVideo(currentUser.id, video.id);
@@ -58,10 +61,13 @@ function VideoOptionsBar({ video }) {
 
   return (
     <div className="videoOptionsBar">
+      {/* Uploader details section */}
       <div className="video-uploader">
-        <UploaderDetails username={videoUploader} subscribers={video.subscribers} profileImage={uploaderImage} />
+        <UploaderDetails username={video.author} subscribers={video.subscribers} profileImage={uploaderImage} />
       </div>
       <div className="video-subscribe">Subscribe</div>
+
+      {/* Like and dislike section */}
       <div className="video-likes-dislikes">
         <div className={`video-likes ${hasLiked ? 'liked' : ''}`} onClick={handleLikeClick}>
           <img src={like_icon} alt="like icon" />
@@ -72,6 +78,8 @@ function VideoOptionsBar({ video }) {
           <img src={dislike_icon} alt="dislike icon" className="dislike-image" />
         </div>
       </div>
+
+      {/* Share and download buttons */}
       <div className="video-share" onClick={handleShare}>
         <img src={share_icon} alt="share icon" className="share-image" /> Share
       </div>

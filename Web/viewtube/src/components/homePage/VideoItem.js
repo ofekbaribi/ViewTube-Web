@@ -1,46 +1,43 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './VideoItem.css';
 import { Link } from 'react-router-dom';
-import buffering from '../../assets/loadin-place-holder.png'
-
-
-
+import buffering from '../../assets/loadin-place-holder.png';
 
 function VideoItem({ id, title, author, views, date, videoURL }) {
-
   const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
 
+  // Include captureThumbnail in useEffect dependency array
   useEffect(() => {
+    const captureThumbnail = () => {
+      const video = document.createElement('video');
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+
+      video.src = videoURL;
+      video.crossOrigin = 'anonymous'; // Allow cross-origin resource sharing if needed
+      video.load();
+
+      video.addEventListener('loadedmetadata', function () {
+        const minutes = Math.floor(video.duration / 60);
+        const seconds = Math.floor(video.duration % 60);
+        setDuration(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
+      });
+
+      video.currentTime = 7; // Set the time to capture the thumbnail
+
+      video.addEventListener('seeked', function () {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataURL = canvas.toDataURL();
+        setThumbnail(dataURL); // Set the thumbnail data URL as the image source
+      }, { once: true });
+    };
+
     if (videoURL) {
       captureThumbnail();
     }
-  }, [videoURL]);
-
-  const captureThumbnail = () => {
-    const video = document.createElement('video');
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    video.src = videoURL;
-    video.crossOrigin = 'anonymous'; // Allow cross-origin resource sharing if needed
-    video.load();
-
-    video.addEventListener('loadedmetadata', function () {
-      const minutes = Math.floor(video.duration / 60);
-      const seconds = Math.floor(video.duration % 60);
-      setDuration(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
-    });
-
-    video.currentTime = 7; // Set the time to capture the thumbnail
-
-    video.addEventListener('seeked', function () {
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataURL = canvas.toDataURL();
-      setThumbnail(dataURL); // Set the thumbnail data URL as the image source
-    }, { once: true });
-  };
+  }, [videoURL]); // Dependency array includes videoURL
 
   return (
     <Link to={`/video/${id}`} className="no-link-style">

@@ -1,6 +1,9 @@
-.profile-picture{
-    margin-right: 10px;
+/* Styling for profile picture */
+.profile-picture {
+    margin-right: 10px; /* Margin to the right of the profile picture */
 }
-.author-name{
-    font-size: 19px;
+
+/* Styling for author name */
+.author-name {
+    font-size: 19px; /* Font size of the author name */
 }
