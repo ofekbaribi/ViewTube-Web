@@ -236,7 +236,7 @@ nav {
 
 /* Dark theme for register button */
 [data-theme='dark'] .reg {
-  color: rgb(255, 88, 88); /* Text color in dark theme */
+  color: rgb(255, 0, 0); /* Text color in dark theme */
   background-color: black; /* Background color in dark theme */
 }
 
@@ -254,7 +254,7 @@ nav {
 
 /* Dark theme for log in button */
 [data-theme='dark'] .log {
-  color: rgb(255, 88, 88); /* Text color in dark theme */
+  color: rgb(255, 0, 0); /* Text color in dark theme */
   background-color: black; /* Background color in dark theme */
 }
 
@@ -270,20 +270,19 @@ nav {
 
 /* Styles for logout button */
 .profile-pic .logout {
-  width: 100%; /* Full width */
-  height: fit-content; /* Increased height for buttons */
-  background-color: #ffffff; /* Background color */
-  color: rgb(255, 0, 0); /* Text color */
-  border: none; /* No border */
-  border-radius: 8px; /* Rounded corners */
-  font-size: 1rem; /* Font size */
-  cursor: pointer; /* Cursor style */
-  transition: background-color 0.3s ease; /* Smooth transition */
+    height: fit-content;  
+    background-color: #ffffff; 
+    color: rgb(255, 0, 0);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 /* Dark theme for logout button */
 [data-theme='dark'] .profile-pic .logout {
-  color: rgb(255, 88, 88); /* Text color in dark theme */
+  color: rgb(255, 0, 0); /* Text color in dark theme */
   background-color: black; /* Background color in dark theme */
 }
 
