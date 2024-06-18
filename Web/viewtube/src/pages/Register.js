@@ -8,7 +8,7 @@ import NewNameForm from '../components/RegisterComponents/NewNameForm';
 import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
 import NewImageForm from '../components/RegisterComponents/NewImageForm';
 import logo from '../assets/logo.png';
-import InfoIcon from '../assets/info-circle.svg'; // Assuming this is an SVG icon
+import InfoIcon from '../assets/info-circle.svg'; 
 import { useUser } from '../contexts/UserContext';
 
 const Register = () => {
