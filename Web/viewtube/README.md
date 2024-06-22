@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# ViewTube - Web Project
+## Overview
+ViewTube is a video-sharing platform that allows users to upload, watch, and interact with videos. The application includes features such as video playback, comment sections, like/dislike functionality, video uploading and user management. This project is built using React and is designed to provide a seamless video watching experience.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+Video Playback: Watch videos with a responsive and user-friendly player.
+Video Details: View and edit your uploaded video titles and descriptions.
+Video Sharing: Share videos to your friends so they can watch as well.
+Comments Section: Interact with other users through comments.
+Related Videos: Browse related videos based on the current video being watched.
+User Management: Manage user profiles, including likes and uploads.
+Dark Mode: Change according to your personal  preferences.
 
-## Available Scripts
+## Technologies Used
+Frontend: React.js
+State Management: Context API
+Styling: CSS Modules
+Routing: React Router
 
-In the project directory, you can run:
+## Prerequisites
+Before running the application, ensure you have the following installed:
 
-### `npm start`
+Node.js (version 14.x or later)
+npm (Node Package Manager)
+You can download and install them from Node.js official website.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
+### Clone the Repository:
+git clone https://github.com/ofekbaribi/online-video-sharing-platform.git
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Run the Application:
+npm start
 
-### `npm test`
+### Working Process
+Our development process was a collaborative effort, with each team member assigned specific missions. Here’s a breakdown of how we approached the project:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Task Assignment: Each team member was assigned distinct pages to create, focusing on both design and implementation of the required logic. This ensured that everyone had a clear role and responsibility.
 
-### `npm run build`
+Design Implementation: We began by implementing the original design for each assigned page, ensuring that the user interface was both intuitive and visually appealing.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Building Logical Infrastructure: Concurrently, we developed the necessary logical infrastructure. This involved creating the contexts needed for state management and gathering the required data for each component.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Coordination and Integration: Throughout the development process, team members coordinated with each other to ensure compatibility and cohesion. Once individual components and pages were completed, we integrated them into a seamless, functioning website.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Testing and Refinement: After combining all the files and components, we conducted thorough testing to ensure the website worked smoothly and met all requirements. We fixed any bugs and made necessary refinements.
 
-### `npm run eject`
+Android App Development: Following the completion of the website, we began developing an Android app for the project. This involved adapting the website’s features and logic for a mobile environment, ensuring a consistent user experience across platforms.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+By dividing tasks effectively, maintaining clear communication, and integrating our work cohesively, we successfully developed both a fully functioning website and a complementary Android application.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Working Team:
+Ofek Baribi, Ziv Elbaz, Yuval Maaravi.
