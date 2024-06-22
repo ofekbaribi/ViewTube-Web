@@ -27,8 +27,12 @@ function VideoDetails({ video }) {
   // Handlers for editing title
   const handleEditTitleClick = () => setEditingTitle(true);
   const handleSaveTitleClick = () => {
-    updateVideoDetails(video.id, { title: newTitle });
-    setEditingTitle(false);
+    if (newTitle === '') {
+      alert('Video title cannot be empty!');
+    } else {
+      updateVideoDetails(video.id, { title: newTitle });
+      setEditingTitle(false);  
+    }
   };
   const handleCancelTitleClick = () => {
     setNewTitle(video.title);
@@ -38,8 +42,12 @@ function VideoDetails({ video }) {
   // Handlers for editing description
   const handleEditDescriptionClick = () => setEditingDescription(true);
   const handleSaveDescriptionClick = () => {
-    updateVideoDetails(video.id, { description: newDescription });
-    setEditingDescription(false);
+    if (newDescription === '') {
+      alert('Video description cannot be empty!');
+    } else {
+      updateVideoDetails(video.id, { description: newDescription });
+      setEditingDescription(false);
+    }
   };
   const handleCancelDescriptionClick = () => {
     setNewDescription(video.description);
