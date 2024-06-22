@@ -86,7 +86,7 @@ function VideoWatch() {
       </div>
       {/* RelatedVideos component displaying videos related to the current video */}
       <div className="relatedVideosBar">
-        <RelatedVideos searchQuery={searchQuery} />
+        <RelatedVideos/>
       </div>
     </div>
   );

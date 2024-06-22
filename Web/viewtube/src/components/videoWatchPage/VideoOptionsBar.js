@@ -15,6 +15,8 @@ const { currentUser } = useUser();
 const { toggleLikeVideo, userLikes } = useVideos();
 const [likes, setLikes] = useState(video.likes);
 const [hasLiked, setHasLiked] = useState(false);
+const { getProfilePicture } = useUser();
+const profilePicture = getProfilePicture(video.author);
 
 useEffect(() => {
 setLikes(video.likes);
@@ -24,11 +26,8 @@ setHasLiked(userLikes[currentUser.id]?.includes(video.id) || false);
 }, [video.likes, video.id, userLikes, currentUser]);
 
 let uploaderImage;
-if (video.id <= 10) {
-uploaderImage = '/media/lahav.jpg';
-} else {
-uploaderImage = currentUser ? currentUser.image : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
-}
+uploaderImage = profilePicture !== null ? profilePicture : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
+
 
 const handleDownload = () => {
 const videoUrl = video.videoURL;
