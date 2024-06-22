@@ -97,7 +97,7 @@ function VideoDetails({ video }) {
             {!editingDescription ? (
               <p>
                 {video.description}
-                <button className="edit-button action-button" onClick={handleEditDescriptionClick}>
+                <button className="description-edit-button action-button" onClick={handleEditDescriptionClick}>
                   <img src={editIcon} alt="Edit description" />
                 </button>
               </p>
@@ -109,10 +109,10 @@ function VideoDetails({ video }) {
                   placeholder="Edit description"
                   className='edit-video-description'
                 />
-                <button className="save-button action-button" onClick={handleSaveDescriptionClick}>
+                <button className="description-save-button action-button" onClick={handleSaveDescriptionClick}>
                   <img src={saveIcon} alt="Save description" />
                 </button>
-                <button className="cancel-button action-button" onClick={handleCancelDescriptionClick}>
+                <button className="description-cancel-button action-button" onClick={handleCancelDescriptionClick}>
                   <img src={cancelIcon} alt="Cancel editing description" />
                 </button>
               </>

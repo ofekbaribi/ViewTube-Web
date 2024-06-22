@@ -53,6 +53,19 @@
 }
 
 /* Styling for edit button icon */
+.description-edit-button img {
+  width: 16px; /* Icon width */
+  height: 16px; /* Icon height */
+}
+
+/* Styling for save and cancel button icons */
+.description-save-button img,
+.description-cancel-button img {
+  width: 20px; /* Icon width */
+  height: 20px; /* Icon height */
+}
+
+/* Styling for edit button icon */
 .edit-button img {
   width: 16px; /* Icon width */
   height: 16px; /* Icon height */
