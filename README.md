@@ -26,7 +26,7 @@ You can download and install them from Node.js official website.
 
 ## Installation
 ### Clone the Repository:
-git clone https://github.com/ofekbaribi/online-video-sharing-platform.git
+git clone https://github.com/ofekbaribi/ViewTube-Web
 npm install
 
 ### Run the Application:
