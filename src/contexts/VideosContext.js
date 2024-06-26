@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import defaultVideos from '../data/db.json';
+
 
 // Create a context for managing videos and user likes
 const VideosContext = createContext();
@@ -26,6 +26,8 @@ export const VideosProvider = ({ children }) => {
 
     fetchVideos();
   }, []);
+
+ 
 
   // Function to add a new video to the list
   const addVideo = (video) => {

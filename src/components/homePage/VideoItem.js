@@ -3,7 +3,7 @@ import './VideoItem.css';
 import { Link } from 'react-router-dom';
 import buffering from '../../assets/loadin-place-holder.png';
 
-function VideoItem({ id, title, author, views, date, videoURL }) {
+function VideoItem({ id, title, author, views, date, videoUrl }) {
   const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
@@ -15,7 +15,7 @@ function VideoItem({ id, title, author, views, date, videoURL }) {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
 
-      video.src = videoURL;
+      video.src = videoUrl;
       video.crossOrigin = 'anonymous'; // Allow cross-origin resource sharing if needed
       video.load();
 
@@ -34,10 +34,10 @@ function VideoItem({ id, title, author, views, date, videoURL }) {
       }, { once: true });
     };
 
-    if (videoURL) {
+    if (videoUrl) {
       captureThumbnail();
     }
-  }, [videoURL]); // Dependency array includes videoURL
+  }, [videoUrl]); // Dependency array includes videoURL
 
   return (
     <Link to={`/video/${id}`} className="no-link-style">

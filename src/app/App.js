@@ -12,7 +12,6 @@ import { VideosProvider } from '../contexts/VideosContext';
 import { UserProvider } from '../contexts/UserContext';
 import { CommentsProvider } from '../contexts/CommentsContext';
 import { ThemeProvider } from '../contexts/DarkModeContext';
-import { useVideos } from '../contexts/VideosContext';
 
 function App() {
   return (
