@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Navbar.css';
 import menuIcon from '../../assets/menu.svg';
 import logo from '../../assets/logo.png';
@@ -8,8 +8,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './Searchbar';
 import { useUser } from '../../contexts/UserContext';
 import { useTheme } from '../../contexts/DarkModeContext';
+import tokenVerification from '../../tokenAuth/tokenVerification';
+
 
 const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
+  const { user, setUser } = useState();
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { currentUser, logout } = useUser();
   const navigate = useNavigate();
@@ -20,9 +23,28 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
     document.body.setAttribute('data-theme', theme);
   }, [isDarkMode]);
 
+  // Effect to authenticate the token and get user data
+  useEffect(() => {
+    const authenticateUser = async () => {
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+            const userData = await tokenVerification(token);
+            console.log(userData);
+            if (userData) {
+                setUser(userData);
+            } else {
+                localStorage.removeItem('jwtToken'); // Remove invalid token
+                setUser(null);
+            }
+        }
+    };
+      authenticateUser();
+  }, []); // Run on component mount
+
   // Function to handle logout
   const handleLogout = () => {
-    logout(); // Call logout function from user context
+    localStorage.removeItem('jwtToken'); // Remove the token from localStorage
+    setUser(null); // Clear the user state
     navigate('/'); // Navigate to home page after logout
   };
 
@@ -47,14 +69,14 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
       <div className='nav-right flex-div'>
         
         {/* Conditional rendering based on currentUser */}
-        {currentUser ? (
+        {user ? (
           // Render profile information if user is logged in
           <div className='profile-pic'>
             <Link to="/upload">
               <img className='upload-icon' src={uploadIcon} alt="upload" />
             </Link>
             <Link to="/">
-              <img src={currentUser.image} alt='Profile' className="rounded-circle" width="40" height="40" />
+              <img src={user.image} alt='Profile' className="rounded-circle" width="40" height="40" />
             </Link>
             <button className='logout' onClick={handleLogout}>Logout</button>  
           </div>
