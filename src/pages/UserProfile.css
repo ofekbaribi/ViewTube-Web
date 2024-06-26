@@ -1,0 +1,38 @@
+/* Styles for the home page */
+.homePage {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row; /* Arrange children in a row (horizontal) */
+}
+
+/* Styles for containers within the home page */
+.container {
+  flex: 1; /* Flexible container to expand and fill available space */
+  padding: 20px; /* Padding around the container */
+  margin-top: 70px;
+}
+
+.container .username{
+    margin-top: 100px;
+}
+
+
+/* Styling for profile picture */
+.container .user-detailes .profile-picture {
+  align-items: center;
+  margin-top: 30px;
+  width: 5px;
+  height: 5px;
+}
+
+/* Styling for author name */
+.container .user-detailes .user-data h3 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.container .user-detailes .user-data .user-detailes {
+  font-size: 30px;
+}
+
+
+
