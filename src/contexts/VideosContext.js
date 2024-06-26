@@ -14,7 +14,17 @@ export const VideosProvider = ({ children }) => {
 
   // Load default videos from JSON when component mounts
   useEffect(() => {
-    setVideos(defaultVideos); // Replace with actual fetching logic if needed
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch('http://localhost:12345/api/videos'); // Update the URL to your server endpoint
+        const data = await response.json();
+        setVideos(data);  
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+
+    fetchVideos();
   }, []);
 
   // Function to add a new video to the list
