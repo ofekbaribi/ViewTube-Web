@@ -84,6 +84,10 @@ nav {
   cursor: pointer; /* Cursor style */
 }
 
+[data-theme='dark'] .nav-middle .search-box img {
+  filter: invert(100%); /* Search icon color in dark theme */
+}
+
 /* Styles for right section */
 .nav-right .upload-icon {
   width: 25px; /* Width of the upload icon */

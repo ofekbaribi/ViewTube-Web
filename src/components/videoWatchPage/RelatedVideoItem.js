@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './RelatedVideoItem.css';
 import buffering from '../../assets/loadin-place-holder.png';
 
-function RelatedVideoItem({ id, title, author, views, date, videoURL }) {
+function RelatedVideoItem({ id, title, author, views, date, videoUrl }) {
   const [thumbnail, setThumbnail] = useState(buffering); // State for storing the thumbnail image
   const [duration, setDuration] = useState(''); // State for storing the video duration
   const canvasRef = useRef(null); // Reference to a hidden canvas element
@@ -13,7 +13,7 @@ function RelatedVideoItem({ id, title, author, views, date, videoURL }) {
     const canvas = canvasRef.current; // Get the canvas element from the ref
     const context = canvas.getContext('2d'); // Get the 2D drawing context of the canvas
 
-    video.src = videoURL; // Set the source of the video
+    video.src = videoUrl; // Set the source of the video
     video.crossOrigin = 'anonymous'; // Allow cross-origin resource sharing if needed
     video.load(); // Load the video
 
@@ -32,13 +32,13 @@ function RelatedVideoItem({ id, title, author, views, date, videoURL }) {
       const dataURL = canvas.toDataURL(); // Convert the canvas content to a data URL
       setThumbnail(dataURL); // Set the thumbnail state to the data URL
     }, { once: true }); // Listen for the event only once
-  }, [videoURL]); // Memoize the function and add videoURL as a dependency
+  }, [videoUrl]); // Memoize the function and add videoURL as a dependency
 
   useEffect(() => {
-    if (videoURL) {
+    if (videoUrl) {
       captureThumbnail(); // Capture thumbnail when videoURL changes
     }
-  }, [videoURL, captureThumbnail]);
+  }, [videoUrl, captureThumbnail]);
 
   return (
     <Link to={`/video/${id}`} className="no-link-style">

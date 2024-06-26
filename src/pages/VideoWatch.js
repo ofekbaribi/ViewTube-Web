@@ -15,7 +15,6 @@ function VideoWatch() {
   const { videoId } = useParams(); // Getting videoId from URL params
   const [video, setVideo] = useState(null); // State for the current video
   const [error, setError] = useState(null); // State for error handling
-  const [loading, setLoading] = useState(true); // State for loading status
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar visibility
   const navigate = useNavigate(); // Navigation hook from React Router
@@ -27,25 +26,22 @@ function VideoWatch() {
 
   // Effect to fetch video details based on videoId
   useEffect(() => {
-    const getVideoDetails = () => {
-      if (videos.length === 0) {
-        setLoading(true);
-        return; // Return early if videos are not yet loaded
+    const fetchVideo = async () => {
+      try {
+        const response = await fetch('http://localhost:12345/api/videos/' + videoId); // Update the URL to your server endpoint
+        if (!response.ok) {
+          throw new Error('Video not found');
+        }
+        const data = await response.json();
+        setVideo(data);  
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+        setError(error.message);
       }
-
-      // Find the video with matching videoId from context
-      const videoData = videos.find(video => video.id === parseInt(videoId, 10));
-      if (videoData) {
-        setVideo(videoData); // Set found video to state
-        setError(null); // Clear any previous error
-      } else {
-        setError('Video not found'); // Set error if video not found
-      }
-      setLoading(false); // Update loading status
     };
 
-    getVideoDetails(); // Call the function to fetch video details
-  }, [videoId, videos]); // Dependency array ensures effect runs when videoId or videos change
+    fetchVideo();
+  }, [videoId]); // Update the dependency array to [videoId]
 
   // Effect to scroll to top when videoId changes
   useEffect(() => {
@@ -58,14 +54,14 @@ function VideoWatch() {
     navigate(`/?search=${query}`); // Navigate to search results with query parameter
   };
 
-  // Render loading state if video is not loaded yet
-  if (loading) {
-    return <div></div>;
-  }
-
   // Render error state if video is not found
   if (error) {
     return <div>{error}</div>;
+  }
+
+  // Render loading state if video is still being fetched
+  if (!video) {
+    return <div>Loading...</div>;
   }
 
   // Render video watch page with components
@@ -78,7 +74,7 @@ function VideoWatch() {
       {/* Main container for video details */}
       <div className="videoMain-container">
         {/* VideoPlayer component displaying the video */}
-        <VideoPlayer videoUrl={video.videoURL} />
+        <VideoPlayer videoUrl={video.videoUrl} />
         {/* VideoDetails component displaying details about the video */}
         <VideoDetails video={video} />
         {/* CommentsSection component for displaying and adding comments */}
