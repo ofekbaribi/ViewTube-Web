@@ -20,16 +20,18 @@ function CommentsSection({ videoId }) {
   const [editCommentText, setEditCommentText] = useState('');
 
   // Handle new comment submission
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     const comment = {
-      id: comments.length + 1,
+      id: Math.floor(Math.random() * 1000), // to change
       text: newComment,
       author: currentUser ? currentUser.username : 'Guest',
-      videoId,
+      videoId: videoId
     };
-    addComment(comment);
+    //await addComment(comment);
+    //await getCommentsByVideoId(videoId);
     setNewComment('');
+
   };
 
   // Handle comment edit initiation
@@ -83,7 +85,7 @@ function CommentsSection({ videoId }) {
             {editingCommentId === comment.id ? (
               <>
                 <div className="comment-text">
-                  <strong>{comment.author}</strong>:
+                  <strong>{comment.uploader}</strong>:
                 </div>
                 {/* Input for editing a comment */}
                 <input
@@ -104,10 +106,10 @@ function CommentsSection({ videoId }) {
             ) : (
               <>
                 <div className="comment-text">
-                  <strong>{comment.author}</strong>: {comment.text}
+                  <strong>{comment.uploader}</strong>: {comment.text}
                 </div>
                 <div className="comment-actions">
-                  {currentUser && currentUser.username === comment.author && (
+                  {currentUser && currentUser.username === comment.uploader && (
                     <>
                       <button className="edit-button action-button" onClick={() => handleEditComment(comment)}>
                         <img src={editIcon} alt="Edit" width="16" height="16"/>
