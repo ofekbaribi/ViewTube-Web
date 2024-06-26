@@ -29,6 +29,10 @@ export const VideosProvider = ({ children }) => {
     );
   };
 
+  const getVideosByUsername = (username) => {
+    return videos ? videos.filter(video => video.author === username) : [];
+  }
+
   // Function to toggle like status of a video by a user
   const toggleLikeVideo = (userId, videoId) => {
     setVideos((prevVideos) =>
@@ -60,7 +64,7 @@ export const VideosProvider = ({ children }) => {
   // Provide the context value to be consumed by components
   return (
     <VideosContext.Provider
-      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes }}
+      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername }}
     >
       {children} {/* Render children components wrapped by this provider */}
     </VideosContext.Provider>

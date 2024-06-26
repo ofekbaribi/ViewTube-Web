@@ -24,8 +24,21 @@ export const UserProvider = ({ children }) => {
   // Function to get the profile picture of a user by username
   const getProfilePicture = (username) => {
     const user = users.find((user) => user.username === username);
-    return user ? user.image : null;
+    return user ? user.image : '/media/lahav.jpg';
   };
+
+  const getUserFirstName = (username) => {
+    const user = users.find((user) => user.username === username);
+    return user ? user.firstname : 'FirstName';
+  };
+
+  const getUserLastName = (username) => {
+    const user = users.find((user) => user.username === username);
+    return user ? user.lastname : 'LastName';
+  }
+
+  
+  
 
   // Function to log out the current user
   const logout = () => {
@@ -34,7 +47,7 @@ export const UserProvider = ({ children }) => {
 
   // Provide the context value to be consumed by components
   return (
-    <UserContext.Provider value={{ currentUser, setUser, addUser, logout, users, getProfilePicture }}>
+    <UserContext.Provider value={{ currentUser, setUser, addUser, logout, users, getProfilePicture, getUserFirstName, getUserLastName }}>
       {children} {/* Render children components wrapped by this provider */}
     </UserContext.Provider>
   );
