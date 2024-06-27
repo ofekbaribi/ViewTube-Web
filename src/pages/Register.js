@@ -9,7 +9,7 @@ import NewPasswordForm from '../components/RegisterComponents/NewPasswordForm';
 import NewImageForm from '../components/RegisterComponents/NewImageForm';
 import logo from '../assets/logo.png';
 import InfoIcon from '../assets/info-circle.svg'; 
-import { useUser } from '../contexts/UserContext';
+import axios from 'axios';
 
 const Register = () => {
   // State variables for form inputs and errors
@@ -26,9 +26,6 @@ const Register = () => {
 
   // Navigation hook from React Router
   const navigate = useNavigate();
-
-  // Accessing user context functions and state
-  const { addUser, setUser, users } = useUser();
 
   // Function to validate password format
   const validatePassword = (password) => {
@@ -78,32 +75,47 @@ const Register = () => {
   };
 
   // Handle username submission and validation
-  const handleUsernameSubmit = () => {
-    const user = users.find(user => user.username === username);
-    if (user) {
-      setUsernameError('Username already exists!');
+  const handleUsernameSubmit = async () => {
+    try {
+      const response = await axios.get(`http://localhost:12345/api/users/check/${username}`);
+      if (response.data.exists) {
+        setUsernameError('Username already exists!');
+        return false;
+      } else if (!validateUsername(username)) {
+        setUsernameError('Username can only contain lowercase letters and be at least 2 characters long.');
+        return false;
+      } else if (!validateName(firstName, lastName)) {
+        setNameError('Invalid name format.');
+        return false;
+      } else {
+        setUsernameError('');
+        setNameError('');
+        return true;
+      }
+    } catch (error) {
+      console.error('Error checking username:', error);
+      setUsernameError('Error checking username');
       return false;
-    } else if (!validateUsername(username)) {
-      setUsernameError('Username can only contain lowercase letters and be at least 2 characters long.');
-      return false;
-    } else if (!validateName(firstName, lastName)) {
-      setNameError('Invalid name format.');
-      return false;
-    } else {
-      setUsernameError('');
-      setNameError('');
-      return true;
     }
   };
 
   // Handle overall form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (handleUsernameSubmit() && handlePasswordSubmit()) {
+    if (await handleUsernameSubmit() && handlePasswordSubmit()) {
       const newUser = { username, firstName, lastName, password, image };
-      addUser(newUser); // Add new user to context
-      setUser(newUser); // Set current user in context
-      navigate('/'); // Navigate to home page after successful registration
+      try {
+        const response = await axios.post('http://localhost:12345/api/users', newUser);
+        if (response.status === 201) {
+          const { token } = response.data;
+          localStorage.setItem('jwtToken', token);
+          navigate('/'); // Navigate to home page after successful registration
+        } else {
+          console.error('Failed to register user');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
