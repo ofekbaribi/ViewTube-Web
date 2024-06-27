@@ -30,7 +30,7 @@ function VideoWatch() {
       try {
         const response = await fetch('http://localhost:12345/api/videos/' + videoId); // Update the URL to your server endpoint
         if (!response.ok) {
-          throw new Error('Video not found');
+          console.error('Video not found');
         }
         const data = await response.json();
         setVideo(data);  
@@ -78,7 +78,7 @@ function VideoWatch() {
         {/* VideoDetails component displaying details about the video */}
         <VideoDetails video={video} />
         {/* CommentsSection component for displaying and adding comments */}
-        
+        <CommentsSection videoId={video.id} />
       </div>
       {/* RelatedVideos component displaying videos related to the current video */}
       <div className="relatedVideosBar">
@@ -87,7 +87,5 @@ function VideoWatch() {
     </div>
   );
 }
-
-//<CommentsSection videoId={video.id} />
 
 export default VideoWatch;
