@@ -13,6 +13,7 @@ export const CommentsProvider = ({ children }) => {
     const addComment = async (comment) => {
       try {
         const response = await axios.post('http://localhost:12345/api/comments', {
+          id: comment.id,
           text: comment.text,
           uploader: comment.uploader,
           videoId: comment.videoId,
@@ -21,6 +22,8 @@ export const CommentsProvider = ({ children }) => {
         console.error('Error fetching videos:', error);
       }
     };
+
+    
 
 
   // Function to update an existing comment by its ID
@@ -40,18 +43,6 @@ export const CommentsProvider = ({ children }) => {
   };
 
 
-    const getCommentsByVideoId = async (videoId) => {
-      try {
-        const response = await axios.get('http://localhost:12345/api/comments/video/' + videoId); // Update the URL to your server endpoint
-        if (!response.ok) {
-          throw new Error('Video not found');
-        }
-        const data = await response.json();
-        setComments(data);  
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-      }
-    };
 
 
   // Provide the context value to be consumed by components
@@ -62,7 +53,6 @@ export const CommentsProvider = ({ children }) => {
         addComment,
         updateComment,
         deleteComment,
-        getCommentsByVideoId,
       }}
     >
       {children}

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {  useState, useEffect } from 'react';
 import './CommentsSection.css'; // Import CSS for styling
+import axios from 'axios';
 import Profile from '../../assets/profile-circle.jpg';
 import editIcon from '../../assets/edit_icon.svg';
 import deleteIcon from '../../assets/delete_icon.svg';
@@ -10,14 +11,34 @@ import { useUser } from '../../contexts/UserContext';
 
 function CommentsSection({ videoId }) {
   // Context hooks to manage comments and user data
-  const { comments, addComment, updateComment, deleteComment, getCommentsByVideoId } = useComments();
+  const {addComment, updateComment, deleteComment} = useComments();
   const { currentUser } = useUser();
 
   // State variables
-  const videoComments = getCommentsByVideoId(videoId);
+  const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editCommentText, setEditCommentText] = useState('');
+  const [error, setError] = useState(null);
+
+  const getCommentsByVideoId = async (videoId) => {
+    try {
+      const response = await axios.get('http://localhost:12345/api/comments/video/' + videoId); 
+      if (Array.isArray(response.data)) {
+        setComments(response.data);
+      } else {
+        setError('Failed to fetch comments');
+      }
+    } catch (err) {
+      console.error('Error fetching comments:', err);
+      setError('Failed to fetch comments');
+    }
+  };
+
+  // Fetch comments when component mounts and when videoId changes
+  useEffect(() => {
+    getCommentsByVideoId(videoId);
+  }, [videoId]);
 
   // Handle new comment submission
   const handleCommentSubmit = async (e) => {
@@ -25,14 +46,15 @@ function CommentsSection({ videoId }) {
     const comment = {
       id: Math.floor(Math.random() * 1000), // to change
       text: newComment,
-      author: currentUser ? currentUser.username : 'Guest',
+      uploader: currentUser ? currentUser.username : 'Guest',
       videoId: videoId
     };
-    //await addComment(comment);
-    //await getCommentsByVideoId(videoId);
+    await addComment(comment);
     setNewComment('');
+    getCommentsByVideoId(videoId)
 
   };
+
 
   // Handle comment edit initiation
   const handleEditComment = (comment) => {
@@ -60,7 +82,7 @@ function CommentsSection({ videoId }) {
   return (
     <div className="comment-section">
       <div className="comment-header">
-        <div className="comment-count">{videoComments.length} Comments</div>
+        <div className="comment-count">{comments.length} Comments</div>
       </div>
       <div className="comment-input">
         {/* Display current user's profile image or a default image */}
@@ -80,7 +102,7 @@ function CommentsSection({ videoId }) {
         <button type="submit" className="submit-button" onClick={handleCommentSubmit}>Submit</button>
       </div>
       <ul>
-        {videoComments.map((comment) => (
+        {comments.map((comment) => (
           <li key={comment.id} className="comment-item">
             {editingCommentId === comment.id ? (
               <>
