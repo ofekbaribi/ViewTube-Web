@@ -78,7 +78,7 @@ function VideoWatch() {
         {/* VideoDetails component displaying details about the video */}
         <VideoDetails video={video} />
         {/* CommentsSection component for displaying and adding comments */}
-        <CommentsSection videoId={video.id} />
+        
       </div>
       {/* RelatedVideos component displaying videos related to the current video */}
       <div className="relatedVideosBar">
@@ -87,5 +87,7 @@ function VideoWatch() {
     </div>
   );
 }
+
+//<CommentsSection videoId={video.id} />
 
 export default VideoWatch;
