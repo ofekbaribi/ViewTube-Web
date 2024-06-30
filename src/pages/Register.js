@@ -10,6 +10,7 @@ import NewImageForm from '../components/RegisterComponents/NewImageForm';
 import logo from '../assets/logo.png';
 import InfoIcon from '../assets/info-circle.svg'; 
 import axios from 'axios';
+import { useUser } from '../contexts/UserContext';
 
 const Register = () => {
   // State variables for form inputs and errors
@@ -23,6 +24,7 @@ const Register = () => {
   const [usernameError, setUsernameError] = useState('');
   const [nameError, setNameError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+  const { setUser } = useUser();
 
   // Navigation hook from React Router
   const navigate = useNavigate();
@@ -107,8 +109,9 @@ const Register = () => {
       try {
         const response = await axios.post('http://localhost:12345/api/users', newUser);
         if (response.status === 201) {
-          const { token } = response.data;
+          const token = response.data.token;
           localStorage.setItem('jwtToken', token);
+          setUser(response.data.user); 
           navigate('/'); // Navigate to home page after successful registration
         } else {
           console.error('Failed to register user');

@@ -6,6 +6,7 @@ import UsernameForm from '../components/LoginComponents/UsernameForm';
 import PasswordForm from '../components/LoginComponents/PasswordForm';
 import logo from '../assets/logo.png';
 import { useUser } from '../contexts/UserContext';
+import axios from 'axios';
 
 const Login = () => {
   // State variables
@@ -19,30 +20,43 @@ const Login = () => {
   const navigate = useNavigate();
 
   // User context
-  const { setUser, users } = useUser();
+  const { setUser } = useUser();
+
+  const checkUsernameExistance = async (username) => {
+    const response = await axios.get(`http://localhost:12345/api/users/check/${username}`);
+    return response.data.exists;
+  }
 
   // Handle form submission when username is submitted
-  const handleUsernameSubmit = (event) => {
+  const handleUsernameSubmit = async (event) => {
     event.preventDefault();
     if (!username) {
       setUsernameError('Please fill out this field.');
-    } else if (!users.find(user => user.username === username)) {
-      setUsernameError('User name does not exist!');
     } else {
-      setUsernameError('');
-      setIsUsernameSubmitted(true); // Proceed to password form
+      const exists = await checkUsernameExistance(username);
+      if (!exists) {
+        setUsernameError('User name does not exist!');
+      } else {
+        setUsernameError('');
+        setIsUsernameSubmitted(true); // Proceed to password form
+      }
     }
   };
 
   // Handle form submission when password is submitted
-  const handlePasswordSubmit = (event) => {
+  const handlePasswordSubmit = async (event) => {
     event.preventDefault();
-    const detailsMatching = users.find(user => user.username === username && user.password === password);
-    if (detailsMatching) {
-      setUser(detailsMatching); // Set user context
-      alert('Login successful'); // Notify user
-      navigate('/'); // Redirect to home page
-    } else {
+    try {
+      const response = await axios.post('http://localhost:12345/api/token', { username, password });
+      if (response.status === 200) {
+        setUser(response.data.user); // Set user context
+        localStorage.setItem('jwtToken', response.data.token); // Set the generated JWT
+        alert('Login successful'); // Notify user
+        navigate('/'); // Redirect to home page
+      } else {
+        setPasswordError('Invalid username or password.');
+      }
+    } catch (error) {
       setPasswordError('Invalid username or password.');
     }
   };

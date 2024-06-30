@@ -65,7 +65,7 @@ function VideoDetails({ video }) {
   return (
     <div>
       <div className='video-title'>
-        {currentUser && currentUser.username === video.author ? (
+        {currentUser && currentUser.username === video.uploader ? (
           <>
             {!editingTitle ? (
               <p>
@@ -100,7 +100,7 @@ function VideoDetails({ video }) {
       <VideoOptionsBar video={video} />
       
       <div className='video-description'>
-        {currentUser && currentUser.username === video.author ? (
+        {currentUser && currentUser.username === video.uploader ? (
           <>
             {!editingDescription ? (
               <p>
@@ -131,7 +131,7 @@ function VideoDetails({ video }) {
         )}
       </div>
 
-      {currentUser && currentUser.username === video.author && (
+      {currentUser && currentUser.username === video.uploader && (
         <div className="delete-button-container">
           <button className="btn btn-outline-danger" onClick={handleDeleteClick}>
             Delete Video

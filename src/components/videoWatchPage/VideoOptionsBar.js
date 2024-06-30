@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './VideoOptionsBar.css';
 import like_icon from '../../assets/like.svg';
@@ -11,14 +11,12 @@ import { useVideos } from '../../contexts/VideosContext';
 
 function VideoOptionsBar({ video }) {
   // Extract author of the video
-  const videoUploader = video.author;
-  const videoRef = useRef(null);
-  const { currentUser } = useUser(); // Get current user context
+  const videoUploader = video.uploader;
+  const { currentUser, getProfilePicture } = useUser(); // Get current user context and profile picture function
   const { toggleLikeVideo, userLikes } = useVideos(); // Get video context functions
   const [likes, setLikes] = useState(video.likes); // State for like count
   const [hasLiked, setHasLiked] = useState(false); // State to check if user has liked the video
-  const { getProfilePicture } = useUser(); // Get profile picture function from user context
-  const profilePicture = getProfilePicture(video.author); // Get uploader's profile picture
+  const [uploaderImage, setUploaderImage] = useState(null); // State for uploader's profile picture
   const location = useLocation(); // Get current URL location
   const currentUrl = window.location.origin + location.pathname + location.search + location.hash; // Construct the full URL of the current page
 
@@ -26,12 +24,17 @@ function VideoOptionsBar({ video }) {
     setLikes(video.likes); // Set likes when the component mounts or updates
     if (currentUser) {
       // Check if current user has liked the video
-      setHasLiked(userLikes[currentUser.id]?.includes(video.id) || false);
+      setHasLiked(userLikes[currentUser.username]?.includes(video.id) || false);
     }
   }, [video.likes, video.id, userLikes, currentUser]); // Dependencies array for useEffect
 
-  let uploaderImage;
-  uploaderImage = profilePicture !== null ? profilePicture : '/media/lahav.jpg'; // Fallback to a default profile picture if user is not found
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      const profilePicture = await getProfilePicture(videoUploader);
+      setUploaderImage(profilePicture || '/media/lahav.jpg'); // Use the default image if no profile picture is found
+    };
+    fetchProfilePicture();
+  }, [getProfilePicture, videoUploader]);
 
   const handleDownload = () => {
     const videoUrl = video.videoURL; // Get video URL
@@ -53,7 +56,7 @@ function VideoOptionsBar({ video }) {
 
   const handleLikeClick = () => {
     if (currentUser) {
-      toggleLikeVideo(currentUser.id, video.id); // Toggle like state for the video
+      toggleLikeVideo(currentUser.username, video.id); // Toggle like state for the video
     } else {
       alert('Guests cannot like videos. Please log in to like videos.');
     }
