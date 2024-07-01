@@ -7,11 +7,9 @@ import RelatedVideos from '../components/videoWatchPage/RelatedVideos';
 import Navbar from '../components/commonComponents/Navbar';
 import Sidebar from '../components/commonComponents/Sidebar';
 import './VideoWatch.css';
-import { useVideos } from '../contexts/VideosContext';
 
 function VideoWatch() {
   // State variables
-  const { videos } = useVideos(); // Accessing video context
   const { videoId } = useParams(); // Getting videoId from URL params
   const [video, setVideo] = useState(null); // State for the current video
   const [error, setError] = useState(null); // State for error handling

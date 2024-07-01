@@ -1,57 +1,63 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import tokenVerification from '../tokenAuth/tokenVerification';
+import axios from 'axios';
 
-// Create a context for user management
 const UserContext = createContext();
 
-// Provider component to wrap around the app and provide user-related functionality
 export const UserProvider = ({ children }) => {
-  // State to hold the current logged-in user
   const [currentUser, setCurrentUser] = useState(null);
 
-  // State to hold the list of users (if needed)
-  const [users, setUsers] = useState([]);
-
-  // Function to set the current user (used for login)
   const setUser = (user) => {
     setCurrentUser(user);
   };
 
-  // Function to add a new user to the list (if maintaining a list of users)
-  const addUser = (newUser) => {
-    setUsers((prevUsers) => [...prevUsers, newUser]);
-  };
-
-  // Function to get the profile picture of a user by username
-  const getProfilePicture = (username) => {
-    const user = users.find((user) => user.username === username);
-    return user ? user.image : '/media/lahav.jpg';
-  };
-
-  const getUserFirstName = (username) => {
-    const user = users.find((user) => user.username === username);
-    return user ? user.firstname : 'FirstName';
-  };
-
-  const getUserLastName = (username) => {
-    const user = users.find((user) => user.username === username);
-    return user ? user.lastname : 'LastName';
-  }
-
-  
-  
-
-  // Function to log out the current user
   const logout = () => {
+    localStorage.removeItem('jwtToken');
     setCurrentUser(null);
   };
 
-  // Provide the context value to be consumed by components
+  const getProfilePicture = async (username) => {
+    try {
+      const response = await axios.get(`http://localhost:12345/api/users/picture/${username}`);
+      if (response.status === 200) {
+        return response.data.profilePicture;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error fetching profile picture:', error);
+      return null;
+    }
+  }; 
+
+  const verifyToken = async () => {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      const userData = await tokenVerification(token);
+      if (userData) {
+        setCurrentUser(userData);
+      } else {
+        logout();
+      }
+    }
+  };
+
+  useEffect(() => {
+    verifyToken();
+
+    // Set up an interval to verify the token every 5 minutes
+    const interval = setInterval(verifyToken, 300000);
+
+    // Clean up the timeout and interval on component unmount
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
-    <UserContext.Provider value={{ currentUser, setUser, addUser, logout, users, getProfilePicture, getUserFirstName, getUserLastName }}>
-      {children} {/* Render children components wrapped by this provider */}
+    <UserContext.Provider value={{ currentUser, setUser, logout, getProfilePicture }}>
+      {children}
     </UserContext.Provider>
   );
 };
 
-// Custom hook to easily access user context from any component
 export const useUser = () => useContext(UserContext);
