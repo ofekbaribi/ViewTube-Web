@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
 
 // Create a context for managing videos and user likes
 const VideosContext = createContext();
@@ -18,7 +18,7 @@ export const VideosProvider = ({ children }) => {
       try {
         const response = await fetch('http://localhost:12345/api/videos'); // Update the URL to your server endpoint
         const data = await response.json();
-        setVideos(data);  
+        setVideos(data);
       } catch (error) {
         console.error('Error fetching videos:', error);
       }
@@ -26,8 +26,6 @@ export const VideosProvider = ({ children }) => {
 
     fetchVideos();
   }, []);
-
- 
 
   // Function to add a new video to the list
   const addVideo = (video) => {
@@ -42,30 +40,40 @@ export const VideosProvider = ({ children }) => {
   };
 
   const getVideosByUsername = (username) => {
-    return videos ? videos.filter(video => video.author === username) : [];
+    return videos ? videos.filter(video => video.uploader === username) : [];
   }
 
   // Function to toggle like status of a video by a user
-  const toggleLikeVideo = (userId, videoId) => {
-    setVideos((prevVideos) =>
-      prevVideos.map((video) => {
-        if (video.id === videoId) {
-          const hasLiked = userLikes[userId]?.includes(videoId);
-          const updatedLikes = hasLiked ? video.likes - 1 : video.likes + 1;
-          return { ...video, likes: updatedLikes };
-        }
-        return video;
-      })
-    );
+  const toggleLikeVideo = async (username, videoId) => {
+    try {
+      // Make the API call to update the like status
+      const response = await axios.post(`http://localhost:12345/api/videos/${videoId}/like`, { username });
 
-    setUserLikes((prevUserLikes) => {
-      const userLikedVideos = prevUserLikes[userId] || [];
-      const hasLiked = userLikedVideos.includes(videoId);
-      const updatedUserLikedVideos = hasLiked
-        ? userLikedVideos.filter((id) => id !== videoId)
-        : [...userLikedVideos, videoId];
-      return { ...prevUserLikes, [userId]: updatedUserLikedVideos };
-    });
+      if (response.status === 200) {
+        // Update the local state based on the response from the server
+        setVideos((prevVideos) =>
+          prevVideos.map((video) => {
+            if (video.id === videoId) {
+              const hasLiked = video.likedBy.includes(username);
+              const updatedLikes = hasLiked ? video.likes - 1 : video.likes + 1;
+              return { ...video, likes: updatedLikes, likedBy: hasLiked ? video.likedBy.filter(user => user !== username) : [...video.likedBy, username] };
+            }
+            return video;
+          })
+        );
+
+        setUserLikes((prevUserLikes) => {
+          const userLikedVideos = prevUserLikes[username] || [];
+          const hasLiked = userLikedVideos.includes(videoId);
+          const updatedUserLikedVideos = hasLiked
+            ? userLikedVideos.filter((id) => id !== videoId)
+            : [...userLikedVideos, videoId];
+          return { ...prevUserLikes, [username]: updatedUserLikedVideos };
+        });
+      }
+    } catch (error) {
+      console.error('Error toggling like status:', error);
+    }
   };
 
   // Function to delete a video by ID
