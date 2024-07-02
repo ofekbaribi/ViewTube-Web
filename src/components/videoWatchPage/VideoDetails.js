@@ -16,22 +16,25 @@ function VideoDetails({ video }) {
   const [editingDescription, setEditingDescription] = useState(false);
   const [newTitle, setNewTitle] = useState(video.title);
   const [newDescription, setNewDescription] = useState(video.description);
+  const [currentVideo, setCurrentVideo] = useState(video);
   const navigate = useNavigate();
 
-  // Sync state with video prop
   useEffect(() => {
-    setNewTitle(video.title);
-    setNewDescription(video.description);
+    setCurrentVideo(video);
   }, [video]);
 
-  // Handlers for editing title
+  useEffect(() => {
+    setNewTitle(currentVideo.title);
+    setNewDescription(currentVideo.description);
+  }, [currentVideo]);
+
   const handleEditTitleClick = () => setEditingTitle(true);
-  const handleSaveTitleClick = () => {
+  const handleSaveTitleClick = async () => {
     if (newTitle === '') {
       alert('Video title cannot be empty!');
     } else {
-      updateVideoDetails(video.id, { title: newTitle });
-      setEditingTitle(false);  
+      setCurrentVideo(await updateVideoDetails(video.id, { title: newTitle, description: newDescription }));
+      setEditingTitle(false);
     }
   };
   const handleCancelTitleClick = () => {
@@ -39,13 +42,12 @@ function VideoDetails({ video }) {
     setEditingTitle(false);
   };
 
-  // Handlers for editing description
   const handleEditDescriptionClick = () => setEditingDescription(true);
-  const handleSaveDescriptionClick = () => {
+  const handleSaveDescriptionClick = async () => {
     if (newDescription === '') {
       alert('Video description cannot be empty!');
     } else {
-      updateVideoDetails(video.id, { description: newDescription });
+      setCurrentVideo(await updateVideoDetails(video.id, { title: newTitle, description: newDescription }));
       setEditingDescription(false);
     }
   };
@@ -54,10 +56,9 @@ function VideoDetails({ video }) {
     setEditingDescription(false);
   };
 
-  // Handler for deleting video
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
     if (window.confirm("Are you sure you want to delete this video?")) {
-      deleteVideo(video.id);
+      await deleteVideo(video.id);
       navigate('/');
     }
   };
@@ -69,7 +70,7 @@ function VideoDetails({ video }) {
           <>
             {!editingTitle ? (
               <p>
-                {video.title}
+                {currentVideo.title}
                 <button className="edit-button action-button" onClick={handleEditTitleClick}>
                   <img src={editIcon} alt="Edit title" />
                 </button>
@@ -93,18 +94,18 @@ function VideoDetails({ video }) {
             )}
           </>
         ) : (
-          <p>{video.title}</p>
+          <p>{currentVideo.title}</p>
         )}
       </div>
       
-      <VideoOptionsBar video={video} />
+      <VideoOptionsBar video={currentVideo} />
       
       <div className='video-description'>
         {currentUser && currentUser.username === video.uploader ? (
           <>
             {!editingDescription ? (
               <p>
-                {video.description}
+                {currentVideo.description}
                 <button className="description-edit-button action-button" onClick={handleEditDescriptionClick}>
                   <img src={editIcon} alt="Edit description" />
                 </button>
@@ -127,7 +128,7 @@ function VideoDetails({ video }) {
             )}
           </>
         ) : (
-          <p>{video.description}</p>
+          <p>{currentVideo.description}</p>
         )}
       </div>
 
