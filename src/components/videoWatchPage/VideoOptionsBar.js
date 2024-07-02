@@ -24,9 +24,9 @@ function VideoOptionsBar({ video }) {
     setLikes(video.likes); // Set likes when the component mounts or updates
     if (currentUser) {
       // Check if current user has liked the video
-      setHasLiked(userLikes[currentUser.username]?.includes(video.id) || false);
+      setHasLiked(video.likedBy.includes(currentUser.username));
     }
-  }, [video.likes, video.id, userLikes, currentUser]); // Dependencies array for useEffect
+  }, [video.likes, video.likedBy, currentUser]); // Dependencies array for useEffect
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
@@ -54,9 +54,11 @@ function VideoOptionsBar({ video }) {
     });
   };
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (currentUser) {
-      toggleLikeVideo(currentUser.username, video.id); // Toggle like state for the video
+      await toggleLikeVideo(currentUser.username, video.id); // Toggle like state for the video
+      setHasLiked((prevHasLiked) => !prevHasLiked);
+      setLikes((prevLikes) => hasLiked ? prevLikes - 1 : prevLikes + 1);
     } else {
       alert('Guests cannot like videos. Please log in to like videos.');
     }

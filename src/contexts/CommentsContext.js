@@ -16,10 +16,9 @@ export const CommentsProvider = ({ children }) => {
           id: comment.id,
           text: comment.text,
           uploader: comment.uploader,
-          videoId: comment.videoId,
-        }); // Update the URL to your server endpoint
+        });
       } catch (error) {
-        console.error('Error fetching videos:', error);
+        console.error('Error adding comment:', error);
       }
     };
 
