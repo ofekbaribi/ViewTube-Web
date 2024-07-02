@@ -33,10 +33,19 @@ export const VideosProvider = ({ children }) => {
   };
 
   // Function to update details of a video by ID
-  const updateVideoDetails = (id, updates) => {
-    setVideos((prevVideos) =>
-      prevVideos.map((video) => (video.id === id ? { ...video, ...updates } : video))
-    );
+  const updateVideoDetails = async (id, updates) => {
+    try {
+      const response = await axios.patch(`http://localhost:12345/api/videos/${id}`, updates);
+      const updatedVideo = response.data;
+
+      setVideos((prevVideos) =>
+        prevVideos.map((video) => (video.id === id ? { ...video, ...updatedVideo } : video))
+      );
+      return updatedVideo;
+    } catch (error) {
+      console.error('Error updating video:', error);
+      return videos.find((video) => video.id === id);
+    }
   };
 
   const getVideosByUsername = (username) => {
@@ -77,8 +86,13 @@ export const VideosProvider = ({ children }) => {
   };
 
   // Function to delete a video by ID
-  const deleteVideo = (id) => {
-    setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
+  const deleteVideo = async (id) => {
+    try {
+      await axios.delete(`http://localhost:12345/api/videos/${id}`);
+      setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
+    } catch (error) {
+      console.error('Error deleting video:', error);
+    }
   };
 
   // Provide the context value to be consumed by components
