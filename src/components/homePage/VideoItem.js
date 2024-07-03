@@ -3,7 +3,7 @@ import './VideoItem.css';
 import { Link } from 'react-router-dom';
 import buffering from '../../assets/loadin-place-holder.png';
 
-function VideoItem({ id, title, author, views, date, videoUrl }) {
+function VideoItem({ id, title, uploader, views, date, videoUrl }) {
   const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
@@ -49,7 +49,7 @@ function VideoItem({ id, title, author, views, date, videoUrl }) {
         <div className="video-info">
           <div className="video-details">
             <h3 className="title">{title}</h3>
-            <p className="author">{author}</p>
+            <p className="author">{uploader}</p>
             <p className="metadata">{views} views • {date}</p>
             <canvas ref={canvasRef} width="320" height="180" style={{ display: 'none' }}></canvas>
           </div>
