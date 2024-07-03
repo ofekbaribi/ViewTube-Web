@@ -44,7 +44,6 @@ function CommentsSection({ videoId }) {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     const comment = {
-      id: Math.floor(Math.random() * 1000), // to change
       text: newComment,
       uploader: currentUser ? currentUser.username : 'Guest',
       videoId: videoId
@@ -52,7 +51,6 @@ function CommentsSection({ videoId }) {
     await addComment(comment);
     setNewComment('');
     getCommentsByVideoId(videoId)
-
   };
 
 
@@ -63,12 +61,12 @@ function CommentsSection({ videoId }) {
   };
 
   // Handle saving edited comment
-  const handleSaveEdit = (id) => {
+  const handleSaveEdit = async (id) => {
     if (editCommentText === '') {
-      deleteComment(id, videoId);
+      await deleteComment(id, videoId);
       getCommentsByVideoId(videoId);
     } else {
-      updateComment(id, editCommentText, videoId);
+      await updateComment(id, editCommentText, videoId);
       getCommentsByVideoId(videoId);
     }
     setEditingCommentId(null);
@@ -81,8 +79,8 @@ function CommentsSection({ videoId }) {
     setEditCommentText('');
   };
   
-  const handleCommentDelete = (id) => {
-    deleteComment(id, videoId);
+  const handleCommentDelete = async (id) => {
+    await deleteComment(id, videoId);
     getCommentsByVideoId(videoId);
   }
 
