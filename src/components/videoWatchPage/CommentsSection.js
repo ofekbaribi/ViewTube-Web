@@ -38,7 +38,7 @@ function CommentsSection({ videoId }) {
   // Fetch comments when component mounts and when videoId changes
   useEffect(() => {
     getCommentsByVideoId(videoId);
-  }, [videoId, comments]);
+  }, [videoId]);
 
   // Handle new comment submission
   const handleCommentSubmit = async (e) => {

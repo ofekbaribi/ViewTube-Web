@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useVideos } from '../contexts/VideosContext';
 import VideoPlayer from '../components/videoWatchPage/VideoPlayer';
 import VideoDetails from '../components/videoWatchPage/VideoDetails';
 import CommentsSection from '../components/videoWatchPage/CommentsSection';
@@ -11,6 +12,7 @@ import './VideoWatch.css';
 function VideoWatch() {
   // State variables
   const { videoId } = useParams(); // Getting videoId from URL params
+  const { addViewCount } = useVideos(); // Accessing the getVideosById function from context
   const [video, setVideo] = useState(null); // State for the current video
   const [error, setError] = useState(null); // State for error handling
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
@@ -31,6 +33,7 @@ function VideoWatch() {
           console.error('Video not found');
         }
         const data = await response.json();
+        addViewCount(data.id); 
         setVideo(data);  
       } catch (error) {
         console.error('Error fetching videos:', error);
