@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './RelatedVideoItem.css';
 import buffering from '../../assets/loadin-place-holder.png';
 
-function RelatedVideoItem({ id, title, author, views, date, videoUrl }) {
+function RelatedVideoItem({ id, title, uploader, views, date, videoUrl }) {
   const [thumbnail, setThumbnail] = useState(buffering); // State for storing the thumbnail image
   const [duration, setDuration] = useState(''); // State for storing the video duration
   const canvasRef = useRef(null); // Reference to a hidden canvas element
@@ -49,7 +49,7 @@ function RelatedVideoItem({ id, title, author, views, date, videoUrl }) {
         </div>
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
-          <p className="card-text">{author}</p>
+          <p className="card-text">{uploader}</p>
           <p className="card-text">{views} views • {date}</p>
         </div>
         <canvas ref={canvasRef} width="320" height="180" style={{ display: 'none' }}></canvas> {/* Hidden canvas element */}

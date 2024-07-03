@@ -29,6 +29,19 @@ export const UserProvider = ({ children }) => {
     }
   }; 
 
+  const getUserData = async (username) => {
+    try {
+      const response = await axios.get(`http://localhost:12345/api/users/${username}`);
+      if (response.status === 200) {
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      return null;
+    }
+  };
+
   const verifyToken = async () => {
     const token = localStorage.getItem('jwtToken');
     if (token) {
@@ -61,7 +74,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ currentUser, setUser, logout, getProfilePicture, verifyTokenBeforeVideoUpload }}>
+    <UserContext.Provider value={{ currentUser, setUser, logout, getProfilePicture, verifyTokenBeforeVideoUpload, getUserData }}>
       {children}
     </UserContext.Provider>
   );

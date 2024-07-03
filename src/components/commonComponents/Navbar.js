@@ -53,7 +53,7 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
             <Link to="/upload">
               <img className='upload-icon' src={uploadIcon} alt="upload" />
             </Link>
-            <Link to="/">
+            <Link to={`/profile/${currentUser.username}`}>
               <img src={currentUser.image} alt='Profile' className="rounded-circle" width="40" height="40" />
             </Link>
             <button className='logout' onClick={handleLogout}>Logout</button>  
