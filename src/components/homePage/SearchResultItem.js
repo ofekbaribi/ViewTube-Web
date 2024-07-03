@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './SearchResultItem.css'; // Import the CSS file for SearchResultItem
 import buffering from '../../assets/loadin-place-holder.png';
 
-function SearchResultItem({ id, title, author, views, date, videoURL }) {
+function SearchResultItem({ id, title, uploader, views, date, videoURL }) {
   const [thumbnail, setThumbnail] = useState(buffering);
   const [duration, setDuration] = useState('');
   const canvasRef = useRef(null);
@@ -47,7 +47,7 @@ function SearchResultItem({ id, title, author, views, date, videoURL }) {
         <div className="video-info">
           <div className="video-details">
             <h3 className="title">{title}</h3> {/* Title of the video */}
-            <p className="author">{author}</p> {/* Author of the video */}
+            <p className="author">{uploader}</p> {/* Uploader of the video */}
             {/* Display metadata: views, date, and duration */}
             <p className="metadata">{views} views • {date} • Duration: {duration}</p>
             <canvas ref={canvasRef} width="320" height="180" style={{ display: 'none' }}></canvas> {/* Hidden canvas for thumbnail capture */}
