@@ -61,6 +61,42 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateUserData = async (username, firstName, lastName) => {
+    try {
+      const response = await axios.put(`http://localhost:12345/api/users/${username}`, { firstName: firstName, lastName: lastName });
+      if (response.status === 200) {
+        setCurrentUser(response.data);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Error updating user data:', error);
+      return false;
+    }
+  };
+
+  const updateUserPassword = async (username, currentPassword, newPassword) => {
+    try {
+      const response = await axios.post('http://localhost:12345/api/users/password', { 
+        username: username, 
+        currentPassword: currentPassword, 
+        newPassword: newPassword,
+      }); 
+      if (response.status === 200) {
+        setCurrentUser(response.data.user);
+        localStorage.setItem('jwtToken', response.data.token);
+        console.log(response.data.token);
+        console.log(response.data.user);
+      }
+      return response.status;
+    } catch (error) {
+      console.error('Error updating user password:', error);
+      return null;
+      ;
+    }
+  };
+
+
   useEffect(() => {
     verifyToken();
 
@@ -74,7 +110,16 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ currentUser, setUser, logout, getProfilePicture, verifyTokenBeforeVideoUpload, getUserData }}>
+    <UserContext.Provider value={{ 
+      currentUser, 
+      setUser, 
+      logout, 
+      getProfilePicture, 
+      verifyTokenBeforeVideoUpload, 
+      getUserData, 
+      updateUserData, 
+      updateUserPassword, 
+      }}>
       {children}
     </UserContext.Provider>
   );

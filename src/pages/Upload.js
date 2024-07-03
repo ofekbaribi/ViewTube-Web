@@ -27,15 +27,24 @@ const UploadPage = () => {
       console.log('Token verification failed, logging out...');
       logout();
       navigate('/login');
+      return false;
+    } else if (user.username !== currentUser.username) {
+      alert('User mismatch, logging out...');
+      logout();
+      navigate('/login');
+      return false;
     } else {
       console.log('Token is valid, proceeding with upload...');
+      return true;
     }
   };
 
   const handleUpload = async (event) => {
     event.preventDefault();
 
-    await checkTokenBeforeUpload();
+    if (! (await checkTokenBeforeUpload())) {
+      return;
+    }
 
     if (!title || !description || !videoFile) {
       alert('Please fill in all fields.');
