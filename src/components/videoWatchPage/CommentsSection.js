@@ -38,7 +38,7 @@ function CommentsSection({ videoId }) {
   // Fetch comments when component mounts and when videoId changes
   useEffect(() => {
     getCommentsByVideoId(videoId);
-  }, [videoId]);
+  }, [videoId, comments]);
 
   // Handle new comment submission
   const handleCommentSubmit = async (e) => {
@@ -65,9 +65,11 @@ function CommentsSection({ videoId }) {
   // Handle saving edited comment
   const handleSaveEdit = (id) => {
     if (editCommentText === '') {
-      deleteComment(id);
+      deleteComment(id, videoId);
+      getCommentsByVideoId(videoId);
     } else {
-      updateComment(id, editCommentText);
+      updateComment(id, editCommentText, videoId);
+      getCommentsByVideoId(videoId);
     }
     setEditingCommentId(null);
     setEditCommentText('');
@@ -78,6 +80,11 @@ function CommentsSection({ videoId }) {
     setEditingCommentId(null);
     setEditCommentText('');
   };
+  
+  const handleCommentDelete = (id) => {
+    deleteComment(id, videoId);
+    getCommentsByVideoId(videoId);
+  }
 
   return (
     <div className="comment-section">
@@ -136,7 +143,7 @@ function CommentsSection({ videoId }) {
                       <button className="edit-button action-button" onClick={() => handleEditComment(comment)}>
                         <img src={editIcon} alt="Edit" width="16" height="16"/>
                       </button>
-                      <button className="delete-button action-button" onClick={() => deleteComment(comment.id)}>
+                      <button className="delete-button action-button" onClick={() => handleCommentDelete(comment.id, videoId)}>
                         <img src={deleteIcon} alt="Delete" width="16" height="16"/>
                       </button>
                     </>
