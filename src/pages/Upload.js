@@ -1,37 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../css/bootstrap.min.css';
 import './Upload.css';
 import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 
 const UploadPage = () => {
-  // State variables for form inputs and hooks
-  const { videos, addVideo } = useVideos();
+  const { addVideo } = useVideos();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const navigate = useNavigate();
-  const { currentUser } = useUser();
+  const { currentUser, logout, verifyTokenBeforeVideoUpload } = useUser();
 
-  // Effect hook to redirect to login if currentUser is null
   useEffect(() => {
     if (!currentUser) {
       navigate('/login'); // Redirect to login page if currentUser is null
     }
   }, [currentUser, navigate]);
 
-  // Function to handle form submission (video upload)
+  const checkTokenBeforeUpload = async () => {
+    console.log('Verifying token before upload...');
+    const user = await verifyTokenBeforeVideoUpload();
+    if (!user) {
+      console.log('Token verification failed, logging out...');
+      logout();
+      navigate('/login');
+    } else {
+      console.log('Token is valid, proceeding with upload...');
+    }
+  };
+
   const handleUpload = async (event) => {
     event.preventDefault();
 
-    // Validate form fields
+    await checkTokenBeforeUpload();
+
     if (!title || !description || !videoFile) {
       alert('Please fill in all fields.');
       return;
     }
 
-    // Function to get video duration asynchronously
     const getVideoDuration = (file) => {
       return new Promise((resolve) => {
         const video = document.createElement('video');
@@ -44,7 +54,6 @@ const UploadPage = () => {
       });
     };
 
-    // Function to format video duration into HH:MM:SS format
     const formatDuration = (duration) => {
       const hours = Math.floor(duration / 3600);
       const minutes = Math.floor((duration % 3600) / 60);
@@ -56,32 +65,31 @@ const UploadPage = () => {
       }
     };
 
-    // Generate unique ID for new video
-    const id = videos.reduce((maxId, video) => Math.max(video.id, maxId), 0) + 1;
-
-    // Calculate video duration and format it
     const durationInSeconds = await getVideoDuration(videoFile);
     const duration = formatDuration(durationInSeconds);
 
-    // Prepare metadata for new video
-    const metadata = {
-      id,
-      title,
-      description,
-      author: currentUser.username,
-      videoURL: URL.createObjectURL(videoFile),
-      date: new Date().toLocaleDateString(),
-      views: 0,
-      likes: 0,
-      duration
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('videoFile', videoFile);
+    formData.append('duration', duration);
+    formData.append('uploader', currentUser.username);
 
-    // Add new video to context
-    addVideo(metadata);
+    try {
+      console.log('Uploading video...');
+      const response = await axios.post('http://localhost:12345/api/videos', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
 
-    // Show success message and navigate to home page
-    alert('Video uploaded successfully.');
-    navigate('/');
+      addVideo(response.data);
+      alert('Video uploaded successfully.');
+      navigate('/');
+    } catch (error) {
+      console.error('Error uploading video:', error);
+      alert('Error uploading video. Please try again.');
+    }
   };
 
   return (
@@ -89,7 +97,6 @@ const UploadPage = () => {
       <div className="container">
         <h2>Upload Video</h2>
         <form onSubmit={handleUpload}>
-          {/* Title input */}
           <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
             <input
@@ -102,7 +109,6 @@ const UploadPage = () => {
             />
           </div>
 
-          {/* Description textarea */}
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
             <textarea
@@ -114,7 +120,6 @@ const UploadPage = () => {
             />
           </div>
 
-          {/* Video file input */}
           <div className="mb-3">
             <label htmlFor="videoFile" className="form-label">Video File</label>
             <input
@@ -127,7 +132,6 @@ const UploadPage = () => {
             />
           </div>
 
-          {/* Submit button */}
           <button type="submit" className="btn btn-primary">Upload</button>
         </form>
       </div>

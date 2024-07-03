@@ -41,6 +41,13 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const verifyTokenBeforeVideoUpload = async () => {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      return await tokenVerification(token);
+    }
+  };
+
   useEffect(() => {
     verifyToken();
 
@@ -54,7 +61,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ currentUser, setUser, logout, getProfilePicture }}>
+    <UserContext.Provider value={{ currentUser, setUser, logout, getProfilePicture, verifyTokenBeforeVideoUpload }}>
       {children}
     </UserContext.Provider>
   );
