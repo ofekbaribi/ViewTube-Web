@@ -3,28 +3,34 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import Navbar from '../components/commonComponents/Navbar';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
+import EditOptionsModal from '../components/UserProfileComponents/EditOptionsModal';
 import { useVideos } from '../contexts/VideosContext';
-import styles from './Home.css';
 import { useUser } from '../contexts/UserContext';
+import editIcon from '../assets/edit_icon.svg';
+import styles from './Home.css';
 import './UserProfile.css';
 import '../css/bootstrap.min.css';
 
 const UserProfile = () => {
-  // State and hooks
-  const { getVideosByUsername } = useVideos(); // Accessing the getVideosByUsername function from context
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar open/close
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
-  const navigate = useNavigate(); // Navigation hook from react-router-dom
-  const location = useLocation(); // Location hook from react-router-dom
-  const { username } = useParams(); // Getting Username from URL params
+  const { getVideosByUsername } = useVideos();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { username } = useParams();
   const { getUserData } = useUser();
+  const { currentUser } = useUser();
   const decodedUsername = decodeURIComponent(username);
-  const [userData, setUserData] = useState(null); // State for user data
+  const [userData, setUserData] = useState(null);
+  const [showOptionsModal, setShowOptionsModal] = useState(false);
 
-  // Get videos uploaded by the user
+  // Function to show the modal
+  const handleShowOptionsModal = () => setShowOptionsModal(true);
+  // Function to close the modal
+  const handleCloseOptionsModal = () => setShowOptionsModal(false);
+
   const userVideos = getVideosByUsername(decodedUsername);
 
-  // Fetch user data on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       const data = await getUserData(decodedUsername);
@@ -34,64 +40,64 @@ const UserProfile = () => {
     fetchUserData();
   }, [decodedUsername, getUserData]);
 
-  // Effect to update searchQuery state based on URL search parameter
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const query = searchParams.get('search') || ''; // Get search query from URL, default to empty string
-    setSearchQuery(query); // Update searchQuery state
-  }, [location.search]); // Trigger effect when location.search changes
+    const query = searchParams.get('search') || '';
+    setSearchQuery(query);
+  }, [location.search]);
 
-  // Function to toggle sidebar open/close state
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // Function to handle search input change
   const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value); // Update searchQuery state as user types
+    setSearchQuery(event.target.value);
   };
 
-  // Function to handle search submission
   const handleSearch = (query) => {
-    setSearchQuery(query); // Update searchQuery state
-    navigate(`/?search=${query}`); // Navigate to URL with updated search query
+    setSearchQuery(query);
+    navigate(`/?search=${query}`);
   };
 
   if (!userData) {
-    return <div>Loading...</div>; // Show a loading state while fetching user data
+    return <div>Loading...</div>;
   }
 
   return (
     <>
-      {/* Navbar component with props */}
       <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
-      {/* Main content area */}
       <div className={styles.homePage}>
-        {/* Sidebar component with isOpen prop */}
         <Sidebar isOpen={sidebarOpen} />
-        {/* Feed component displaying videos */}
         <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
-            <div className="d-flex align-items-center user-details">
-                {/* Profile Image */}
-                <img
-                    src={userData.image}
-                    alt="Uploader's profile"
-                    className="rounded-circle profile-picture"
-                    width="100"
-                    height="100"
-                />
-                {/* Uploader's Details */}
-                <div className="ml-3 user-data">
-                    <h3 className="mb-0">{userData.firstName} {userData.lastName}</h3>
-                    <h5 className='mb-0 details'>@{username} • {userVideos.length} videos</h5>
+          <div className="d-flex align-items-center user-details">
+            <img
+              src={userData.image}
+              alt="Uploader's profile"
+              className="rounded-circle profile-picture"
+              width="100"
+              height="100"
+            />
+            <div className="ml-3 user-data">
+              <h3 className="mb-0">{userData.firstName} {userData.lastName}</h3>
+              <h5 className='mb-0 details'>@{username} • {userVideos.length} videos</h5>
+              {currentUser && currentUser.username === username ? (
+                <div>
+                  <button type="button" className="btn edit-profile-button" onClick={handleShowOptionsModal}>
+                    <img src={editIcon} alt='Edit Profile' className='edit-icon' />
+                    <span className='btn btn-danger edit-profile-text'>Edit Profile</span>
+                  </button>
                 </div>
+              ): null}
             </div>
-            <hr/>
-            <div className="search-result-item">
-                <Feed searchQuery={searchQuery} videos={userVideos} />
-            </div>
+          </div>
+          <hr />
+          <div className="search-result-item">
+            <Feed searchQuery={searchQuery} videos={userVideos} />
+          </div>
         </div>
       </div>
+      <EditOptionsModal show={showOptionsModal} handleClose={handleCloseOptionsModal}/>
+            
     </>
   );
 };

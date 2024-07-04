@@ -34,5 +34,49 @@
   font-size: 30px;
 }
 
+.edit-profile-button {
+  background-color: transparent;
+  border: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.3s;
+  overflow: hidden;
+  width: 150px; /* Same as icon width */
+  height: 40px; /* Same as icon height */
+}
 
+.edit-icon {
+  margin-left: 63px;
+  width: 24px;
+  height: 40px;
+  transition: opacity 0.3s, transform 0.3s;
+}
 
+.edit-profile-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 14px;
+}
+
+.edit-profile-button:hover .edit-icon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.edit-profile-button:hover .edit-profile-text {
+  opacity: 1;
+  transform: scale(1);
+}
