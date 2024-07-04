@@ -27,6 +27,19 @@ export const VideosProvider = ({ children }) => {
     fetchVideos();
   }, []);
 
+  const addViewCount = async (id) => {
+    try {
+      const response = await axios.patch(`http://localhost:12345/api/videos/${id}/view`);
+      const updatedVideo = response.data;
+
+      setVideos((prevVideos) =>
+        prevVideos.map((video) => (video.id === id ? { ...video, ...updatedVideo } : video))
+      );
+    } catch (error) {
+      console.error('Error updating video:', error);
+    }
+  }
+
   // Function to add a new video to the list
   const addVideo = (video) => {
     setVideos((prevVideos) => [...prevVideos, video]);
@@ -98,7 +111,7 @@ export const VideosProvider = ({ children }) => {
   // Provide the context value to be consumed by components
   return (
     <VideosContext.Provider
-      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername }}
+      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount }}
     >
       {children} {/* Render children components wrapped by this provider */}
     </VideosContext.Provider>

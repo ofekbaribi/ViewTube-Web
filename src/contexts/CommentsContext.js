@@ -16,7 +16,9 @@ export const CommentsProvider = ({ children }) => {
           id: comment.id,
           text: comment.text,
           uploader: comment.uploader,
+          videoId: comment.videoId,
         });
+        setComments((prevComments) => [...prevComments, response.data]);
       } catch (error) {
         console.error('Error adding comment:', error);
       }
@@ -26,19 +28,35 @@ export const CommentsProvider = ({ children }) => {
 
 
   // Function to update an existing comment by its ID
-  const updateComment = (id, text) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.id === id ? { ...comment, text } : comment
-      )
-    );
+  const updateComment = async (id, text, videoId) => {
+    try {
+      const response = await axios.patch(`http://localhost:12345/api/comments/${id}`, {
+        text: text,
+        videoId: videoId,
+      });
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment.id === id ? { ...comment, text: response.data.text } : comment
+        )
+      );
+    } catch (error) {
+      console.error('Error updating comment:', error);
+    }
   };
 
+
   // Function to delete a comment by its ID
-  const deleteComment = (id) => {
-    setComments((prevComments) =>
-      prevComments.filter((comment) => comment.id !== id)
-    );
+  const deleteComment = async (id, videoId) => {
+    try {
+      const response = await axios.delete(`http://localhost:12345/api/comments/${id}`, {
+        params: { videoId },
+      });
+      setComments((prevComments) =>
+        prevComments.filter((comment) => comment.id !== id)
+      );
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
   };
 
 
