@@ -29,6 +29,24 @@ export const UserProvider = ({ children }) => {
     }
   }; 
 
+  // UserContext.js
+
+const deleteUser = async (username) => {
+  try {
+    const response = await axios.delete(`http://localhost:12345/api/users/${username}`);
+    if (response.status === 200) {
+      logout();
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    return false;
+  }
+};
+
+  
+
   const getUserData = async (username) => {
     try {
       const response = await axios.get(`http://localhost:12345/api/users/${username}`);
@@ -119,6 +137,7 @@ export const UserProvider = ({ children }) => {
       getUserData, 
       updateUserData, 
       updateUserPassword, 
+      deleteUser,
       }}>
       {children}
     </UserContext.Provider>
