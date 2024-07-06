@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { useUser } from '../../contexts/UserContext';
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
-import './editOptionsModal.css';
+import './EditOptionsModal.css';
 
 const EditOptionsModal = ({ show, handleClose }) => {
   const [selectedOption, setSelectedOption] = useState('');

@@ -2,7 +2,6 @@
 .search-result-item {
   display: flex; /* Use flexbox for layout */
   align-items: flex-start; /* Align items at the start of the cross axis */
-  padding: 10px; /* Add padding around the search result item */
 }
 
 /* Thumbnail container styles within search result item */
