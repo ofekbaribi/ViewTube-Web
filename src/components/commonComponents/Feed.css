@@ -1,14 +1,15 @@
 /* Feed container */
 .feed {
-  margin-top: 60px; /* Adds space from the top */
+  margin-top: 20px; /* Adds space from the top */
   font-family: "Roboto", sans-serif; /* Font family for the feed */
 }
 
 /* Video grid layout */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Responsive grid columns */
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Responsive grid columns */
   grid-gap: 20px; /* Gap between grid items */
+  justify-content: center; /* Center the grid */
 }
 
 /* Video link styling */
@@ -21,6 +22,8 @@
 .video-item {
   border-radius: 8px; /* Rounded corners for video items */
   overflow: hidden; /* Ensures content within video items stays contained */
+  width: 400px; /* Fixed width */
+  height: 300px; /* Fixed height */
 }
 
 /* Video thumbnail image */
@@ -44,9 +47,14 @@
 }
 
 /* Responsive layout for smaller screens */
-@media all and (max-width: 315px) {
+@media all and (max-width: 600px) {
   .video-grid {
     grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)); /* Single column layout */
+  }
+
+  .video-item {
+    width: 100%; /* Full width */
+    height: auto; /* Adjust height automatically */
   }
 
   .video-details {

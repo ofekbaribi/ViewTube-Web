@@ -79,10 +79,19 @@ li {
 /* Styling for comment text within list items */
 .comment-text {
   flex-grow: 1; /* Grow to fill available space */
+
 }
+
+
+.comment-text .no-link-style {
+  text-decoration: none; 
+  color: inherit;       
+}
+
 
 /* Styling for comment actions (edit and delete buttons) */
 .comment-actions {
+  
   margin-left: 10px; /* Margin to the left */
   display: flex; /* Flex container */
   gap: 5px; /* Gap between child elements */
@@ -95,6 +104,7 @@ li {
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Cursor pointer */
   background: transparent; /* Transparent background */
+
 }
 
 /* Styling for edit and delete button icons */

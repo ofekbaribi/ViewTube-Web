@@ -4,12 +4,14 @@ import Navbar from '../components/commonComponents/Navbar';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
 import EditOptionsModal from '../components/UserProfileComponents/EditOptionsModal';
+import DeleteUserModal from '../components/UserProfileComponents/DeleteUserModal'; // Import the new component
 import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 import editIcon from '../assets/edit_icon.svg';
-import styles from './Home.css';
-import './UserProfile.css';
-import '../css/bootstrap.min.css';
+import deleteIcon from '../assets/delete_icon.svg'; // Add an icon for delete button
+import homeStyles from './Home.css';
+import styles from './UserProfile.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserProfile = () => {
   const { getVideosByUsername } = useVideos();
@@ -18,16 +20,16 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { username } = useParams();
-  const { getUserData } = useUser();
-  const { currentUser } = useUser();
+  const { getUserData, currentUser } = useUser();
   const decodedUsername = decodeURIComponent(username);
   const [userData, setUserData] = useState(null);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false); 
 
-  // Function to show the modal
   const handleShowOptionsModal = () => setShowOptionsModal(true);
-  // Function to close the modal
   const handleCloseOptionsModal = () => setShowOptionsModal(false);
+  const handleShowDeleteModal = () => setShowDeleteModal(true);
+  const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
   const userVideos = getVideosByUsername(decodedUsername);
 
@@ -62,42 +64,43 @@ const UserProfile = () => {
   if (!userData) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <>
       <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
-      <div className={styles.homePage}>
+      <div className={`homePage`}>
         <Sidebar isOpen={sidebarOpen} />
         <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
-          <div className="d-flex align-items-center user-details">
+          <div className={`d-flex align-items-center userDetails`}>
             <img
               src={userData.image}
               alt="Uploader's profile"
-              className="rounded-circle profile-picture"
-              width="100"
-              height="100"
+              className={`rounded-circle profilePicture`}
             />
-            <div className="ml-3 user-data">
+            <div className={`ml-3 userData`}>
               <h3 className="mb-0">{userData.firstName} {userData.lastName}</h3>
-              <h5 className='mb-0 details'>@{username} • {userVideos.length} videos</h5>
-              {currentUser && currentUser.username === username ? (
-                <div>
-                  <button type="button" className="btn edit-profile-button" onClick={handleShowOptionsModal}>
-                    <img src={editIcon} alt='Edit Profile' className='edit-icon' />
-                    <span className='btn btn-danger edit-profile-text'>Edit Profile</span>
-                  </button>
-                </div>
-              ): null}
+              <h5 className={`mb-0 details`}>@{username} • {userVideos.length} videos</h5>
             </div>
+            {currentUser && currentUser.username === username ? (
+              <div className="d-flex">
+                <button type="button" className={`editProfileButton`} onClick={handleShowOptionsModal}>
+                  <img src={editIcon} alt='Edit Profile' className={`editIcon`} />
+                </button>
+                <button type="button" className={`deleteProfileButton`} onClick={handleShowDeleteModal}>
+                  <img src={deleteIcon} alt='Delete Profile' className={`deleteIcon`} />
+                </button>
+              </div>
+            ) : null}
           </div>
           <hr />
-          <div className="search-result-item">
+          <div className={`searchResultItem`}>
             <Feed searchQuery={searchQuery} videos={userVideos} />
           </div>
         </div>
       </div>
-      <EditOptionsModal show={showOptionsModal} handleClose={handleCloseOptionsModal}/>
-            
+      <EditOptionsModal show={showOptionsModal} handleClose={handleCloseOptionsModal} />
+      <DeleteUserModal show={showDeleteModal} handleClose={handleCloseDeleteModal} />
     </>
   );
 };

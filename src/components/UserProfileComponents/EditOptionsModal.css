@@ -15,6 +15,10 @@
     padding: 0.75rem 1.25rem;
     border-top: 1px solid #f0f0f0; /* Adding top border */
   }
+
+  [data-theme='dark'] .modal-footer {
+    background-color: #1f1f1f;
+  }
   
   .invalid-tooltip {
     display: block; /* Display as block */

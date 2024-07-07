@@ -8,6 +8,7 @@ import saveIcon from '../../assets/tick_icon.svg';
 import cancelIcon from '../../assets/cancel_icon.svg';
 import { useComments } from '../../contexts/CommentsContext';
 import { useUser } from '../../contexts/UserContext';
+import { Link } from 'react-router-dom';
 
 function CommentsSection({ videoId }) {
   // Context hooks to manage comments and user data
@@ -133,7 +134,9 @@ function CommentsSection({ videoId }) {
             ) : (
               <>
                 <div className="comment-text">
-                  <strong>{comment.uploader}</strong>: {comment.text}
+                <Link to={`/profile/${comment.uploader}`} className="no-link-style">
+                  <strong>{comment.uploader}</strong>
+                </Link>: {comment.text}
                 </div>
                 <div className="comment-actions">
                   {currentUser && currentUser.username === comment.uploader && (
