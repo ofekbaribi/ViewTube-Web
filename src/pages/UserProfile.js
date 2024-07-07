@@ -87,7 +87,7 @@ const UserProfile = () => {
                 <button type="button" className={`editProfileButton`} onClick={handleShowOptionsModal}>
                   <img src={editIcon} alt='Edit Profile' className={`editIcon`} />
                 </button>
-                <button type="button" className={`deleteProfileButton ml-2`} onClick={handleShowDeleteModal}>
+                <button type="button" className={`deleteProfileButton`} onClick={handleShowDeleteModal}>
                   <img src={deleteIcon} alt='Delete Profile' className={`deleteIcon`} />
                 </button>
               </div>
