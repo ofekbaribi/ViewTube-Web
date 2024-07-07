@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useUser } from '../../contexts/UserContext';
+import ChangePasswordModal from './ChangePasswordModal';
+import ChangeUserDataModal from './ChangeUserDataModal';
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
 import './EditOptionsModal.css';
 
+
 const EditOptionsModal = ({ show, handleClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
   const { currentUser, updateUserData, updateUserPassword } = useUser();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [newPasswordError, setNewPasswordError] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
   const [firstName, setFirstName] = useState(currentUser.firstName);
   const [lastName, setLastName] = useState(currentUser.lastName);
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
+  const [nameError, setNameError] = useState('');
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -27,46 +25,6 @@ const EditOptionsModal = ({ show, handleClose }) => {
   const handleCloseModal = () => {
     setSelectedOption('');
     handleClose();
-  };
-
-  const handleNewPasswordChange = (e) => {
-    setNewPassword(e.target.value);
-    if (newPasswordError) {
-      setNewPasswordError('');
-    }
-  };
-
-  const handleConfirmNewPasswordChange = (e) => {
-    setConfirmNewPassword(e.target.value);
-    if (confirmNewPasswordError) {
-      setConfirmNewPasswordError('');
-    }
-  };
-
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-    if (firstNameError) {
-      setFirstNameError('');
-    }
-  };
-
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-    if (lastNameError) {
-      setLastNameError('');
-    }
-  };
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleShowNewPassword = () => {
-    setShowNewPassword(!showNewPassword);
-  };
-
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const validatePassword = (password) => {
@@ -94,8 +52,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
   const handleUserDataSubmit = async (event) => {
     event.preventDefault();
     if (!validateName(firstName, lastName)) {
-      setFirstNameError('Invalid name format');
-      setLastNameError('Invalid name format');
+      setNameError('Invalid name format');
       return;
     } else if (currentUser.firstName !== firstName || currentUser.lastName !== lastName) {
       const response = await updateUserData(currentUser.username, firstName, lastName);
@@ -150,38 +107,14 @@ const EditOptionsModal = ({ show, handleClose }) => {
       case 'userData':
         return (
           <form onSubmit={handleUserDataSubmit}>
-            <div className="mb-3">
-              <label htmlFor="firstName" className="form-label">First Name</label>
-              <input 
-                type="text" 
-                className="form-control" 
-                id="firstName" 
-                value={firstName} 
-                onChange={handleFirstNameChange}
-                required
-              />
-              {firstNameError && (
-                <div className="invalid-tooltip">
-                  {firstNameError}
-                </div>
-              )}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="lastName" className="form-label">Last Name</label>
-              <input 
-                type="text" 
-                className="form-control" 
-                id="lastName" 
-                value={lastName} 
-                onChange={handleLastNameChange}
-                required
-              />
-              {lastNameError && (
-                <div className="invalid-tooltip">
-                  {lastNameError}
-                </div>
-              )}
-            </div>
+            <ChangeUserDataModal
+              firstName={firstName}
+              setFirstName={setFirstName}
+              lastName={lastName}
+              setLastName={setLastName}
+              nameError={nameError}
+              setNameError={setNameError}
+            />
             <Button variant="primary" type="submit">
               Save Changes
             </Button>
@@ -190,81 +123,14 @@ const EditOptionsModal = ({ show, handleClose }) => {
       case 'password':
         return (
           <form onSubmit={handlePasswordChangeSubmit}>
-            <div className="mb-3">
-              <div className="input-group">
-                <input 
-                  type={showPassword ? "text" : "password"} 
-                  className='form-control' 
-                  id="currentPassword"
-                  placeholder="Enter current password" 
-                  required
-                />
-                <div className="input-group-append">
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-new-password-toggle"
-                    onClick={handleShowPassword}
-                    style={{ height: '100%' }}
-                  >
-                    <img src={showPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="mb-3">
-              <div className="input-group">
-                <input 
-                  type={showNewPassword ? "text" : "password"} 
-                  className={`form-control ${newPasswordError ? 'is-invalid' : ''}`}
-                  id="newPassword" 
-                  placeholder="Enter new password" 
-                  onChange={handleNewPasswordChange}
-                  required
-                />
-                <div className="input-group-append">
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-new-password-toggle"
-                    onClick={handleShowNewPassword}
-                    style={{ height: '100%' }}
-                  >
-                    <img src={showNewPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                  </button>
-                </div>
-                {newPasswordError && (
-                  <div className="invalid-tooltip">
-                    {newPasswordError}
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="mb-3">
-              <div className="input-group">
-                <input 
-                  type={showConfirmPassword ? "text" : "password"} 
-                  className={`form-control ${confirmNewPasswordError ? 'is-invalid' : ''}`}
-                  id="confirmNewPassword" 
-                  placeholder="Confirm new password"
-                  onChange={handleConfirmNewPasswordChange}
-                  required
-                />
-                <div className="input-group-append">
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-new-password-toggle"
-                    onClick={handleShowConfirmPassword}
-                    style={{ height: '100%' }}
-                  >
-                    <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                  </button>
-                </div>
-                {confirmNewPasswordError && (
-                  <div className="invalid-tooltip">
-                    {confirmNewPasswordError}
-                  </div>
-                )}
-              </div>
-            </div>
+            <ChangePasswordModal 
+              newPassword={newPassword}
+              setNewPassword={setNewPassword}
+              confirmNewPassword={confirmNewPassword}
+              setConfirmNewPassword={setConfirmNewPassword}
+              newPasswordError={newPasswordError}
+              setNewPasswordError={setNewPasswordError}
+            />
             <Button variant="primary" type="submit">
               Change Password
             </Button>
