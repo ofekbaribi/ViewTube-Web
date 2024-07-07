@@ -80,6 +80,30 @@
   transform: scale(1.05);
 }
 
-.deleteProfileButton:hover .editIcon {
+.deleteProfileButton {
+  background-color: transparent;
+  border: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  width: 64px;
+  height: 50px;
+  margin-left: 20px;
+  transition: transform 0.3s ease;
+}
+
+.deleteProfileButton:hover .deleteIcon {
   transform: scale(1.05);
 }
+
+[data-theme='dark'] .deleteIcon {
+  filter: invert(100%); /* Invert image colors for better visibility in dark theme */
+}
+
+[data-theme='dark'] .editIcon {
+  filter: invert(100%); /* Invert image colors for better visibility in dark theme */
+}
+

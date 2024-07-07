@@ -15,8 +15,8 @@ import { ThemeProvider } from '../contexts/DarkModeContext';
 
 function App() {
   return (
-    <UserProvider>
-      <VideosProvider>
+    <VideosProvider>
+      <UserProvider>
         <CommentsProvider>
           <ThemeProvider>
             <Router>
@@ -33,8 +33,8 @@ function App() {
             </Router>
           </ThemeProvider>
         </CommentsProvider>
-      </VideosProvider>
-    </UserProvider>
+      </UserProvider>
+    </VideosProvider>
   );
 }
 

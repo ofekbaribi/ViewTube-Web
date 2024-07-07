@@ -3,9 +3,11 @@ import { Modal, Button } from 'react-bootstrap';
 import { useUser } from '../../contexts/UserContext';
 import './DeleteUserModal.css';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for navigation
+import { useVideos } from '../../contexts/VideosContext';
 
 const DeleteUserModal = ({ show, handleClose }) => {
     const { deleteUser, currentUser } = useUser();
+    const { removeUserVideos } = useVideos();
     const navigate = useNavigate();
 
   
@@ -14,6 +16,7 @@ const DeleteUserModal = ({ show, handleClose }) => {
       const deletedUser = await deleteUser(currentUser.username);
       if (deletedUser) {
         alert('User deleted successfully');
+        removeUserVideos(currentUser.username);
         handleClose(); 
         navigate ('/'); 
       } else {

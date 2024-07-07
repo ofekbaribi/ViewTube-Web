@@ -37,6 +37,10 @@ export const VideosProvider = ({ children }) => {
     setVideos((prevVideos) => [...prevVideos, video]);
   };
 
+  const removeUserVideos = (username) => {
+    setVideos((prevVideos) => prevVideos.filter((video) => video.uploader !== username));
+  };
+
   const updateVideoDetails = async (id, updates) => {
     try {
       const response = await axios.patch(`http://localhost:12345/api/videos/${id}`, updates);
@@ -97,7 +101,7 @@ export const VideosProvider = ({ children }) => {
 
   return (
     <VideosContext.Provider
-      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount, fetchVideos }}
+      value={{ videos, addVideo, updateVideoDetails, removeUserVideos, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount, fetchVideos }}
     >
       {children}
     </VideosContext.Provider>

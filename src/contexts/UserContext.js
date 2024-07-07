@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import tokenVerification from '../tokenAuth/tokenVerification';
 import axios from 'axios';
+import { useVideos } from './VideosContext'
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const { removeUserVideos } = useVideos();
 
   const setUser = (user) => {
     setCurrentUser(user);
@@ -36,6 +38,7 @@ const deleteUser = async (username) => {
     const response = await axios.delete(`http://localhost:12345/api/users/${username}`);
     if (response.status === 200) {
       logout();
+      removeUserVideos(username);
       return true;
     }
     return false;
