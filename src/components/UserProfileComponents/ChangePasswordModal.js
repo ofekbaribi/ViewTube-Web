@@ -3,6 +3,8 @@ import '../../css/bootstrap.min.css'; // Import Bootstrap CSS for stylingimport 
 import './editOptionsModal.css';
 import eyeIcon from '../../assets/eye.svg'; // Import eye icon for showing password
 import eyeSlashIcon from '../../assets/eye-slash.svg'; // Import eye slash icon for hiding password
+import './EditOptionsModal.css';
+import './ChangePasswordModal.css';
 
 const NewPasswordForm = ({ setNewPassword, setConfirmNewPassword, newPasswordError, setNewPasswordError }) => {
   const [showCurrnetPassword, setShowCurrnetPassword] = useState(false); // State to toggle password visibility
@@ -42,7 +44,7 @@ const NewPasswordForm = ({ setNewPassword, setConfirmNewPassword, newPasswordErr
         <div className="input-group">
             <input
                 type={showCurrnetPassword ? "text" : "password"}
-                className='form-control'
+                className='form-control modal-form'
                 id="currentPassword"
                 placeholder="Enter current password"
                 required />
@@ -57,52 +59,50 @@ const NewPasswordForm = ({ setNewPassword, setConfirmNewPassword, newPasswordErr
                 </button>
             </div>
         </div>
-    </div><div className="mb-3">
-            <div className="input-group">
-                <input
-                    type={showNewPassword ? "text" : "password"}
-                    className={`form-control ${newPasswordError ? 'is-invalid' : ''}`}
-                    id="newPassword"
-                    placeholder="Enter new password"
-                    onChange={handleNewPasswordChange}
-                    required />
-                <div className="input-group-append">
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary btn-new-password-toggle"
-                        onClick={handleShowNewPassword}
-                        style={{ height: '100%' }}
-                    >
-                        <img src={showNewPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                    </button>
-                </div>
-                {newPasswordError && (
-                    <div className="invalid-tooltip">
-                        {newPasswordError}
-                    </div>
-                )}
+        <div className="input-group">
+            <input
+                type={showNewPassword ? "text" : "password"}
+                className={`form-control ${newPasswordError ? 'is-invalid' : ''} modal-form`}
+                id="newPassword"
+                placeholder="Enter new password"
+                onChange={handleNewPasswordChange}
+                required />
+            <div className="input-group-append">
+                <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-new-password-toggle"
+                    onClick={handleShowNewPassword}
+                    style={{ height: '100%' }}
+                >
+                    <img src={showNewPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
+                </button>
             </div>
-        </div><div className="mb-3">
-            <div className="input-group">
-                <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    className={`form-control ${newPasswordError ? 'is-invalid' : ''}`}
-                    id="confirmNewPassword"
-                    placeholder="Confirm new password"
-                    onChange={handleConfirmNewPasswordChange}
-                    required />
-                <div className="input-group-append">
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary btn-new-password-toggle"
-                        onClick={handleShowConfirmPassword}
-                        style={{ height: '100%' }}
-                    >
-                        <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                    </button>
+            {newPasswordError && (
+                <div className="invalid-tooltip">
+                    {newPasswordError}
                 </div>
+            )}
+        </div>
+        <div className="input-group">
+            <input
+                type={showConfirmPassword ? "text" : "password"}
+                className={`form-control ${newPasswordError ? 'is-invalid' : ''} modal-form`}
+                id="confirmNewPassword"
+                placeholder="Confirm new password"
+                onChange={handleConfirmNewPasswordChange}
+                required />
+            <div className="input-group-append">
+                <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-new-password-toggle"
+                    onClick={handleShowConfirmPassword}
+                    style={{ height: '100%' }}
+                >
+                    <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
+                </button>
             </div>
         </div>
+    </div>
     </>
   );
 };

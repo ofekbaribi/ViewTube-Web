@@ -4,11 +4,11 @@ import Navbar from '../components/commonComponents/Navbar';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
 import EditOptionsModal from '../components/UserProfileComponents/EditOptionsModal';
-import DeleteUserModal from '../components/UserProfileComponents/DeleteUserModal'; // Import the new component
+import DeleteUserModal from '../components/UserProfileComponents/DeleteUserModal';
 import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 import editIcon from '../assets/edit_icon.svg';
-import deleteIcon from '../assets/delete_icon.svg'; // Add an icon for delete button
+import deleteIcon from '../assets/delete_icon.svg';
 import homeStyles from './Home.css';
 import styles from './UserProfile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,7 +24,7 @@ const UserProfile = () => {
   const decodedUsername = decodeURIComponent(username);
   const [userData, setUserData] = useState(null);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleShowOptionsModal = () => setShowOptionsModal(true);
   const handleCloseOptionsModal = () => setShowOptionsModal(false);
@@ -64,7 +64,6 @@ const UserProfile = () => {
   if (!userData) {
     return <div>Loading...</div>;
   }
-  
 
   return (
     <>
@@ -84,11 +83,13 @@ const UserProfile = () => {
             </div>
             {currentUser && currentUser.username === username ? (
               <div className="d-flex">
-                <button type="button" className={`editProfileButton`} onClick={handleShowOptionsModal}>
-                  <img src={editIcon} alt='Edit Profile' className={`editIcon`} />
+                <button type="button" className="editProfileButton" onClick={handleShowOptionsModal}>
+                  <img src={editIcon} alt='Edit Profile' className='editIcon' />
+                  <span className='btn btn-danger editProfileText'>Edit Profile</span>
                 </button>
-                <button type="button" className={`deleteProfileButton`} onClick={handleShowDeleteModal}>
-                  <img src={deleteIcon} alt='Delete Profile' className={`deleteIcon`} />
+                <button type="button" className="deleteProfileButton" onClick={handleShowDeleteModal}>
+                  <img src={deleteIcon} alt='Delete Profile' className='deleteIcon' />
+                  <span className='btn btn-danger deleteProfileText'>Delete Profile</span>
                 </button>
               </div>
             ) : null}

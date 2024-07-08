@@ -45,7 +45,7 @@
   margin-top: 20px;
 }
 
-.editProfileButton {
+.editProfileButton, .deleteProfileButton {
   background-color: transparent;
   border: none;
   position: relative;
@@ -53,57 +53,48 @@
   align-items: center;
   cursor: pointer;
   padding: 0;
+  transition: width 0.3s;
   overflow: hidden;
-  width: 64px;
-  height: 50px;
-  margin-left: 64px;
-  transition: transform 0.3s ease;
+  width: 150px; /* Same as icon width */
+  height: 40px; /* Same as icon height */
 }
 
-.editProfileButton:hover {
-  transform: scale(1.05);
-}
-
-.editIcon {
+.editIcon, .deleteIcon {
+  margin-left: 63px;
   width: 24px;
   height: 40px;
-  transition: transform 0.3s ease;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-.deleteIcon {
-  width: 24px;
-  height: 40px;
-  transition: transform 0.3s ease;
-}
-
-.editProfileButton:hover .editIcon {
-  transform: scale(1.05);
-}
-
-.deleteProfileButton {
-  background-color: transparent;
-  border: none;
-  position: relative;
+.editProfileText, .deleteProfileText {
+  position: absolute;
+  margin-left: 24px;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  padding: 0;
-  overflow: hidden;
-  width: 64px;
-  height: 50px;
-  margin-left: 20px;
-  transition: transform 0.3s ease;
+  justify-content: center;
+  background-color: transparent;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 14px;
 }
 
-.deleteProfileButton:hover .deleteIcon {
-  transform: scale(1.05);
+.editProfileButton:hover .editIcon, .deleteProfileButton:hover .deleteIcon {
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.3s;
 }
 
-[data-theme='dark'] .deleteIcon {
-  filter: invert(100%); /* Invert image colors for better visibility in dark theme */
+.editProfileButton:hover .editProfileText, .deleteProfileButton:hover .deleteProfileText {
+  opacity: 1;
+  transform: scale(1);
+  transition: 0.3s;
 }
 
-[data-theme='dark'] .editIcon {
-  filter: invert(100%); /* Invert image colors for better visibility in dark theme */
+[data-theme='dark'] .deleteIcon, [data-theme='dark'] .editIcon {
+  filter: invert(100%);
 }
-
