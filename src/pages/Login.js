@@ -74,7 +74,7 @@ const Login = () => {
         <div className="login-container">
           {/* Title with logo */}
           <h2 className="d-flex align-items-center">
-            Sign into your <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> account
+            Sign into your <Link to='/'><img src={logo} alt='ViewTube' className="h2-img" /></Link> account
           </h2>
 
           {/* Conditional rendering based on whether username is submitted */}

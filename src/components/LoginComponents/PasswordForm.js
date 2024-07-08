@@ -36,7 +36,7 @@ const PasswordForm = ({ password, setPassword, handlePasswordSubmit, passwordErr
             required
           />
           {/* Button to toggle password visibility */}
-          <div className="input-group-append">
+          <div className="input-group-button">
             <button
               type="button"
               className="btn btn-outline-secondary btn-password-toggle"

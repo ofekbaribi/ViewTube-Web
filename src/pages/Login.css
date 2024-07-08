@@ -112,6 +112,6 @@ body .login-page {
 
 /* Styles for h2 image */
 .h2-img {
-  height: 2em; /* Height of 2em */
+  height: 100px; /* Height of 2em */
   margin-left: 10px; /* Margin on the left */
 }

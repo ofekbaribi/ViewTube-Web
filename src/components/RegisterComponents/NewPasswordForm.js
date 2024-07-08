@@ -48,7 +48,7 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
           onChange={handlePasswordChange}
           required
         />
-        <div className="input-group-append">
+        <div className="input-group-button">
           <button
             type="button"
             className="btn btn-outline-secondary btn-password-toggle"
@@ -60,21 +60,23 @@ const NewPasswordForm = ({ password, setPassword, confirmPassword, setConfirmPas
       </div>
 
       {/* Confirm password input group */}
-      <div className="input-group">
+      <div className="input-group mb-3">
         <input
           type={showConfirmPassword ? "text" : "password"} // Toggle input type based on showConfirmPassword state
-          className={`form-control input-center ${passwordError ? 'is-invalid' : ''}`} // Apply error class if passwordError exists
+          className={`form-control input-group-center ${passwordError ? 'is-invalid' : ''}`} // Apply error class if passwordError exists
           id="confirmPassword"
           placeholder="Confirm your password"
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
           required
         />
-        <div className="input-group-append">
+        <div className="input-group-button">
           <button
             type="button"
             className="btn btn-outline-secondary btn-password-toggle"
             onClick={toggleShowConfirmPassword}
+            src={showConfirmPassword ? eyeSlashIcon : eyeIcon}
+            alt="Toggle Password Visibility"
           >
             <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ width: '1em', height: '1em' }} />
           </button>

@@ -128,7 +128,7 @@ const Register = () => {
         <div className="login-container">
           {/* Title with logo */}
           <h2 className="d-flex align-items-center">
-            Create a <Link to='/'><img src={logo} alt='ViewTube' className="img-fluid h2-img" /></Link> account
+            Create a <Link to='/'><img src={logo} alt='ViewTube' className="h2-img" /></Link> account
           </h2>
 
           {/* Registration form */}
