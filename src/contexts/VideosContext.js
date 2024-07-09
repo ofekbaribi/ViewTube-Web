@@ -52,8 +52,15 @@ export const VideosProvider = ({ children }) => {
     }
   };
 
-  const getVideosByUsername = (username) => {
-    return videos ? videos.filter(video => video.uploader === username) : [];
+  const getVideosByUsername = async (username) => {
+    try {
+      const response = await axios.get(`http://localhost:12345/api/users/${username}/videos`);
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+    }
   };
 
   const toggleLikeVideo = async (username, videoId) => {
@@ -100,9 +107,21 @@ export const VideosProvider = ({ children }) => {
     }
   };
 
+  const fetchHotVideos = async () => {
+    try {
+      const response = await axios.get('http://localhost:12345/api/videos/hot/videos');
+      if (response.status === 200) {
+        return response.data;
+      }
+      return videos;
+    } catch (error) {
+      console.error('Error fetching hot videos:', error);
+    }
+  };
+
   return (
     <VideosContext.Provider
-      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount, deleteUserVideos }}
+      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount, deleteUserVideos, fetchHotVideos }}
     >
       {children}
     </VideosContext.Provider>

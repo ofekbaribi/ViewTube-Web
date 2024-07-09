@@ -20,11 +20,11 @@ const UserProfile = () => {
   const decodedUsername = decodeURIComponent(username);
   const [userData, setUserData] = useState(null);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
+  const [userVideos, setUserVideos] = useState([]);
 
   const handleShowOptionsModal = () => setShowOptionsModal(true);
   const handleCloseOptionsModal = () => setShowOptionsModal(false);
 
-  const userVideos = getVideosByUsername(decodedUsername);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -32,7 +32,13 @@ const UserProfile = () => {
       setUserData(data);
     };
 
+    const fetchUserVideos = async () => {
+      const videos = await getVideosByUsername(decodedUsername);
+      setUserVideos(videos);
+    };
+
     fetchUserData();
+    fetchUserVideos();
   }, [decodedUsername, getUserData]);
 
   useEffect(() => {
