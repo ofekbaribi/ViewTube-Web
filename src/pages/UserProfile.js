@@ -4,14 +4,10 @@ import Navbar from '../components/commonComponents/Navbar';
 import Sidebar from '../components/commonComponents/Sidebar';
 import Feed from '../components/commonComponents/Feed';
 import EditOptionsModal from '../components/UserProfileComponents/EditOptionsModal';
-import DeleteUserModal from '../components/UserProfileComponents/DeleteUserModal'; // Import the new component
 import { useVideos } from '../contexts/VideosContext';
 import { useUser } from '../contexts/UserContext';
 import editIcon from '../assets/edit_icon.svg';
-import deleteIcon from '../assets/delete_icon.svg'; // Add an icon for delete button
-import homeStyles from './Home.css';
-import styles from './UserProfile.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './userProfile.css';
 
 const UserProfile = () => {
   const { getVideosByUsername } = useVideos();
@@ -24,12 +20,9 @@ const UserProfile = () => {
   const decodedUsername = decodeURIComponent(username);
   const [userData, setUserData] = useState(null);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); 
 
   const handleShowOptionsModal = () => setShowOptionsModal(true);
   const handleCloseOptionsModal = () => setShowOptionsModal(false);
-  const handleShowDeleteModal = () => setShowDeleteModal(true);
-  const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
   const userVideos = getVideosByUsername(decodedUsername);
 
@@ -64,34 +57,31 @@ const UserProfile = () => {
   if (!userData) {
     return <div>Loading...</div>;
   }
-  
 
   return (
     <>
-      <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
+     <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
       <div className={`homePage`}>
         <Sidebar isOpen={sidebarOpen} />
         <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
-          <div className={`d-flex align-items-center userDetails`}>
+          <div className={`d-flex align-items-center user-details`}>
             <img
               src={userData.image}
               alt="Uploader's profile"
-              className={`rounded-circle profilePicture`}
+              className="rounded-circle profilePicture"
             />
-            <div className={`ml-3 userData`}>
+            <div className={`ml-3 user-data`}>
               <h3 className="mb-0">{userData.firstName} {userData.lastName}</h3>
-              <h5 className={`mb-0 details`}>@{username} • {userVideos.length} videos</h5>
+              <h5 className='mb-0 details'>@{username} • {userVideos.length} videos</h5>
+              {currentUser && currentUser.username === username ? (
+                <div className='d-flex'>
+                  <button type="button" className="btn edit-profile-button" onClick={handleShowOptionsModal}>
+                    <img src={editIcon} alt='Edit Profile' className='edit-icon' />
+                    <span className='btn btn-danger edit-profile-text'>Edit Profile</span>
+                  </button>
+                </div>
+              ): null}
             </div>
-            {currentUser && currentUser.username === username ? (
-              <div className="d-flex">
-                <button type="button" className={`editProfileButton`} onClick={handleShowOptionsModal}>
-                  <img src={editIcon} alt='Edit Profile' className={`editIcon`} />
-                </button>
-                <button type="button" className={`deleteProfileButton`} onClick={handleShowDeleteModal}>
-                  <img src={deleteIcon} alt='Delete Profile' className={`deleteIcon`} />
-                </button>
-              </div>
-            ) : null}
           </div>
           <hr />
           <div className={`searchResultItem`}>
@@ -100,7 +90,6 @@ const UserProfile = () => {
         </div>
       </div>
       <EditOptionsModal show={showOptionsModal} handleClose={handleCloseOptionsModal} />
-      <DeleteUserModal show={showDeleteModal} handleClose={handleCloseDeleteModal} />
     </>
   );
 };

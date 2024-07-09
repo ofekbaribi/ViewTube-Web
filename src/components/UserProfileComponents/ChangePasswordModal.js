@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../css/bootstrap.min.css'; // Import Bootstrap CSS for stylingimport './editOptionsModal.css';
-import './editOptionsModal.css';
+import './EditOptionsModal.css';
 import eyeIcon from '../../assets/eye.svg'; // Import eye icon for showing password
 import eyeSlashIcon from '../../assets/eye-slash.svg'; // Import eye slash icon for hiding password
 
@@ -57,7 +57,8 @@ const NewPasswordForm = ({ setNewPassword, setConfirmNewPassword, newPasswordErr
                 </button>
             </div>
         </div>
-    </div><div className="mb-3">
+    </div>
+    <div className="mb-3">
             <div className="input-group">
                 <input
                     type={showNewPassword ? "text" : "password"}

@@ -29,27 +29,8 @@ export const UserProvider = ({ children }) => {
       console.error('Error fetching profile picture:', error);
       return null;
     }
-  }; 
-
-  // UserContext.js
-
-const deleteUser = async (username) => {
-  try {
-    const response = await axios.delete(`http://localhost:12345/api/users/${username}`);
-    if (response.status === 200) {
-      logout();
-      removeUserVideos(username);
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.error('Error deleting user:', error);
-    return false;
-  }
-};
-
+  };
   
-
   const getUserData = async (username) => {
     try {
       const response = await axios.get(`http://localhost:12345/api/users/${username}`);
@@ -117,14 +98,28 @@ const deleteUser = async (username) => {
     }
   };
 
+  const deleteUser = async (username, password) => {
+    try {
+      const response = await axios.delete(`http://localhost:12345/api/users/${username}`, {
+        data: { password: password }
+      });
+
+      if (response.status === 200) {
+        logout();
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      return null;
+    }
+  };
 
   useEffect(() => {
     verifyToken();
 
-    // Set up an interval to verify the token every 5 minutes
     const interval = setInterval(verifyToken, 300000);
 
-    // Clean up the timeout and interval on component unmount
     return () => {
       clearInterval(interval);
     };

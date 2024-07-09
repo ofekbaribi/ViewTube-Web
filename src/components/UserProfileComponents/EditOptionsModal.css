@@ -1,6 +1,18 @@
+.options {
+  margin-left: 5px;
+}
+
+.edit-modal {
+  --bs-modal-width: 520px;
+}
+
+.submit-modal-button {
+  margin-top: 25px;
+}
+
 .btn-new-password-toggle {
     border: 1px solid #f0f0f0; /* Adding left border */
-    height: 70%;
+    height: 100%;
     background: #fff;
     border-radius: 0 0.25rem 0.25rem 0;
   }
@@ -26,7 +38,8 @@
     top: 90%; /* Position near the input */
     left: 0; /* Align to the left */
     width: 100%; /* Full width */
-    margin-top: 0.0rem; /* Adjusted margin top */
+    margin-top: 10px; /* Adjusted margin top */
+    margin-bottom: 10px; /* Adjusted margin bottom */
     padding: 0.25rem 0.5rem; /* Padding around the tooltip */
     font-size: 0.875rem; /* Smaller font size */
     color: #dc3545; /* Red color for error */

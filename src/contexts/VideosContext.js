@@ -37,10 +37,6 @@ export const VideosProvider = ({ children }) => {
     setVideos((prevVideos) => [...prevVideos, video]);
   };
 
-  const removeUserVideos = (username) => {
-    setVideos((prevVideos) => prevVideos.filter((video) => video.uploader !== username));
-  };
-
   const updateVideoDetails = async (id, updates) => {
     try {
       const response = await axios.patch(`http://localhost:12345/api/videos/${id}`, updates);
@@ -90,6 +86,11 @@ export const VideosProvider = ({ children }) => {
     }
   };
 
+  const deleteUserVideos = async (username) => {
+    setVideos((prevVideos) => prevVideos.filter((video) => video.uploader !== username));
+  };
+
+  // Function to delete a video by ID
   const deleteVideo = async (id) => {
     try {
       await axios.delete(`http://localhost:12345/api/videos/${id}`);
@@ -101,7 +102,7 @@ export const VideosProvider = ({ children }) => {
 
   return (
     <VideosContext.Provider
-      value={{ videos, addVideo, updateVideoDetails, removeUserVideos, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount, fetchVideos }}
+      value={{ videos, addVideo, updateVideoDetails, toggleLikeVideo, deleteVideo, userLikes, getVideosByUsername, addViewCount, deleteUserVideos }}
     >
       {children}
     </VideosContext.Provider>
