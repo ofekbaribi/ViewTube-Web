@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/bootstrap.min.css'; // Import Bootstrap CSS for styling
-import './editOptionsModal.css';
+import './EditOptionsModal.css';
 
 const NewNameForm = ({ firstName, setFirstName, lastName, setLastName, nameError, setNameError }) => {
   

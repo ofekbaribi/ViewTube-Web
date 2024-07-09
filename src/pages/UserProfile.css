@@ -18,19 +18,20 @@
 }
 
 /* User details */
-.userDetails {
+.user-details {
   margin-left: 30px;
   text-align: left;
   margin-top: 10px;
 }
 
-.userDetails h3 {
+.user-details .h3 {
   font-size: 35px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.userData {
+.user-data {
+  text-align: center;
   margin-left: 30px;
 }
 
@@ -45,7 +46,18 @@
   margin-top: 20px;
 }
 
-.editProfileButton {
+.details {
+  margin-top: 14px;
+  font-size: 20px;
+  color: gray;
+}
+
+/* Styling for search result */
+.searchResultItem {
+  margin-top: 20px;
+}
+
+.edit-profile-button {
   background-color: transparent;
   border: none;
   position: relative;
@@ -53,54 +65,44 @@
   align-items: center;
   cursor: pointer;
   padding: 0;
+  transition: width 0.3s;
   overflow: hidden;
-  width: 64px;
-  height: 50px;
-  margin-left: 64px;
-  transition: transform 0.3s ease;
+  margin-top: 5px;
+  width: 150px; /* Same as icon width */
+  height: 40px; /* Same as icon height */
 }
 
-.editProfileButton:hover {
-  transform: scale(1.05);
-}
-
-.editIcon {
+.edit-icon {
+  margin-left: 63px;
   width: 24px;
   height: 40px;
-  transition: transform 0.3s ease;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-.deleteIcon {
-  width: 24px;
-  height: 40px;
-  transition: transform 0.3s ease;
-}
-
-.editProfileButton:hover .editIcon {
-  transform: scale(1.05);
-}
-
-.deleteProfileButton {
-  background-color: transparent;
-  border: none;
-  position: relative;
+.edit-profile-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  padding: 0;
-  overflow: hidden;
-  width: 64px;
-  height: 50px;
-  margin-left: 20px;
-  transition: transform 0.3s ease;
+  justify-content: center;
+  background-color: transparent;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 14px;
 }
 
-.deleteProfileButton:hover .deleteIcon {
-  transform: scale(1.05);
+.edit-profile-button:hover .edit-icon {
+  opacity: 0;
+  transform: scale(0);
 }
 
-[data-theme='dark'] .deleteIcon {
-  filter: invert(100%); /* Invert image colors for better visibility in dark theme */
+.edit-profile-button:hover .edit-profile-text {
+  opacity: 1;
+  transform: scale(1);
 }
 
 [data-theme='dark'] .editIcon {
