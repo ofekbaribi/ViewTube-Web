@@ -63,9 +63,9 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const updateUserData = async (username, firstName, lastName) => {
+  const updateUserData = async (username, firstName, lastName, image) => {
     try {
-      const response = await axios.put(`http://localhost:12345/api/users/${username}`, { firstName: firstName, lastName: lastName });
+      const response = await axios.put(`http://localhost:12345/api/users/${username}`, { firstName: firstName, lastName: lastName, image: image });
       if (response.status === 200) {
         setCurrentUser(response.data);
         return true;

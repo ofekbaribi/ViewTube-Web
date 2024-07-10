@@ -7,6 +7,7 @@ import { useVideos } from '../../contexts/VideosContext';
 import ChangePasswordModal from './ChangePasswordModal';
 import ChangeUserDataModal from './ChangeUserDataModal';
 import DeleteAccountModal from './DeleteAccountModal';
+import ChangeImageModal from './ChangeImageModal';
 
 const EditOptionsModal = ({ show, handleClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -20,6 +21,8 @@ const EditOptionsModal = ({ show, handleClose }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [image, setImage] = useState(''); // State for the image file
+  const [imagePreview, setImagePreview] = useState(currentUser.image); // State for the image preview URL
   const navigate = useNavigate();
   const { deleteUserVideos } = useVideos();
 
@@ -59,8 +62,8 @@ const EditOptionsModal = ({ show, handleClose }) => {
     if (!validateName(firstName, lastName)) {
       setNameError('Invalid name format');
       return;
-    } else if (currentUser.firstName !== firstName || currentUser.lastName !== lastName) {
-      const response = await updateUserData(currentUser.username, firstName, lastName);
+    } else if (currentUser.firstName !== firstName || currentUser.lastName !== lastName || image !== '') {
+      const response = await updateUserData(currentUser.username, firstName, lastName, image);
       if (!response) {
         alert('An error occurred. Please try again later.');
         handleCloseModal();
@@ -151,6 +154,11 @@ const EditOptionsModal = ({ show, handleClose }) => {
               nameError={nameError}
               setNameError={setNameError}
             />
+            <ChangeImageModal 
+              setImage={setImage}
+              setImagePreview={setImagePreview}
+              imagePreview={imagePreview}
+              />
             <Button variant="primary" type="submit" className='submit-modal-button'>
               Save Changes
             </Button>
