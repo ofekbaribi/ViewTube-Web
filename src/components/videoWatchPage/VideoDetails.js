@@ -104,12 +104,16 @@ function VideoDetails({ video }) {
         {currentUser && currentUser.username === video.uploader ? (
           <>
             {!editingDescription ? (
-              <p>
+              <>
+              <div>
+                <h6 className='position-absolute top-0 start-0 video-page-views'>{currentVideo.views} Views</h6>
+              </div>
+              <p className='video-description-text'>
                 {currentVideo.description}
                 <button className="description-edit-button action-button" onClick={handleEditDescriptionClick}>
                   <img src={editIcon} alt="Edit description" />
                 </button>
-              </p>
+              </p></>
             ) : (
               <>
                 <textarea
@@ -128,7 +132,10 @@ function VideoDetails({ video }) {
             )}
           </>
         ) : (
-          <p>{currentVideo.description}</p>
+          <><div>
+                <h6 className='position-absolute top-0 start-0 video-page-views'>{currentVideo.views} Views</h6>
+          </div>
+          <p className='video-description-text'>{currentVideo.description}</p></>
         )}
       </div>
 

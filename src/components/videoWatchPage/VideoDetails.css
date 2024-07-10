@@ -98,3 +98,15 @@
   margin-right: 200px; /* Right margin */
   margin-bottom: 10px; /* Bottom margin */
 }
+
+.video-page-views {
+  font-size: 13px; /* Font size */
+  color: black; /* Text color */
+  margin-left: 15px; /* Left margin */
+  margin-top: 3px; /* Top margin */
+  font-weight: bold; /* Bold font weight */
+}
+
+.video-descriotion-text {
+  margin-top: 10px;
+}

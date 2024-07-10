@@ -82,8 +82,11 @@
   line-height: 1.2; /* Line height */
   color: #000; /* Text color */
   margin: 0; /* Reset margin */
-  overflow: hidden; /* Hide overflow content */
-  text-overflow: ellipsis; /* Ellipsis for overflow text */
+  white-space: nowrap;         /* Prevent text from wrapping to the next line */
+  overflow: hidden;            /* Hide overflow text */
+  text-overflow: ellipsis;     /* Add an ellipsis at the end of the truncated text */
+  overflow-wrap: break-word;   /* Ensure text breaks at the last word if necessary */
+  word-break: break-word;      /* Alternative for breaking text at the last word */
   width: 400px; /* Fixed width */
   text-align: left; /* Left-align text */
 }

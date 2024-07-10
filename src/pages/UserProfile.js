@@ -78,13 +78,14 @@ const UserProfile = () => {
             />
             <div className={`ml-3 user-data`}>
               <h3 className="mb-0">{userData.firstName} {userData.lastName}</h3>
-              <h5 className='mb-0 details'>@{username} • {userVideos.length} videos</h5>
+              <h5 className='mb-0 details'>@{userData.username} • {userVideos.length} videos</h5>
               {currentUser && currentUser.username === username ? (
                 <div className='d-flex'>
                   <button type="button" className="btn edit-profile-button" onClick={handleShowOptionsModal}>
                     <img src={editIcon} alt='Edit Profile' className='edit-icon' />
                     <span className='btn btn-danger edit-profile-text'>Edit Profile</span>
                   </button>
+                  <EditOptionsModal show={showOptionsModal} handleClose={handleCloseOptionsModal} />
                 </div>
               ): null}
             </div>
@@ -95,7 +96,6 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <EditOptionsModal show={showOptionsModal} handleClose={handleCloseOptionsModal} />
     </>
   );
 };
