@@ -8,6 +8,7 @@ import Register from '../pages/Register';
 import VideoWatch from '../pages/VideoWatch';
 import Upload from '../pages/Upload';
 import UserProfile from '../pages/UserProfile';
+import HotVideos from '../pages/HotVideos';
 import { VideosProvider } from '../contexts/VideosContext';
 import { UserProvider } from '../contexts/UserContext';
 import { CommentsProvider } from '../contexts/CommentsContext';
@@ -27,6 +28,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/upload" element={<Upload/>} />
+                  <Route path="/hot" element={<HotVideos/>} />
                   <Route path="/" element={<Home/>} />
                 </Routes>
               </div>

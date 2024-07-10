@@ -111,6 +111,11 @@ nav {
   margin-right: 10px; /* Margin to the right */
 }
 
+.profile-pic img:hover {
+  transform: scale(1.1); /* Scale effect on hover */
+  transition: 0.3s; /* Smooth transition */
+}
+
 /* Styles for profile picture buttons */
 .profile-pic button {
   cursor: pointer; /* Cursor style */

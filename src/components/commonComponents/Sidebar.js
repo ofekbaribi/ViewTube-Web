@@ -16,8 +16,8 @@ const Sidebar = ({ isOpen }) => {
                     </Link>
                 </div>
                 <div className='side-links'>
-                    <Link to="/" className="no-link-style">
-                        <img src={fire_icon} alt="fire icon" className="icon" />
+                    <Link to="/hot" className="no-link-style">
+                        <img src={fire_icon} alt="Hot Videos" className="icon" />
                         <p style={{ display: isOpen ? 'contents' : 'contents' ,className:'closed' }}>Hot Videos</p>
                     </Link>
                 </div>
