@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Navbar.css';
 import menuIcon from '../../assets/menu.svg';
 import logo from '../../assets/logo.png';
@@ -12,6 +12,7 @@ import { useTheme } from '../../contexts/DarkModeContext';
 const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
   const { currentUser, logout } = useUser();
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const [currentUserImage, setCurrentUserImage] = useState(''); // State for the current user's profile picture
   const navigate = useNavigate();
 
   // Effect to update the theme class on the body based on dark mode state
@@ -19,6 +20,12 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
     const theme = isDarkMode ? 'dark' : 'light';
     document.body.setAttribute('data-theme', theme);
   }, [isDarkMode]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setCurrentUserImage(currentUser.image);
+    }
+  }, [currentUser]);
 
   // Function to handle logout
   const handleLogout = () => {
@@ -54,7 +61,7 @@ const Navbar = ({ toggleSidebar, handleSearchInputChange, onSearch }) => {
               <img className='upload-icon' src={uploadIcon} alt="upload" />
             </Link>
             <Link to={`/profile/${currentUser.username}`}>
-              <img src={currentUser.image} alt='Profile' className="rounded-circle" width="40" height="40" />
+              <img src={currentUserImage} alt='Profile' className="rounded-circle" width="40" height="40" />
             </Link>
             <button className='logout' onClick={handleLogout}>Logout</button>  
           </div>
