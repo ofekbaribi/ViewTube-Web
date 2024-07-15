@@ -12,6 +12,7 @@ import './VideoWatch.css';
 function VideoWatch() {
   // State variables
   const { videoId } = useParams(); // Getting videoId from URL params
+  const { username } = useParams(); // Getting username from URL params
   const { addViewCount } = useVideos(); // Using addViewCount function from VideosContext
   const [video, setVideo] = useState(null); // State for the current video
   const [error, setError] = useState(null); // State for error handling
@@ -27,8 +28,9 @@ function VideoWatch() {
   // Effect to fetch video details based on videoId
   useEffect(() => {
     const fetchVideo = async () => {
+      console.log('http://localhost:12345/api/users/' + username + '/videos/' + videoId);
       try {
-        const response = await fetch('http://localhost:12345/api/videos/' + videoId); // Update the URL to your server endpoint
+        const response = await fetch(`http://localhost:12345/api/users/${username}/videos/${videoId}`); 
         if (!response.ok) {
           console.error('Video not found');
         }
@@ -36,7 +38,7 @@ function VideoWatch() {
         await addViewCount(data.id); // Increment view count for the video
         setVideo(data);  
       } catch (error) {
-        console.error('Error fetching videos:', error);
+        console.error('Error fetching video:', error);
         setError(error.message);
       }
     };

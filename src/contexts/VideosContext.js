@@ -9,7 +9,7 @@ export const VideosProvider = ({ children }) => {
 
   const fetchVideos = async () => {
     try {
-      const response = await axios.get('http://localhost:12345/api/videos'); // Update the URL to your server endpoint
+      const response = await axios.get('http://localhost:12345/api/videos/all'); // Update the URL to your server endpoint
       setVideos(response.data);
     } catch (error) {
       console.error('Error fetching videos:', error);
@@ -37,7 +37,7 @@ export const VideosProvider = ({ children }) => {
     setVideos((prevVideos) => [...prevVideos, video]);
   };
 
-  const updateVideoDetails = async (id, updates) => {
+  const updateVideoDetails = async (username, id, updates) => {
     try {
       const response = await axios.patch(`http://localhost:12345/api/videos/${id}`, updates);
       const updatedVideo = response.data;
@@ -98,9 +98,9 @@ export const VideosProvider = ({ children }) => {
   };
 
   // Function to delete a video by ID
-  const deleteVideo = async (id) => {
+  const deleteVideo = async (username, id) => {
     try {
-      await axios.delete(`http://localhost:12345/api/videos/${id}`);
+      await axios.delete(`http://localhost:12345/api/${username}/videos/${id}`);
       setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
     } catch (error) {
       console.error('Error deleting video:', error);
@@ -109,7 +109,7 @@ export const VideosProvider = ({ children }) => {
 
   const fetchHotVideos = async () => {
     try {
-      const response = await axios.get('http://localhost:12345/api/videos/hot/videos');
+      const response = await axios.get('http://localhost:12345/api/videos');
       if (response.status === 200) {
         return response.data;
       }

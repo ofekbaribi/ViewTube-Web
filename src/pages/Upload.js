@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/bootstrap.min.css';
@@ -13,6 +13,8 @@ const UploadPage = () => {
   const [videoFile, setVideoFile] = useState(null);
   const navigate = useNavigate();
   const { currentUser, logout, verifyTokenBeforeVideoUpload } = useUser();
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     if (!currentUser) {
@@ -39,15 +41,34 @@ const UploadPage = () => {
     }
   };
 
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    setVideoFile(file);
+
+    const videoElement = videoRef.current;
+    videoElement.src = URL.createObjectURL(file);
+    videoElement.load();
+
+    videoElement.addEventListener('loadedmetadata', () => {
+      videoElement.currentTime = 7; // Capture thumbnail at 7 seconds
+    });
+
+    videoElement.addEventListener('seeked', () => {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+    }, { once: true });
+  };
+
   const handleUpload = async (event) => {
     event.preventDefault();
 
-    if (! (await checkTokenBeforeUpload())) {
+    if (!(await checkTokenBeforeUpload())) {
       return;
     }
 
     if (!title || !description || !videoFile) {
-      alert('Please fill in all fields.');
+      alert('Please fill in all fields and wait for the thumbnail to generate.');
       return;
     }
 
@@ -77,28 +98,31 @@ const UploadPage = () => {
     const durationInSeconds = await getVideoDuration(videoFile);
     const duration = formatDuration(durationInSeconds);
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('videoFile', videoFile);
-    formData.append('duration', duration);
-    formData.append('uploader', currentUser.username);
+    const canvas = canvasRef.current;
+    canvas.toBlob(async (blob) => {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('videoFile', videoFile);
+      formData.append('thumbnail', blob, `${videoFile.name.replace(/\.[^/.]+$/, "")}_thumbnail.png`); // Append the Blob object
+      formData.append('duration', duration);
+      formData.append('uploader', currentUser.username);
 
-    try {
-      console.log('Uploading video...');
-      const response = await axios.post('http://localhost:12345/api/videos', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        }
-      });
+      try {
+        const response = await axios.post('http://localhost:12345/api/videos', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
+        });
 
-      addVideo(response.data);
-      alert('Video uploaded successfully.');
-      navigate('/');
-    } catch (error) {
-      console.error('Error uploading video:', error);
-      alert('Error uploading video. Please try again.');
-    }
+        addVideo(response.data);
+        alert('Video uploaded successfully.');
+        navigate('/');
+      } catch (error) {
+        console.error('Error uploading video:', error);
+        alert('Error uploading video. Please try again.');
+      }
+    }, 'image/png');
   };
 
   return (
@@ -136,13 +160,16 @@ const UploadPage = () => {
               className="form-control"
               id="videoFile"
               accept="video/*"
-              onChange={(e) => setVideoFile(e.target.files[0])}
+              onChange={handleVideoChange}
               required
             />
           </div>
 
           <button type="submit" className="btn btn-primary">Upload</button>
         </form>
+
+        <video ref={videoRef} style={{ display: 'none' }} />
+        <canvas ref={canvasRef} width="320" height="180" style={{ display: 'none' }}></canvas>
       </div>
     </div>
   );
