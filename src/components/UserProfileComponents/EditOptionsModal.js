@@ -213,10 +213,10 @@ const EditOptionsModal = ({ show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleCloseModal} className='edit-modal'>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className='modal-header'>
         <Modal.Title>Edit User</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className='modal-body'>
         {renderForm()}
       </Modal.Body>
       <Modal.Footer className='modal-footer'>

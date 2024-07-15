@@ -33,7 +33,7 @@ function VideoDetails({ video }) {
     if (newTitle === '') {
       alert('Video title cannot be empty!');
     } else {
-      setCurrentVideo(await updateVideoDetails(video.id, { title: newTitle, description: newDescription }));
+      setCurrentVideo(await updateVideoDetails(currentUser, video.id, { title: newTitle, description: newDescription }));
       setEditingTitle(false);
     }
   };
@@ -47,7 +47,7 @@ function VideoDetails({ video }) {
     if (newDescription === '') {
       alert('Video description cannot be empty!');
     } else {
-      setCurrentVideo(await updateVideoDetails(video.id, { title: newTitle, description: newDescription }));
+      setCurrentVideo(await updateVideoDetails(currentUser, video.id, { title: newTitle, description: newDescription }));
       setEditingDescription(false);
     }
   };
@@ -58,7 +58,7 @@ function VideoDetails({ video }) {
 
   const handleDeleteClick = async () => {
     if (window.confirm("Are you sure you want to delete this video?")) {
-      await deleteVideo(video.id);
+      await deleteVideo(currentUser, video.id);
       navigate('/');
     }
   };

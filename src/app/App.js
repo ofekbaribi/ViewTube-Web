@@ -23,7 +23,7 @@ function App() {
             <Router>
               <div className="App">
                 <Routes>
-                  <Route path="/video/:videoId" element={<VideoWatch/>} />
+                  <Route path="/:username/video/:videoId" element={<VideoWatch/>} />
                   <Route path="/profile/:username" element={<UserProfile/>} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
