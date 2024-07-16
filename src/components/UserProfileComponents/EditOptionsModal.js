@@ -10,31 +10,34 @@ import DeleteAccountModal from './DeleteAccountModal';
 import ChangeImageModal from './ChangeImageModal';
 
 const EditOptionsModal = ({ show, handleClose }) => {
-  const [selectedOption, setSelectedOption] = useState('');
-  const { currentUser, updateUserData, updateUserPassword, deleteUser } = useUser();
-  const [newPasswordError, setNewPasswordError] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [firstName, setFirstName] = useState(currentUser.firstName);
-  const [lastName, setLastName] = useState(currentUser.lastName);
-  const [nameError, setNameError] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [selectedOption, setSelectedOption] = useState(''); // State to track selected option ('userData', 'password', 'delete')
+  const { currentUser, updateUserData, updateUserPassword, deleteUser } = useUser(); // Destructure user context methods and state
+  const [newPasswordError, setNewPasswordError] = useState(''); // State for new password error message
+  const [newPassword, setNewPassword] = useState(''); // State for new password
+  const [confirmNewPassword, setConfirmNewPassword] = useState(''); // State for confirming new password
+  const [firstName, setFirstName] = useState(currentUser.firstName); // State for first name
+  const [lastName, setLastName] = useState(currentUser.lastName); // State for last name
+  const [nameError, setNameError] = useState(''); // State for name error message
+  const [password, setPassword] = useState(''); // State for current password
+  const [confirmPassword, setConfirmPassword] = useState(''); // State for confirming current password
+  const [passwordError, setPasswordError] = useState(''); // State for password error message
   const [image, setImage] = useState(''); // State for the image file
   const [imagePreview, setImagePreview] = useState(currentUser.image); // State for the image preview URL
-  const navigate = useNavigate();
-  const { deleteUserVideos } = useVideos();
+  const navigate = useNavigate(); // Initialize navigation hook
+  const { deleteUserVideos } = useVideos(); // Destructure videos context method for deleting user videos
 
+  // Handler for changing the selected option (userData, password, delete)
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
 
+  // Handler for closing the modal
   const handleCloseModal = () => {
-    setSelectedOption('');
-    handleClose();
+    setSelectedOption(''); // Reset selected option
+    handleClose(); // Call handleClose prop to close the modal
   };
 
+  // Function to validate password complexity
   const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
@@ -45,6 +48,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
     return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isValidLength;
   };
 
+  // Function to validate name format
   const validateName = (firstName, lastName) => {
     const firstNameHasNumber = /\d/.test(firstName);
     const firstNameHasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(firstName);
@@ -57,6 +61,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
     return !(firstNameHasNumber || firstNameHasSpecialChar || !firstNameValidLength || lastNameHasNumber || lastNameHasSpecialChar || !lastNameValidLength);
   };
 
+  // Handler for submitting user data changes
   const handleUserDataSubmit = async (event) => {
     event.preventDefault();
     if (!validateName(firstName, lastName)) {
@@ -77,6 +82,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
     }
   };
 
+  // Function to check if password change submission is valid
   const isPasswordSubmitValid = () => {
     if (newPassword !== confirmNewPassword) {
       setNewPasswordError('Passwords do not match.');
@@ -90,6 +96,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
     }
   };
 
+  // Handler for submitting password change
   const handlePasswordChangeSubmit = async (event) => {
     event.preventDefault();
 
@@ -110,6 +117,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
     }
   };
 
+  // Handler for deleting user account
   const handleDeleteAccount = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -129,7 +137,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
         alert('User deleted successfully');
         deleteUserVideos(deletedUsername);
         handleCloseModal();
-        navigate('/');
+        navigate('/'); // Navigate to home page after successful deletion
       } else if (response.status === 401) {
         setPasswordError('Incorrect password.');
       } else {
@@ -141,6 +149,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
     }
   };
 
+  // Function to render the form based on selected option
   const renderForm = () => {
     switch (selectedOption) {
       case 'userData':
@@ -158,7 +167,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
               setImage={setImage}
               setImagePreview={setImagePreview}
               imagePreview={imagePreview}
-              />
+            />
             <Button variant="primary" type="submit" className='submit-modal-button'>
               Save Changes
             </Button>
@@ -197,6 +206,7 @@ const EditOptionsModal = ({ show, handleClose }) => {
       default:
         return (
           <div className="options mb-3 d-flex">
+            {/* Buttons to select options */}
             <Button variant="outline-primary" className="me-2" onClick={() => handleOptionChange('userData')}>
               Change User Data
             </Button>
@@ -213,18 +223,23 @@ const EditOptionsModal = ({ show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleCloseModal} className='edit-modal'>
+      {/* Modal Header */}
       <Modal.Header closeButton className='modal-header'>
         <Modal.Title>Edit User</Modal.Title>
       </Modal.Header>
+      {/* Modal Body */}
       <Modal.Body className='modal-body'>
-        {renderForm()}
+        {renderForm()} {/* Render form based on selected option */}
       </Modal.Body>
+      {/* Modal Footer */}
       <Modal.Footer className='modal-footer'>
+        {/* Render return button if an option is selected */}
         {selectedOption ? (
           <Button variant="secondary" onClick={() => setSelectedOption('')}>
             Return
           </Button>
         ) : null}
+        {/* Close button */}
         <Button variant="primary" onClick={handleCloseModal}>
           Close
         </Button>
