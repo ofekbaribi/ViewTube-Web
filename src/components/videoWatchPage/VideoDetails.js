@@ -33,7 +33,7 @@ function VideoDetails({ video }) {
     if (newTitle === '') {
       alert('Video title cannot be empty!');
     } else {
-      setCurrentVideo(await updateVideoDetails(currentUser, video.id, { title: newTitle, description: newDescription }));
+      setCurrentVideo(await updateVideoDetails(currentUser.username, video.id, { title: newTitle, description: newDescription }));
       setEditingTitle(false);
     }
   };

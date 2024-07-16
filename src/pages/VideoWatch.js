@@ -28,7 +28,6 @@ function VideoWatch() {
   // Effect to fetch video details based on videoId
   useEffect(() => {
     const fetchVideo = async () => {
-      console.log('http://localhost:12345/api/users/' + username + '/videos/' + videoId);
       try {
         const response = await fetch(`http://localhost:12345/api/users/${username}/videos/${videoId}`); 
         if (!response.ok) {

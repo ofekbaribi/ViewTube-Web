@@ -39,7 +39,7 @@ export const VideosProvider = ({ children }) => {
 
   const updateVideoDetails = async (username, id, updates) => {
     try {
-      const response = await axios.patch(`http://localhost:12345/api/videos/${id}`, updates);
+      const response = await axios.patch(`http://localhost:12345/api/users/${username}/videos/${id}`, updates);
       const updatedVideo = response.data;
 
       setVideos((prevVideos) =>
@@ -100,7 +100,7 @@ export const VideosProvider = ({ children }) => {
   // Function to delete a video by ID
   const deleteVideo = async (username, id) => {
     try {
-      await axios.delete(`http://localhost:12345/api/${username}/videos/${id}`);
+      await axios.delete(`http://localhost:12345/api/users/${username}/videos/${id}`);
       setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
     } catch (error) {
       console.error('Error deleting video:', error);
