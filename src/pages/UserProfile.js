@@ -10,63 +10,71 @@ import editIcon from '../assets/edit_icon.svg';
 import './userProfile.css';
 
 const UserProfile = () => {
-  const { getVideosByUsername } = useVideos();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { username } = useParams();
-  const { getUserData, currentUser } = useUser();
-  const decodedUsername = decodeURIComponent(username);
-  const [userData, setUserData] = useState(null);
-  const [showOptionsModal, setShowOptionsModal] = useState(false);
-  const [userVideos, setUserVideos] = useState([]);
+  const { getVideosByUsername } = useVideos(); // Access getVideosByUsername function from VideosContext
+  const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar toggle
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const navigate = useNavigate(); // Navigation hook from React Router
+  const location = useLocation(); // Location hook from React Router
+  const { username } = useParams(); // Access username parameter from URL
+  const { getUserData, currentUser } = useUser(); // Access getUserData function and currentUser from UserContext
+  const decodedUsername = decodeURIComponent(username); // Decode username parameter from URL
+  const [userData, setUserData] = useState(null); // State for user data
+  const [showOptionsModal, setShowOptionsModal] = useState(false); // State for showing edit options modal
+  const [userVideos, setUserVideos] = useState([]); // State for user videos
 
+  // Function to show edit options modal
   const handleShowOptionsModal = () => setShowOptionsModal(true);
+  
+  // Function to close edit options modal
   const handleCloseOptionsModal = () => setShowOptionsModal(false);
 
-
+  // Effect to fetch user data and user videos on component mount or when username changes
   useEffect(() => {
     const fetchUserData = async () => {
-      const data = await getUserData(decodedUsername);
-      setUserData(data);
+      const data = await getUserData(decodedUsername); // Fetch user data
+      setUserData(data); // Set user data state
     };
 
     const fetchUserVideos = async () => {
-      const videos = await getVideosByUsername(decodedUsername);
-      setUserVideos(videos);
+      const videos = await getVideosByUsername(decodedUsername); // Fetch user videos
+      setUserVideos(videos); // Set user videos state
     };
 
-    fetchUserData();
-    fetchUserVideos();
-  }, [decodedUsername, getUserData]);
+    fetchUserData(); // Call fetchUserData function
+    fetchUserVideos(); // Call fetchUserVideos function
+  }, [decodedUsername, getUserData]); // Dependencies for useEffect
 
+  // Effect to update search query state when location search changes
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const query = searchParams.get('search') || '';
-    setSearchQuery(query);
-  }, [location.search]);
+    const searchParams = new URLSearchParams(location.search); // Get search parameters from location
+    const query = searchParams.get('search') || ''; // Get search query parameter or default to empty string
+    setSearchQuery(query); // Set search query state
+  }, [location.search]); // Dependency for useEffect
 
+  // Function to toggle sidebar
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+    setSidebarOpen(!sidebarOpen); // Toggle sidebar state
   };
 
+  // Function to handle search input change
   const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
+    setSearchQuery(event.target.value); // Update search query state with input value
   };
 
+  // Function to handle search
   const handleSearch = (query) => {
-    setSearchQuery(query);
-    navigate(`/?search=${query}`);
+    setSearchQuery(query); // Update search query state
+    navigate(`/?search=${query}`); // Navigate with search query in URL
   };
 
+  // Render loading message while user data is fetched
   if (!userData) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-     <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
+      <Navbar toggleSidebar={toggleSidebar} handleSearchInputChange={handleSearchInputChange} onSearch={handleSearch} />
       <div className={`homePage`}>
         <Sidebar isOpen={sidebarOpen} />
         <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>

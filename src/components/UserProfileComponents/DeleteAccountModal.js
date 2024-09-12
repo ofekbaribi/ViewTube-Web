@@ -1,83 +1,96 @@
-// src/components/UserProfileComponents/DeleteAccountModal.js
 import React, { useState } from 'react';
-import eyeIcon from '../../assets/eye.svg';
-import eyeSlashIcon from '../../assets/eye-slash.svg';
-import './EditOptionsModal.css';
+import eyeIcon from '../../assets/eye.svg'; // Import eye icon for showing password
+import eyeSlashIcon from '../../assets/eye-slash.svg'; // Import eye slash icon for hiding password
+import './EditOptionsModal.css'; // Import custom CSS for styling
 
 const DeleteAccountModal = ({ setPassword, setConfirmPassword, passwordError, setPasswordError }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
 
+  // Handler for changing the password input
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setPassword(e.target.value); // Update password state
     if (passwordError) {
-      setPasswordError('');
+      setPasswordError(''); // Clear password error if exists
     }
   };
 
+  // Handler for changing the confirm password input
   const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
+    setConfirmPassword(e.target.value); // Update confirm password state
     if (passwordError) {
-      setPasswordError('');
+      setPasswordError(''); // Clear password error if exists
     }
   };
 
+  // Toggle visibility of password input
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(!showPassword); // Toggle password visibility state
   };
 
+  // Toggle visibility of confirm password input
   const handleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+    setShowConfirmPassword(!showConfirmPassword); // Toggle confirm password visibility state
   };
 
   return (
-    <><div className="mb-3">
-          <div className="input-group">
-              <input
-                  type={showPassword ? "text" : "password"}
-                  className={`form-control ${passwordError ? 'is-invalid' : ''}`}
-                  id="newPassword"
-                  placeholder="Enter new password"
-                  onChange={handlePasswordChange}
-                  required />
-              <div className="input-group-append">
-                  <button
-                      type="button"
-                      className="btn btn-outline-secondary btn-new-password-toggle"
-                      onClick={handleShowPassword}
-                      style={{ height: '100%' }}
-                  >
-                      <img src={showPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                  </button>
-              </div>
+    <>
+      {/* Input for password */}
+      <div className="mb-3">
+        <div className="input-group">
+          <input
+            type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+            className={`form-control ${passwordError ? 'is-invalid' : ''}`} // Apply 'is-invalid' class if passwordError exists
+            id="newPassword"
+            placeholder="Enter new password"
+            onChange={handlePasswordChange}
+            required
+          />
+          <div className="input-group-append">
+            {/* Button to toggle password visibility */}
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-new-password-toggle"
+              onClick={handleShowPassword}
+              style={{ height: '100%' }}
+            >
+              <img src={showPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
+            </button>
           </div>
         </div>
-        <div className="mb-3">
-            <div className="input-group">
-                <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    className={`form-control ${passwordError ? 'is-invalid' : ''}`}
-                    id="confirmNewPassword"
-                    placeholder="Confirm new password"
-                    onChange={handleConfirmPasswordChange}
-                    required />
-                <div className="input-group-append">
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary btn-new-password-toggle"
-                        onClick={handleShowConfirmPassword}
-                        style={{ height: '100%' }}
-                    >
-                        <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
-                    </button>
-                </div>
-                {passwordError && (
-                <div className="invalid-tooltip">
-                    {passwordError}
-                </div>
-                )}
+      </div>
+
+      {/* Input for confirm password */}
+      <div className="mb-3">
+        <div className="input-group">
+          <input
+            type={showConfirmPassword ? "text" : "password"} // Toggle input type based on showConfirmPassword state
+            className={`form-control ${passwordError ? 'is-invalid' : ''}`} // Apply 'is-invalid' class if passwordError exists
+            id="confirmNewPassword"
+            placeholder="Confirm new password"
+            onChange={handleConfirmPasswordChange}
+            required
+          />
+          <div className="input-group-append">
+            {/* Button to toggle confirm password visibility */}
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-new-password-toggle"
+              onClick={handleShowConfirmPassword}
+              style={{ height: '100%' }}
+            >
+              <img src={showConfirmPassword ? eyeSlashIcon : eyeIcon} alt="Toggle Password Visibility" style={{ height: '1em' }} />
+            </button>
+          </div>
+          {/* Display error tooltip if passwordError exists */}
+          {passwordError && (
+            <div className="invalid-tooltip">
+              {passwordError}
             </div>
-        </div></>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../css/bootstrap.min.css';
 import '../../pages/Login.css';
-import '../RegisterComponents/NewPasswordForm.css'; // Assuming this CSS file exists and is relevant
+import '../RegisterComponents/NewPasswordForm.css'; 
 import eyeIcon from '../../assets/eye.svg';
 import eyeSlashIcon from '../../assets/eye-slash.svg';
 

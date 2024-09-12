@@ -16,27 +16,28 @@ import { ThemeProvider } from '../contexts/DarkModeContext';
 
 function App() {
   return (
-    <VideosProvider>
-      <UserProvider>
-        <CommentsProvider>
-          <ThemeProvider>
-            <Router>
-              <div className="App">
-                <Routes>
-                  <Route path="/:username/video/:videoId" element={<VideoWatch/>} />
-                  <Route path="/profile/:username" element={<UserProfile/>} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/upload" element={<Upload/>} />
-                  <Route path="/hot" element={<HotVideos/>} />
-                  <Route path="/" element={<Home/>} />
+    <UserProvider> {/* Wrap the UserProvider around the VideosProvider */}
+      <VideosProvider> {/* Wrap the entire application with VideosProvider */}
+        <CommentsProvider> {/* Wrap the CommentsProvider around the UserProvider */}
+          <ThemeProvider> {/* Wrap the ThemeProvider around the CommentsProvider */}
+            <Router> {/* Set up routing using BrowserRouter */}
+              <div className="App"> {/* Main container for the application */}
+                <Routes> {/* Define the routes for different pages */}
+                  <Route path="/:username/video/:videoId" element={<VideoWatch/>} /> {/* Route for watching a specific video */}
+                  <Route path="/profile/:username" element={<UserProfile/>} /> {/* Route for user profile page */}
+                  <Route path="/login" element={<Login />} /> {/* Route for login page */}
+                  <Route path="/register" element={<Register />} /> {/* Route for register page */}
+                  <Route path="/upload" element={<Upload/>} /> {/* Route for video upload page */}
+                  <Route path="/hot" element={<HotVideos/>} /> {/* Route for hot videos page */}
+                  <Route path="/" element={<Home/>} /> {/* Default route for home page */}
                 </Routes>
               </div>
             </Router>
           </ThemeProvider>
         </CommentsProvider>
-      </UserProvider>
-    </VideosProvider>
+      </VideosProvider>
+    </UserProvider>
+
   );
 }
 
