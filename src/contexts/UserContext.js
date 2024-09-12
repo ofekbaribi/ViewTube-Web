@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import tokenVerification from '../tokenAuth/tokenVerification'; // Import token verification function
 import axios from 'axios'; // Import Axios for HTTP requests
-import { useVideos } from './VideosContext'; // Import useVideos hook from VideosContext
 
 // Create context for user-related data
 const UserContext = createContext();
@@ -9,7 +8,6 @@ const UserContext = createContext();
 // UserProvider component to manage user state and provide user-related functions
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null); // State to store current user
-  const { removeUserVideos } = useVideos(); // Access removeUserVideos function from VideosContext
 
   // Function to set current user in state
   const setUser = (user) => {

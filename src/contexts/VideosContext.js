@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useUser } from './UserContext';
 
 // Create context for videos-related data
 const VideosContext = createContext();
@@ -8,6 +9,7 @@ const VideosContext = createContext();
 export const VideosProvider = ({ children }) => {
   const [videos, setVideos] = useState([]); // State to store videos
   const [userLikes, setUserLikes] = useState({}); // State to store user likes
+  const { currentUser } = useUser();
 
   // Function to fetch all videos
   const fetchVideos = async () => {
@@ -26,10 +28,12 @@ export const VideosProvider = ({ children }) => {
 
   // Function to increment view count for a video
   const addViewCount = async (id) => {
+    const username = currentUser ? currentUser.username : 'Guest';
     try {
-      const response = await axios.patch(`http://localhost:12345/api/videos/${id}/view`); // Increment view count for video
-      const updatedVideo = response.data; // Updated video data from server
+      const response = await axios.patch(`http://localhost:12345/api/videos/${id}/view`, {username: username}); // Increment view count for video
 
+      const updatedVideo = response.data; // Updated video data from server
+      
       // Update videos state with updated view count
       setVideos((prevVideos) =>
         prevVideos.map((video) => (video.id === id ? { ...video, ...updatedVideo } : video))

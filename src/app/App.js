@@ -16,8 +16,8 @@ import { ThemeProvider } from '../contexts/DarkModeContext';
 
 function App() {
   return (
-    <VideosProvider> {/* Wrap the entire application with VideosProvider */}
-      <UserProvider> {/* Wrap the UserProvider around the VideosProvider */}
+    <UserProvider> {/* Wrap the UserProvider around the VideosProvider */}
+      <VideosProvider> {/* Wrap the entire application with VideosProvider */}
         <CommentsProvider> {/* Wrap the CommentsProvider around the UserProvider */}
           <ThemeProvider> {/* Wrap the ThemeProvider around the CommentsProvider */}
             <Router> {/* Set up routing using BrowserRouter */}
@@ -35,8 +35,9 @@ function App() {
             </Router>
           </ThemeProvider>
         </CommentsProvider>
-      </UserProvider>
-    </VideosProvider>
+      </VideosProvider>
+    </UserProvider>
+
   );
 }
 
